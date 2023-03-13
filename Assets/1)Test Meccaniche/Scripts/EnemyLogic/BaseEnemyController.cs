@@ -7,79 +7,87 @@ using UnityEngine.AI;
 namespace TheChroniclesOfEllen
 {
     [RequireComponent(typeof(Animator))]
-    public class BaseEnemyController : MonoBehaviour
+    public partial class BaseEnemyController : MonoBehaviour
     {
-        private bool isGrounded;
-        private bool isAttacking;
-        private bool isPatroling;
-        private bool isPursuing;
-        private int currentPatrolPoint;
-        private float sqrStopDistance;
-        [SerializeField]
-        private float stayTimer;
-        private float currentStayTimer;
-        [SerializeField]
-        private float pursuingTimer;
-        private float currentPursuingTimer;
-        [SerializeField]
-        private float attackCD;
-        private float currentAttackCD;
-        public float attackDistance;
-        public float pursuingDistance;
 
+        public BaseEnemySO enemySO;
+        public Transform tergetPlayer;
         private NavMeshAgent agent;
         private Animator enemyAnimator;
-        public Transform[] patrolPoints;
-        public Transform tergetPlayer;
 
+        private EnemyType type;
 
+        private bool isGrounded;
+        private bool isAttacking;
+        private bool isPursuing;
+
+        private float normalStopDistance;
+        private float attackStopDistance;
+
+        private float sqrStopDistance;
+
+        private float pursuingTimer;
+        private float currentPursuingTimer;
+        private float pursuingDistance;
+
+        private float attackCD;
+        private float currentAttackCD;
+        private float attackDistance;
+
+        private float enemyHealth;
+        private float currentEnemyHealth;
 
         // Start is called before the first frame update
         void Start()
         {
-            enemyAnimator = GetComponent<Animator>();
             isGrounded = true;
-            isAttacking = false;
-            isPatroling = false;
             isPursuing = false;
-            enemyAnimator.SetBool("Grounded", isGrounded);
-            enemyAnimator.SetBool("NearBase", false);
-            currentPatrolPoint = 0;
-            currentStayTimer = 0;
+            isAttacking = false;
+
+            normalStopDistance = enemySO.stopDistance;
+            attackStopDistance = enemySO.attackStopDistance;
+
+            pursuingTimer = enemySO.pursuitTime;
+            attackCD = enemySO.attackCD;
+            
             currentPursuingTimer = 0;
             currentAttackCD = 0;
-            agent = GetComponent<NavMeshAgent>();
-            sqrStopDistance = agent.stoppingDistance * agent.stoppingDistance;
-            attackDistance = attackDistance * attackDistance;
-            pursuingDistance = pursuingDistance * pursuingDistance;
+
+            pursuingDistance = enemySO.pursuitDistance;
+            attackDistance = enemySO.attackDistance;
+
+            enemyHealth = enemySO.healthPoint;
+            currentEnemyHealth = enemyHealth;
+            type = enemySO.type;
+
+            switch (type)
+            {
+                case EnemyType.Chomper:
+                case EnemyType.FastChomper:
+                    StartChomper();
+                    break;
+                case EnemyType.Spitter:
+                    StartSpitter();
+                    break;
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
             //TODO: capire come fare sta roba
+
             if (isGrounded)
             {
-                Attack();
-                if (!isAttacking)
+                switch (type)
                 {
-                    Pursuit();
-                    if (!isPursuing)
-                    {
-                        Patrol();
-                    }
-                }
-                if (!isAttacking && !isPursuing)
-                {
-                    Patrol();
-                }
-                if (isPursuing && !isPatroling)
-                {
-                    Attack();
-                }
-                if (!isAttacking)
-                {
-                    Pursuit();
+                    case EnemyType.Chomper:
+                    case EnemyType.FastChomper:
+                        UpdateChomper();
+                        break;
+                    case EnemyType.Spitter:
+                        UpdateSpitter();
+                        break;
                 }
 
             }
@@ -91,16 +99,19 @@ namespace TheChroniclesOfEllen
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("dio madonna");
             if (collision.gameObject.layer == 3)
             {
                 isGrounded = true;
                 enemyAnimator.SetBool("Grounded", true);
             }
+            if (collision.gameObject.tag == "PlayerWeaponHitBox")
+            {
+                enemyAnimator.SetTrigger("Hit");
+
+            }
         }
         private void OnCollisionExit(Collision collision)
         {
-            Debug.Log("dio madonna");
             if (collision.gameObject.layer == 3)
             {
                 isGrounded = false;
@@ -108,35 +119,12 @@ namespace TheChroniclesOfEllen
             }
         }
 
-        private void Patrol()
+        private void ApplyGravity()
         {
-            isPatroling = IsNearCheckPoint();
-            enemyAnimator.SetBool("NearBase", isPatroling); 
-            if (isPatroling)
-            {
-                MoveToPatroPoint();
-            }
+            transform.position += new Vector3(0, -9.81f * Time.deltaTime, 0);
         }
-        private void Pursuit()
-        {
-            isPursuing = IsPursuingPlayer();
-            enemyAnimator.SetBool("InPursuit", isPursuing);
-            isPatroling = isPursuing;
-            if (isPursuing)
-            {
-                PursuitPlayer();
-            }
-        }
-        private void Attack()
-        {
-            isAttacking = IsAttackingPlayer();
-            enemyAnimator.SetBool("InPursuit", !isAttacking);
-            isPursuing = !isAttacking;
-            if (isAttacking)
-            {
-                AttackPlayer();
-            }
-        }
+
+
 
         private bool IsNearCheckPoint()
         {
@@ -146,7 +134,6 @@ namespace TheChroniclesOfEllen
         }
         private void MoveToPatroPoint()
         {
-
             currentStayTimer += Time.deltaTime;
 
             if (currentStayTimer >= stayTimer)
@@ -155,11 +142,6 @@ namespace TheChroniclesOfEllen
                 currentPatrolPoint = (currentPatrolPoint + 1) % patrolPoints.Length;
                 agent.SetDestination(patrolPoints[currentPatrolPoint].position);
             }
-        }
-
-        private void ApplyGravity()
-        {
-            transform.position += new Vector3(0, -9.81f * Time.deltaTime, 0);
         }
 
         private void PursuitPlayer()
@@ -179,6 +161,7 @@ namespace TheChroniclesOfEllen
 
         private void AttackPlayer()
         {
+            agent.stoppingDistance = attackStopDistance;
             currentAttackCD += Time.deltaTime;
             if (currentAttackCD >= attackCD)
             {
@@ -192,5 +175,6 @@ namespace TheChroniclesOfEllen
             float distance = (tergetPlayer.position - transform.position).sqrMagnitude;
             return distance <= attackDistance;
         }
+
     }
 }
