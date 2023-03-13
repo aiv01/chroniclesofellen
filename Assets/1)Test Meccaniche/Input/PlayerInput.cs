@@ -82,6 +82,15 @@ namespace TheChroniclesOfEllen
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""3b624480-7f18-4d69-bb5e-2f6089e2eb56"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -99,7 +108,7 @@ namespace TheChroniclesOfEllen
                 {
                     ""name"": ""WASD"",
                     ""id"": ""5e0ac9b8-5024-40b2-83b7-dfa262f08435"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -260,6 +269,28 @@ namespace TheChroniclesOfEllen
                     ""action"": ""Make action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38b1cff1-bd18-4dbe-86db-57b2dbaeff3f"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""96527c31-601c-4e6b-a4ae-0854a1d0d0f5"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -302,6 +333,7 @@ namespace TheChroniclesOfEllen
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
             m_Player_MeleeAttack = m_Player.FindAction("Melee Attack", throwIfNotFound: true);
             m_Player_Makeaction = m_Player.FindAction("Make action", throwIfNotFound: true);
+            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -367,6 +399,7 @@ namespace TheChroniclesOfEllen
         private readonly InputAction m_Player_Shoot;
         private readonly InputAction m_Player_MeleeAttack;
         private readonly InputAction m_Player_Makeaction;
+        private readonly InputAction m_Player_Look;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
@@ -377,6 +410,7 @@ namespace TheChroniclesOfEllen
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
             public InputAction @MeleeAttack => m_Wrapper.m_Player_MeleeAttack;
             public InputAction @Makeaction => m_Wrapper.m_Player_Makeaction;
+            public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -404,6 +438,9 @@ namespace TheChroniclesOfEllen
                     @Makeaction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMakeaction;
                     @Makeaction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMakeaction;
                     @Makeaction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMakeaction;
+                    @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -426,6 +463,9 @@ namespace TheChroniclesOfEllen
                     @Makeaction.started += instance.OnMakeaction;
                     @Makeaction.performed += instance.OnMakeaction;
                     @Makeaction.canceled += instance.OnMakeaction;
+                    @Look.started += instance.OnLook;
+                    @Look.performed += instance.OnLook;
+                    @Look.canceled += instance.OnLook;
                 }
             }
         }
@@ -456,6 +496,7 @@ namespace TheChroniclesOfEllen
             void OnShoot(InputAction.CallbackContext context);
             void OnMeleeAttack(InputAction.CallbackContext context);
             void OnMakeaction(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
         }
     }
 }
