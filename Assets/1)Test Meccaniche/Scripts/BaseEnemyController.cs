@@ -10,18 +10,27 @@ namespace TheChroniclesOfEllen
     public class BaseEnemyController : MonoBehaviour
     {
         private bool isGrounded;
+        private bool isAttacking;
+        private bool isPatroling;
+        private bool isPursuing;
         private int currentPatrolPoint;
         private float sqrStopDistance;
         [SerializeField]
-        private float stayTimer = 2;
+        private float stayTimer;
         private float currentStayTimer;
-        private float pursuingTimer = 0.5f;
+        [SerializeField]
+        private float pursuingTimer;
         private float currentPursuingTimer;
+        [SerializeField]
+        private float attackCD;
+        private float currentAttackCD;
+        public float attackDistance;
+        public float pursuingDistance;
 
         private NavMeshAgent agent;
         private Animator enemyAnimator;
         public Transform[] patrolPoints;
-        public Transform tergetPursuing;
+        public Transform tergetPlayer;
 
 
 
@@ -30,23 +39,49 @@ namespace TheChroniclesOfEllen
         {
             enemyAnimator = GetComponent<Animator>();
             isGrounded = true;
+            isAttacking = false;
+            isPatroling = false;
+            isPursuing = false;
             enemyAnimator.SetBool("Grounded", isGrounded);
             enemyAnimator.SetBool("NearBase", false);
             currentPatrolPoint = 0;
             currentStayTimer = 0;
             currentPursuingTimer = 0;
+            currentAttackCD = 0;
             agent = GetComponent<NavMeshAgent>();
             sqrStopDistance = agent.stoppingDistance * agent.stoppingDistance;
-            agent.SetDestination(patrolPoints[0].position);
+            attackDistance = attackDistance * attackDistance;
+            pursuingDistance = pursuingDistance * pursuingDistance;
         }
 
         // Update is called once per frame
         void Update()
         {
+            //TODO: capire come fare sta roba
             if (isGrounded)
             {
-                Patrol();
-                Pursuit();
+                Attack();
+                if (!isAttacking)
+                {
+                    Pursuit();
+                    if (!isPursuing)
+                    {
+                        Patrol();
+                    }
+                }
+                if (!isAttacking && !isPursuing)
+                {
+                    Patrol();
+                }
+                if (isPursuing && !isPatroling)
+                {
+                    Attack();
+                }
+                if (!isAttacking)
+                {
+                    Pursuit();
+                }
+
             }
             else
             {
@@ -75,22 +110,31 @@ namespace TheChroniclesOfEllen
 
         private void Patrol()
         {
-            bool nearBase = IsNearCheckPoint();
-            enemyAnimator.SetBool("NearBase", nearBase);
-
-            if (nearBase)
+            isPatroling = IsNearCheckPoint();
+            enemyAnimator.SetBool("NearBase", isPatroling); 
+            if (isPatroling)
             {
                 MoveToPatroPoint();
             }
         }
         private void Pursuit()
         {
-            bool inPursuit = IsPursuingPlayer();
-            enemyAnimator.SetBool("InPursuit", inPursuit);
-
-            if (inPursuit)
+            isPursuing = IsPursuingPlayer();
+            enemyAnimator.SetBool("InPursuit", isPursuing);
+            isPatroling = isPursuing;
+            if (isPursuing)
             {
                 PursuitPlayer();
+            }
+        }
+        private void Attack()
+        {
+            isAttacking = IsAttackingPlayer();
+            enemyAnimator.SetBool("InPursuit", !isAttacking);
+            isPursuing = !isAttacking;
+            if (isAttacking)
+            {
+                AttackPlayer();
             }
         }
 
@@ -124,16 +168,29 @@ namespace TheChroniclesOfEllen
             if (currentPursuingTimer >= pursuingTimer)
             {
                 currentPursuingTimer = 0;
-                agent.destination = tergetPursuing.position;
+                agent.destination = tergetPlayer.position;
             }
         }
         private bool IsPursuingPlayer()
         {
-            if (currentPatrolPoint >= 2)
+            float distance = (tergetPlayer.position - transform.position).sqrMagnitude;
+            return distance <= pursuingDistance;
+        }
+
+        private void AttackPlayer()
+        {
+            currentAttackCD += Time.deltaTime;
+            if (currentAttackCD >= attackCD)
             {
-                return true;
+                currentAttackCD = 0;
+                enemyAnimator.SetTrigger("Attack");
             }
-            return false;
+
+        }
+        private bool IsAttackingPlayer()
+        {
+            float distance = (tergetPlayer.position - transform.position).sqrMagnitude;
+            return distance <= attackDistance;
         }
     }
 }
