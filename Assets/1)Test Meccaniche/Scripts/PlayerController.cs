@@ -16,18 +16,23 @@ public class PlayerController : MonoBehaviour
    [SerializeField]
    private float movementSpeed;
    
+   private bool isGrounded = true;
    private float gravity = -9.81f;
    private float groundedGravity = -0.5f;
-   private float gravityMultiplier = 3f;
-   private float jumpRange = 0;
+   private float fallMultiplier = 2.0f;
+   
    //Jump variables
    private bool isJumpPressed = false;
    private bool isJumping = false;
    private float jumpVelocity;
-   private float maxJumpHeight = 10f;
-   private float maxJumpTime = .55f;
+   private float maxJumpHeight = 6f;
+   private float maxJumpTime = .75f;
+   
 
-
+   //attack variables
+   private bool isAttackPressed = false;
+   private bool isAttacking = false;
+   private float stateTime = 0;
 
    void Awake()
    {
@@ -40,6 +45,10 @@ public class PlayerController : MonoBehaviour
         playerInput.Player.Movement.started += onMovement;
         playerInput.Player.Movement.performed += onMovement;
         playerInput.Player.Movement.canceled += onMovement;
+        playerInput.Player.MeleeAttack.started +=onMeleeAttack;
+        playerInput.Player.MeleeAttack.performed +=onMeleeAttack;
+        playerInput.Player.MeleeAttack.canceled +=onMeleeAttack;
+
         
         float timeToApex = maxJumpTime / 2;
         gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex,2);
@@ -57,75 +66,113 @@ public class PlayerController : MonoBehaviour
  
     void Start()
     {
-      animator.SetBool("Grounded",true);
+          isGrounded = true;
+          movement.y = groundedGravity;
+          animator.SetBool("Grounded",true);
+          
     }
  
    void Update()
    {
-     if(isMovementPressed)
+
+     if(isMovementPressed || isJumpPressed)
      {
          characterController.Move(movement.normalized * movementSpeed * Time.deltaTime);
          animator.SetFloat("ForwardSpeed",movement.z);
+         
+         
      }
+     if(isGrounded == false)
+     {
+          ApplyGravity();
+     }
+     else
+     {
+          movement.y = groundedGravity;
+          animator.SetBool("Grounded",true);
+     }
+          
+          Jump();
+          MeleeAttack();
+          
+     
         
-        ApplyGravity();
-        Jump();
    }
+
    private void onMovement(InputAction.CallbackContext context)
    {
      movementInput = context.ReadValue<Vector2>();
      movement.x = movementInput.x;
      movement.z = movementInput.y;
-     isMovementPressed = movementInput.x !=0 || movement.y != 0;
+     isMovementPressed = movementInput.x !=0 || movementInput.y != 0;
    }
+   #region Jump Mechanics
    void onJump(InputAction.CallbackContext context)
-   {   
+   { 
      isJumpPressed = context.ReadValueAsButton();
    }
 
    private void Jump()
    {
-     if(!isJumping && isGrounded() && isJumpPressed)
+     if(!isJumping && isGrounded && isJumpPressed)
      {
-          movement.y = jumpVelocity * 0.5f;
-          animator.SetBool("Grounded",false);
           isJumping = true;
-          
-
-     }else if(!isJumpPressed && isJumping && isGrounded())
+          isGrounded = false;
+          animator.SetBool("Grounded",isGrounded);
+          movement.y = jumpVelocity;
+          animator.SetFloat("AirborneVerticalSpeed",jumpVelocity);
+     }
+     else if(!isJumpPressed && isJumping && isGrounded)
      {
           isJumping = false;
+          
      }
    }
    private void ApplyGravity()
    {
-       bool isFalling = movement.y <= 0.0f || !isJumpPressed;
-       float fallMultiplier = 2.0f;
-       if(isGrounded())
-       {
-          movement.y = groundedGravity;
-          animator.SetBool("Grounded",true);
-       }else if(isFalling)
-       {
-          float previousVelocity = movement.y;
-          float newVelocity = movement.y + (gravity * fallMultiplier * Time.deltaTime);
-          float nextVelocity = (previousVelocity + newVelocity) * 0.5f;
-          movement.y = nextVelocity;
-          float fall = 0;
-          fall -= 2 * Time.deltaTime;
-          if(fall <= -1) fall =-1;
-          animator.SetFloat("AirborneVerticalSpeed",fall);
 
-       }else
-       {
-          float previousVelocity = movement.y;
-          float newVelocity = movement.y + (gravity * Time.deltaTime);
-          float nextVelocity = (previousVelocity + newVelocity) * 0.5f;
-          movement.y = nextVelocity;
-       }
+     if(isJumping)
+     {
+          animator.SetBool("Grounded",false);
+          float previousJumpVelocity = movement.y;
+          float newJumpVelocity = movement.y + (gravity * Time.deltaTime);
+          float nextJumpVelocity = (previousJumpVelocity + newJumpVelocity) * 0.5f;
+          movement.y = nextJumpVelocity;
+          animator.SetFloat("AirborneVerticalSpeed",movement.y);
+
+     }else
+     {
+          animator.SetBool("Grounded",false);
+          float previousJumpVelocity = movement.y;
+          float newJumpVelocity = movement.y + (gravity * fallMultiplier * Time.deltaTime);
+          float nextJumpVelocity = (previousJumpVelocity + newJumpVelocity) * 0.5f;
+          movement.y = nextJumpVelocity;
+          animator.SetFloat("AirborneVerticalSpeed",movement.y);
+     }
+     if(characterController.isGrounded) isGrounded = true;
    }
-   private bool isGrounded() => characterController.isGrounded;
-   
+   #endregion
+   #region Attack Mechanics
+
+    private void onMeleeAttack(InputAction.CallbackContext context)
+    {
+          isAttackPressed = context.ReadValueAsButton();
+          
+    }
+    private void MeleeAttack()
+    {
+     if(isAttackPressed && isGrounded && !isAttacking)
+      {
+          isAttacking = true;
+          //animator.SetTrigger("MeleeAttack");
+          //StartCoroutine(MeleeAttackCoroutine());
+      }else if(!isAttackPressed && isAttacking && isGrounded)
+      {
+          isAttacking = false;
+      }
+    } 
+
+   #endregion 
 
 }
 }
