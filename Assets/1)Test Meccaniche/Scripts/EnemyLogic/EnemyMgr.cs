@@ -7,9 +7,9 @@ namespace TheChroniclesOfEllen
 {
     public class EnemyMgr : MonoBehaviour
     {
-        public BaseEnemyController chomperPrefab;
-        public BaseEnemyController fastChomperPrefab;
-        public BaseEnemyController spitterPrefab;
+        public ChomperController chomperPrefab;
+        public ChomperController fastChomperPrefab;
+        public SpitterController spitterPrefab;
         public Transform[] chomperSpawnPoints;
         public Transform[] fastChomperSpawnPoints;
         public Transform[] spitterSpawnPoints;
@@ -20,22 +20,21 @@ namespace TheChroniclesOfEllen
         {
             int i;
             int level = progression == Progression.TempleEntr ? 1 : progression == Progression.Boss1Dead ? 2 : 3;
-            BaseEnemyController go;
             for (i = 0; i < chomperSpawnPoints.Length; i++)
             {
-                go = Instantiate<BaseEnemyController>(chomperPrefab, chomperSpawnPoints[i]);
+                ChomperController go = Instantiate<ChomperController>(chomperPrefab, chomperSpawnPoints[i]);
                 go.enemySO = Resources.Load<BaseEnemySO>("ChomperLiv" + level);
             }
 
             for (i = 0; i < chomperSpawnPoints.Length; i++)
             {
-                go = Instantiate<BaseEnemyController>(fastChomperPrefab, fastChomperSpawnPoints[i]);
+                ChomperController go = Instantiate<ChomperController>(fastChomperPrefab, fastChomperSpawnPoints[i]);
                 go.enemySO = Resources.Load<BaseEnemySO>("FastChomperLiv" + level);
             }
 
             for (i = 0; i < chomperSpawnPoints.Length; i++)
             {
-                go = Instantiate<BaseEnemyController>(spitterPrefab, spitterSpawnPoints[i]);
+                SpitterController go = Instantiate<SpitterController>(spitterPrefab, spitterSpawnPoints[i]);
                 go.enemySO = Resources.Load<BaseEnemySO>("SpitterLiv" + level);
             }
         }

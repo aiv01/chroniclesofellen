@@ -33,4 +33,12 @@ namespace TheChroniclesOfEllen
         GolemBoss,
         GunGolem
     }
+
+    public enum WeaponType
+    {
+        None,
+        Pistol,
+        Staff,
+        FinalWeapon
+    }
 }
