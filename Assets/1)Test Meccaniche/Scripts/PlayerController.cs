@@ -8,61 +8,65 @@ namespace TheChroniclesOfEllen{
 
 public class PlayerController : MonoBehaviour
 {
+   //Component variables
    private Animator animator;
    private CharacterController characterController;
    private PlayerInput playerInput;
-   [SerializeField]
-   private CinemachineFreeLook cinemachineCamera;
+
+   //Input variables
    private Vector2 movementInput;
+   private bool inputDetected = false;
    private bool isMovementPressed = false;
+  
+
+   //Movement variables
    private Vector3 movement;
    [SerializeField]
    private float movementSpeed;
+   private float rotationSpeed = 3f;
    [SerializeField]
-   Quaternion targetRotation;
-   private float smoothAngle = .5f;
-   private float rotationVelocity;
-   private float rotationSpeed = 5f;
-
    private bool isGrounded = true;
    private float gravity = -9.81f;
    private float groundedGravity = -0.5f;
    private float fallMultiplier = 2.0f;
+   private float smoothDamp = 0.5f;
    
    //Jump variables
    private Vector3 jump;
-   private float jumpSpeed = 5f;
    private bool isJumpPressed = false;
    private bool isJumping = false;
    private float jumpVelocity;
-   private float maxJumpHeight = 6f;
+   private float maxJumpHeight = 2f;
    private float maxJumpTime = .75f;
    
 
    //attack variables
    private bool isAttackPressed = false;
    private bool isAttacking = false;
-   private float stateTime = 0;
+   private bool isMeleeReady = false;
+   private int comboCounter = 0;
+
+   //miscellaneous
+   float timer = 0;
+   int randomIdle;
+   [SerializeField]
+   private GameObject staff;
+   [SerializeField]
+   private Transform cameraTransform;
 
    void Awake()
    {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        cameraTransform = Camera.main.transform;
 
-        playerInput = new PlayerInput();
-        playerInput.Player.Jump.started += onJump;
-        playerInput.Player.Jump.canceled += onJump;
-        playerInput.Player.Movement.started += onMovement;
-        playerInput.Player.Movement.performed += onMovement;
-        playerInput.Player.Movement.canceled += onMovement;
-        playerInput.Player.MeleeAttack.started +=onMeleeAttack;
-        playerInput.Player.MeleeAttack.performed +=onMeleeAttack;
-        playerInput.Player.MeleeAttack.canceled +=onMeleeAttack;
-
-        
+        SetInput();
+  
         float timeToApex = maxJumpTime / 2;
         gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex,2);
         jumpVelocity = (2 * maxJumpHeight) / timeToApex;
+        
+
    }
     void OnEnable()
    {
@@ -73,43 +77,31 @@ public class PlayerController : MonoBehaviour
    {
         playerInput.Disable();
    }
- 
-    void Start()
-    {
-          isGrounded = true;
-          jump.y = groundedGravity;
-          animator.SetBool("Grounded",true);
-          
-    }
+
+   private void SetInput()
+   {
+        playerInput = new PlayerInput();
+        playerInput.Player.Jump.started += onJump;
+        playerInput.Player.Jump.canceled += onJump;
+        playerInput.Player.Movement.started += onMovement;
+        playerInput.Player.Movement.performed += onMovement;
+        playerInput.Player.Movement.canceled += onMovement;
+        playerInput.Player.MeleeAttack.started +=onMeleeAttack;
+        playerInput.Player.MeleeAttack.performed +=onMeleeAttack;
+        playerInput.Player.MeleeAttack.canceled +=onMeleeAttack;
+   }
  
    void Update()
    {
 
      if(isMovementPressed)
      {
-         characterController.Move(movement.normalized * movementSpeed * Time.deltaTime);
-         animator.SetFloat("ForwardSpeed",movement.z);
-         
-         Vector3 forwardDirection = Quaternion.Euler(0,cinemachineCamera.m_XAxis.Value,0) * Vector3.forward;
-         forwardDirection.y = 0;
-         forwardDirection.Normalize();
-         
-         
-         if(Mathf.Approximately(Vector3.Dot(movement.normalized,Vector3.forward),-1f))
-         {
-               targetRotation = Quaternion.LookRotation(-forwardDirection);
-         }else
-         {
-                Quaternion cameraToInputOffset = Quaternion.FromToRotation(Vector3.forward, movement);
-                targetRotation = Quaternion.LookRotation(cameraToInputOffset * forwardDirection);
-            
-         }
+          Movement();
 
-         Vector3 result = targetRotation * Vector3.forward;
-
-            transform.rotation = Quaternion.LookRotation(result);
-         
-         
+     }else
+     {
+          inputDetected = false;
+          movement = Vector3.zero;
      }
      if(isGrounded == false)
      {
@@ -120,47 +112,72 @@ public class PlayerController : MonoBehaviour
           jump.y = groundedGravity;
           animator.SetBool("Grounded",true);
      }
-          
+               
           Jump();
-          MeleeAttack();
-        
+
+          if(isMeleeReady) MeleeAttack();
+
+          TimeOutToIdle();
+               
+          
    }
+
+
    #region Movement Mechanics
    private void onMovement(InputAction.CallbackContext context)
    {
-     movementInput = context.ReadValue<Vector2>();
-     movementInput.Normalize();
-     movement.x = movementInput.x;
-     movement.z = movementInput.y;
-     
-     isMovementPressed = movementInput.x !=0 || movementInput.y != 0;
+          movementInput = context.ReadValue<Vector2>();
+          inputDetected = true;
+          isMovementPressed = movementInput.x !=0 || movementInput.y != 0;
    }
 
+   private void Movement()
+   {
+      Vector3 cameraForward = new Vector3(cameraTransform.forward.x,0,cameraTransform.forward.z);
+      Vector3 cameraRight = new Vector3(cameraTransform.right.x,0,cameraTransform.right.z);
+      Vector3 moveDirection = cameraForward.normalized * movementInput.y + cameraRight.normalized * movementInput.x;
+      movement.x = moveDirection.x * movementSpeed;
+      movement.z = moveDirection.z * movementSpeed;
+      Vector3 faceDirection = new Vector3(movement.x,0,movement.z);
+      if(faceDirection == Vector3.zero) return;
+      Quaternion targetRotation = Quaternion.LookRotation(faceDirection);
+      transform.rotation = Quaternion.Slerp(transform.rotation,targetRotation,rotationSpeed* Time.deltaTime);
+      characterController.Move(movement * movementSpeed * Time.deltaTime);
+      animator.SetFloat("ForwardSpeed",movement.z ,smoothDamp,Time.deltaTime);
+      animator.SetFloat("RightSpeed",movement.x,smoothDamp,Time.deltaTime);
+
+   }
+
+   
    #endregion
+
+
    #region Jump Mechanics
    void onJump(InputAction.CallbackContext context)
    { 
-     isJumpPressed = context.ReadValueAsButton();
+          isJumpPressed = context.ReadValueAsButton();
+          inputDetected = context.ReadValueAsButton();
+          
    }
-
    private void Jump()
    {
-     if(!isJumping && isGrounded && isJumpPressed)
-     {
+     if(!isJumping && isGrounded && isJumpPressed){
+
           isJumping = true;
           isGrounded = false;
           animator.SetBool("Grounded",isGrounded);
           jump.y = jumpVelocity;
-          
+               
           animator.SetFloat("AirborneVerticalSpeed",jump.y);
      }
      else if(!isJumpPressed && isJumping && isGrounded)
      {
-          isJumping = false;
+               isJumping = false;
+               
           
      }
-     characterController.Move(jump * Time.deltaTime);
-     if(characterController.isGrounded) isGrounded = true;
+          characterController.Move(jump * Time.deltaTime);
+          if(characterController.isGrounded) isGrounded = true;
      
    }
    private void ApplyGravity()
@@ -188,11 +205,15 @@ public class PlayerController : MonoBehaviour
      
    }
    #endregion
+
+
    #region Attack Mechanics
 
     private void onMeleeAttack(InputAction.CallbackContext context)
     {
+          
           isAttackPressed = context.ReadValueAsButton();
+          inputDetected = context.ReadValueAsButton();
           
     }
     private void MeleeAttack()
@@ -200,22 +221,68 @@ public class PlayerController : MonoBehaviour
      if(isAttackPressed && isGrounded && !isAttacking)
       {
           isAttacking = true;
-          //animator.SetTrigger("MeleeAttack");
-          //StartCoroutine(MeleeAttackCoroutine());
+          comboCounter ++;
+          if(comboCounter >= 4)
+          {
+               comboCounter = 0;
+          }
+          animator.SetTrigger("MeleeAttack");
+     
       }else if(!isAttackPressed && isAttacking && isGrounded)
       {
           isAttacking = false;
+          inputDetected = false;
       }
     } 
+    private void TimeOutToIdle()
+    {
+      
+      float maxTimerToIdle = 15f;
+
+      if(inputDetected)
+      {
+          MakeWeaponAppearinInputDetected();
+          timer = 0;
+          return;
+      
+      }else
+      {
+          timer += Time.deltaTime;
+
+      if(timer >= maxTimerToIdle )
+      {
+          animator.SetTrigger("TimeoutToIdle");
+          randomIdle = Random.Range(0,2);
+          animator.SetInteger("RandomIdle",randomIdle);
+          MakeWeaponDisappearInIdle();
+          
+          timer = 0;
+      }
+          
+      }
+    }
 
    #endregion 
-     void OnCollisonExit(Collider other)
+
+     void OnTriggerEnter(Collider other)
      {
-          if(other.gameObject.tag == "Ground")
+          if(other.gameObject.tag == "Weapon")
           {
-               isGrounded = false;
-               Debug.Log("is Falling");
-          } 
+               staff.SetActive(true);
+               isMeleeReady = true;
+          }
+
+     }
+     void MakeWeaponDisappearInIdle()
+     {
+          //control weapon type
+          if(staff.activeInHierarchy == false) return;
+          staff.transform.GetComponentInChildren<Renderer>().enabled = false;
+     }
+     void MakeWeaponAppearinInputDetected()
+     {
+          if(staff.activeInHierarchy == false) return;
+          staff.transform.GetComponentInChildren<Renderer>().enabled = true;
      }
 }
 }

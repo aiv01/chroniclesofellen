@@ -108,7 +108,7 @@ namespace TheChroniclesOfEllen
                 {
                     ""name"": ""WASD"",
                     ""id"": ""5e0ac9b8-5024-40b2-83b7-dfa262f08435"",
-                    ""path"": ""2DVector(mode=2)"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
