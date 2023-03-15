@@ -142,9 +142,10 @@ public class PlayerController : MonoBehaviour
       if(faceDirection == Vector3.zero) return;
       Quaternion targetRotation = Quaternion.LookRotation(faceDirection);
       transform.rotation = Quaternion.Slerp(transform.rotation,targetRotation,rotationSpeed* Time.deltaTime);
-      characterController.Move(movement * movementSpeed * Time.deltaTime);
-      animator.SetFloat("ForwardSpeed",movement.z ,smoothDamp,Time.deltaTime);
-      animator.SetFloat("RightSpeed",movement.x,smoothDamp,Time.deltaTime);
+      if(movement == Vector3.zero) return;
+      characterController.Move(movement.normalized * movementSpeed * Time.deltaTime);
+      animator.SetFloat("ForwardSpeed",movement.z);
+      animator.SetFloat("RightSpeed",movement.x);
 
    }
 
@@ -227,12 +228,16 @@ public class PlayerController : MonoBehaviour
                comboCounter = 0;
           }
           animator.SetTrigger("MeleeAttack");
+          animator.SetInteger("ComboCounter",comboCounter);
      
       }else if(!isAttackPressed && isAttacking && isGrounded)
       {
           isAttacking = false;
           inputDetected = false;
+          animator.ResetTrigger("MeleeAttack");
+          
       }
+     
     } 
     private void TimeOutToIdle()
     {

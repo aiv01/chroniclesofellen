@@ -1526,12 +1526,12 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: MeleeAttack
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: ComboCounter
     m_EventTreshold: 2
+  - m_ConditionMode: 1
+    m_ConditionEvent: MeleeAttack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102008862376584700}
   m_Solo: 0
@@ -2570,10 +2570,10 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107267585127195014}
-    m_Position: {x: -120, y: 0, z: 0}
+    m_Position: {x: -120, y: -60, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107901932556721024}
-    m_Position: {x: 480, y: 240, z: 0}
+    m_Position: {x: 280, y: 250, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107516587743271850}
     m_Position: {x: 480, y: 0, z: 0}
@@ -2582,32 +2582,32 @@ AnimatorStateMachine:
     m_Position: {x: -120, y: 240, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107144586752185528}
-    m_Position: {x: 360, y: 120, z: 0}
+    m_Position: {x: 240, y: 80, z: 0}
   m_AnyStateTransitions:
   - {fileID: 1101734552565717206}
   - {fileID: 1101532510285334376}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 1107267585127195014}
+  - first: {fileID: 1107516587743271850}
     second:
-    - {fileID: 1109724402327276408}
-    - {fileID: 1109978867244363948}
-    - {fileID: 1109429563890313610}
+    - {fileID: 1109004608291311438}
+  - first: {fileID: 1107144586752185528}
+    second:
+    - {fileID: 1109481343770542484}
+    - {fileID: 1109093518041981768}
   - first: {fileID: 1107901932556721024}
     second:
     - {fileID: 1109756267749884836}
     - {fileID: 1109844324291011288}
     - {fileID: 1109355376993633130}
-  - first: {fileID: 1107516587743271850}
+  - first: {fileID: 1107267585127195014}
     second:
-    - {fileID: 1109004608291311438}
+    - {fileID: 1109724402327276408}
+    - {fileID: 1109978867244363948}
+    - {fileID: 1109429563890313610}
   - first: {fileID: 1107228720668996938}
     second:
     - {fileID: 1109831094554419318}
-  - first: {fileID: 1107144586752185528}
-    second:
-    - {fileID: 1109481343770542484}
-    - {fileID: 1109093518041981768}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 792, y: -240, z: 0}
   m_EntryPosition: {x: -96, y: -336, z: 0}
@@ -2687,7 +2687,7 @@ AnimatorStateMachine:
   m_AnyStatePosition: {x: 120, y: -348, z: 0}
   m_EntryPosition: {x: 396, y: -300, z: 0}
   m_ExitPosition: {x: 396, y: 168, z: 0}
-  m_ParentStateMachinePosition: {x: 360, y: -408, z: 0}
+  m_ParentStateMachinePosition: {x: 360, y: -410, z: 0}
   m_DefaultState: {fileID: 1102663525648325754}
 --- !u!1109 &1109004608291311438
 AnimatorTransition:
@@ -2897,6 +2897,9 @@ AnimatorTransition:
   - m_ConditionMode: 3
     m_ConditionEvent: ForwardSpeed
     m_EventTreshold: 0.1
+  - m_ConditionMode: 3
+    m_ConditionEvent: RightSpeed
+    m_EventTreshold: 0.1
   m_DstStateMachine: {fileID: 1107901932556721024}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -2911,12 +2914,6 @@ AnimatorTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: LateralSpeed
-    m_EventTreshold: 0.1
-  - m_ConditionMode: 3
-    m_ConditionEvent: LateralSpeed
-    m_EventTreshold: -0.1
   - m_ConditionMode: 4
     m_ConditionEvent: VerticalSpeed
     m_EventTreshold: 0.1
@@ -3078,7 +3075,10 @@ AnimatorTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: InputDetected
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 1107901932556721024}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -3095,6 +3095,9 @@ AnimatorTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: MeleeAttack
+    m_EventTreshold: 0
+  - m_ConditionMode: 3
+    m_ConditionEvent: ComboCounter
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 1107228720668996938}
   m_DstState: {fileID: 0}
