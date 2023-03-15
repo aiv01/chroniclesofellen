@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
 
    //Input variables
    private Vector2 movementInput;
-   private bool inputDetected = false;
    private bool isMovementPressed = false;
   
 
@@ -29,15 +28,13 @@ public class PlayerController : MonoBehaviour
    private float gravity = -9.81f;
    private float groundedGravity = -0.5f;
    private float fallMultiplier = 2.0f;
-   private float smoothDamp = 0.5f;
    
    //Jump variables
    private Vector3 jump;
    private bool isJumpPressed = false;
    private bool isJumping = false;
-   private float jumpVelocity;
-   private float maxJumpHeight = 2f;
-   private float maxJumpTime = .75f;
+   private float jumpVelocity = 10f;
+   private int jumpCounter = 0;
    
 
    //attack variables
@@ -45,6 +42,8 @@ public class PlayerController : MonoBehaviour
    private bool isAttacking = false;
    private bool isMeleeReady = false;
    private int comboCounter = 0;
+   private float timeForAttack = 0;
+   private float maxTimeForAttack = 2f;
 
    //miscellaneous
    float timer = 0;
@@ -61,11 +60,7 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
 
         SetInput();
-  
-        float timeToApex = maxJumpTime / 2;
-        gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex,2);
-        jumpVelocity = (2 * maxJumpHeight) / timeToApex;
-        
+        staff.SetActive(false);
 
    }
     void OnEnable()
@@ -93,30 +88,20 @@ public class PlayerController : MonoBehaviour
  
    void Update()
    {
+     if(isGrounded)
+     {
+          jump.y = groundedGravity;
+          animator.SetBool("Grounded",true);
+     }
 
      if(isMovementPressed)
      {
           Movement();
 
-     }else
-     {
-          inputDetected = false;
-          movement = Vector3.zero;
      }
-     if(isGrounded == false)
-     {
-          ApplyGravity();
-     }
-     else
-     {
-          jump.y = groundedGravity;
-          animator.SetBool("Grounded",true);
-     }
-               
+          ApplyGravity(); 
           Jump();
-
           if(isMeleeReady) MeleeAttack();
-
           TimeOutToIdle();
                
           
@@ -127,7 +112,12 @@ public class PlayerController : MonoBehaviour
    private void onMovement(InputAction.CallbackContext context)
    {
           movementInput = context.ReadValue<Vector2>();
-          inputDetected = true;
+          if(context.canceled)
+          {
+               movementInput = Vector2.zero;
+
+          }
+
           isMovementPressed = movementInput.x !=0 || movementInput.y != 0;
    }
 
@@ -145,7 +135,6 @@ public class PlayerController : MonoBehaviour
       if(movement == Vector3.zero) return;
       characterController.Move(movement.normalized * movementSpeed * Time.deltaTime);
       animator.SetFloat("ForwardSpeed",movement.z);
-      animator.SetFloat("RightSpeed",movement.x);
 
    }
 
@@ -157,25 +146,28 @@ public class PlayerController : MonoBehaviour
    void onJump(InputAction.CallbackContext context)
    { 
           isJumpPressed = context.ReadValueAsButton();
-          inputDetected = context.ReadValueAsButton();
+         if(context.started) jumpCounter++;
           
    }
    private void Jump()
    {
-     if(!isJumping && isGrounded && isJumpPressed){
+     if(!isJumping  && isJumpPressed){
 
+          
           isJumping = true;
           isGrounded = false;
-          animator.SetBool("Grounded",isGrounded);
+          animator.SetBool("Grounded",false);
           jump.y = jumpVelocity;
-               
+          
+     }else if(isJumping && isJumpPressed && jumpCounter == 2)
+     {
+          jump.y = jumpVelocity * 2;
           animator.SetFloat("AirborneVerticalSpeed",jump.y);
      }
      else if(!isJumpPressed && isJumping && isGrounded)
      {
                isJumping = false;
-               
-          
+               jumpCounter = 0;
      }
           characterController.Move(jump * Time.deltaTime);
           if(characterController.isGrounded) isGrounded = true;
@@ -183,17 +175,7 @@ public class PlayerController : MonoBehaviour
    }
    private void ApplyGravity()
    {
-
-     if(isJumping)
-     {
-          animator.SetBool("Grounded",false);
-          float previousJumpVelocity = jump.y;
-          float newJumpVelocity = jump.y + (gravity * Time.deltaTime);
-          float nextJumpVelocity = (previousJumpVelocity + newJumpVelocity) * 0.5f;
-          jump.y = nextJumpVelocity;
-          animator.SetFloat("AirborneVerticalSpeed",jump.y);
-
-     }else
+     if(transform.localPosition.y < -1.0f)
      {
           animator.SetBool("Grounded",false);
           float previousJumpVelocity = jump.y;
@@ -201,8 +183,15 @@ public class PlayerController : MonoBehaviour
           float nextJumpVelocity = (previousJumpVelocity + newJumpVelocity) * 0.5f;
           jump.y = nextJumpVelocity;
           animator.SetFloat("AirborneVerticalSpeed",jump.y);
+
+     }else if(isJumping)
+     {
+          jump.y += gravity * Time.deltaTime;
+          animator.SetFloat("AirborneVerticalSpeed",jump.y);
+
      }
      if(characterController.isGrounded) isGrounded = true;
+    
      
    }
    #endregion
@@ -214,7 +203,6 @@ public class PlayerController : MonoBehaviour
     {
           
           isAttackPressed = context.ReadValueAsButton();
-          inputDetected = context.ReadValueAsButton();
           
     }
     private void MeleeAttack()
@@ -222,21 +210,28 @@ public class PlayerController : MonoBehaviour
      if(isAttackPressed && isGrounded && !isAttacking)
       {
           isAttacking = true;
+          animator.SetBool("IsAttacking",true);
           comboCounter ++;
+          animator.SetInteger("ComboCounter",comboCounter);
           if(comboCounter >= 4)
           {
                comboCounter = 0;
+               animator.SetInteger("ComboCounter",comboCounter);
           }
-          animator.SetTrigger("MeleeAttack");
-          animator.SetInteger("ComboCounter",comboCounter);
-     
+
       }else if(!isAttackPressed && isAttacking && isGrounded)
       {
-          isAttacking = false;
-          inputDetected = false;
-          animator.ResetTrigger("MeleeAttack");
-          
+
+               isAttacking = false;
+               animator.SetBool("IsAttacking",false);
+
+      }else if(isAttacking && isAttackPressed && comboCounter >=4)
+      {
+               comboCounter = 0;
+               animator.SetInteger("ComboCounter",comboCounter);
+               animator.SetBool("IsAttacking",false);
       }
+        
      
     } 
     private void TimeOutToIdle()
@@ -244,7 +239,7 @@ public class PlayerController : MonoBehaviour
       
       float maxTimerToIdle = 15f;
 
-      if(inputDetected)
+      if(isMovementPressed || isJumpPressed || isAttackPressed)
       {
           MakeWeaponAppearinInputDetected();
           timer = 0;
