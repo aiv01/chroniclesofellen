@@ -35,7 +35,7 @@ namespace TheChroniclesOfEllen
         {
             for (int i = 0; i < bullets.Length; i++)
             {
-                if (bullets[i].gameObject.active)
+                if (!bullets[i].gameObject.activeInHierarchy)
                 {
                     bullets[i].gameObject.SetActive(true);
                     return bullets[i];

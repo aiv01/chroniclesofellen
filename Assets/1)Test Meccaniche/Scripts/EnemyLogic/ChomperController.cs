@@ -51,6 +51,7 @@ namespace TheChroniclesOfEllen
             isAttacking = false; 
             isPatroling = false;
 
+
             stayTimer = enemySO.stayTime;
             currentStayTimer = 0;
 
@@ -58,6 +59,8 @@ namespace TheChroniclesOfEllen
 
             agent = GetComponent<NavMeshAgent>();
             enemyAnimator = GetComponent<Animator>();
+
+            enemyAnimator.SetBool("Grounded", isGrounded);
 
             normalStopDistance = enemySO.stopDistance;
             attackStopDistance = enemySO.attackStopDistance;
@@ -74,6 +77,12 @@ namespace TheChroniclesOfEllen
             enemyHealth = enemySO.healthPoint;
             currentEnemyHealth = enemyHealth;
             type = enemySO.type;
+
+            agent.speed = enemySO.speed;
+            //da vedere come fare per le animazioni
+            //enemyAnimator.speed = enemySO.speed;
+
+            sqrStopDistance = agent.stoppingDistance * agent.stoppingDistance;
         }
 
         // Update is called once per frame
@@ -100,27 +109,27 @@ namespace TheChroniclesOfEllen
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.layer == 3)
-            {
-                isGrounded = true;
-                enemyAnimator.SetBool("Grounded", true);
-            }
-            if (collision.gameObject.tag == "PlayerWeaponHitBox")
-            {
-                enemyAnimator.SetTrigger("Hit");
+        //private void OnCollisionEnter(Collision collision)
+        //{
+        //    if (collision.gameObject.layer == 3)
+        //    {
+        //        isGrounded = true;
+        //        enemyAnimator.SetBool("Grounded", true);
+        //    }
+        //    if (collision.gameObject.tag == "PlayerWeaponHitBox")
+        //    {
+        //        enemyAnimator.SetTrigger("Hit");
 
-            }
-        }
-        private void OnCollisionExit(Collision collision)
-        {
-            if (collision.gameObject.layer == 3)
-            {
-                isGrounded = false;
-                enemyAnimator.SetBool("Grounded", false);
-            }
-        }
+        //    }
+        //}
+        //private void OnCollisionExit(Collision collision)
+        //{
+        //    if (collision.gameObject.layer == 3)
+        //    {
+        //        isGrounded = false;
+        //        enemyAnimator.SetBool("Grounded", false);
+        //    }
+        //}
         private void ApplyGravity()
         {
             transform.position += new Vector3(0, -9.81f * Time.deltaTime, 0);

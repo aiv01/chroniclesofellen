@@ -41,4 +41,13 @@ namespace TheChroniclesOfEllen
         Staff,
         FinalWeapon
     }
+
+    public enum PowerUpType
+    {
+        Shield,
+        Gun,
+        Health,
+        Permanent,
+        Last
+    }
 }
