@@ -8,12 +8,25 @@ namespace TheChroniclesOfEllen
 
     public abstract class PowerUps : MonoBehaviour
     {
-        protected int totalUsage;
-        protected int currentUsage;
+        public PowerUpSO powerUpsSO;
 
         public PowerUpType type;
 
-        //prendere i dati dall'SO
+        public virtual void OnStart() { }
+
+        public virtual void OnUpdate() { }
+        public virtual void OnHit() { }
+        public virtual void ResetPowerUp() { }
+        public virtual void OnPickUp() { }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                gameObject.SetActive(false);
+                gameObject.GetComponent<PlayerPowerUp>().ChangePowerUp(this);
+            }
+        }
 
     }
 }

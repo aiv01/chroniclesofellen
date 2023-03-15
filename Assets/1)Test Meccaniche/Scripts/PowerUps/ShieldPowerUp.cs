@@ -7,28 +7,36 @@ namespace TheChroniclesOfEllen
 
     public class ShieldPowerUp : PowerUps
     {
+        public int resistence;
+        private int hitLeft;
 
-
-        // Start is called before the first frame update
-        void Start()
+        public override void OnHit()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.tag == "Player")
+            if (true)
             {
-                //far gestiore al player la cosa
-                gameObject.SetActive(false);
+                //evita il danno
+                hitLeft--;
             }
         }
-    }
 
+        public override void OnStart()
+        {
+            ShieldPUSO pu = (ShieldPUSO)powerUpsSO;
+            resistence = pu.resistence;
+            hitLeft = resistence;
+        }
+
+        public override void OnUpdate()
+        {
+            if (hitLeft == 0)
+            {
+                //rimuovo il powerup
+            }
+        }
+
+        public override void ResetPowerUp()
+        {
+            hitLeft = resistence;
+        }
+    }
 }

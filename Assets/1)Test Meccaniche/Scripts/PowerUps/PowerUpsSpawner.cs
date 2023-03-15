@@ -28,15 +28,35 @@ namespace TheChroniclesOfEllen
 
         private void InitSpawner()
         {
-
+            string path = "powerUpSO/";
             powerups = new PowerUps[(int)PowerUpType.Last, instancePerPoweUp];
 
             for (int i = 0; i < powerups.GetLength(0); i++) 
             {
+                switch (i)
+                {
+                    case 0:
+                        path += "Shield";
+                        break;
+                    case 1:
+                        path += "Gun";
+                        break;
+                    case 2:
+                        path += "Health";
+                        break;
+                    case 3:
+                        path += "Permanent";
+                        break;
+                }
                 for (int y = 0; y < powerups.GetLength(1); y++) 
                 {
-                    powerups[i, y] = Instantiate<PowerUps>(prefabPowerUp);
-                    powerups[i, y].gameObject.SetActive(false);
+                    PowerUps pu = Instantiate<PowerUps>(prefabPowerUp);
+                    pu.gameObject.SetActive(false);
+                    pu.powerUpsSO = Resources.Load<PowerUpSO>(path);
+                    pu.powerUpsSO.SetPowerUpType();
+                    pu.OnStart();
+
+                    powerups[i, y] = pu;
                     //vedere come fare per il componente powerUp di base
                 }
             }

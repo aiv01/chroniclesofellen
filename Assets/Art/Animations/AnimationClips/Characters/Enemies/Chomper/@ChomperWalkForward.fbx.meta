@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 207dc8692867d714ab049ba3b95ff920
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 21300
   internalIDToNameTable:
   - first:
       1: 100000
@@ -656,6 +656,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -715,7 +716,8 @@ ModelImporter:
       - time: 0.7100788
         functionName: PlayStep
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 21300000, guid: 74b7e35cda31cb7499b79fae64a30227,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -944,6 +946,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -955,6 +958,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -997,6 +1001,8 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 2
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

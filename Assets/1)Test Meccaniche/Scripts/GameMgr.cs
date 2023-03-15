@@ -21,6 +21,15 @@ namespace TheChroniclesOfEllen
             
         }
 
+        private void ChangeProgression(Progression newProgression)
+        {
+            int actualProg = (int)gameStatus;
+            int newProg = (int)newProgression;
+            if (actualProg + 1 == newProg)
+            {
+                gameStatus = newProgression;
+            }
+        }
 
     }
 }
