@@ -208,3 +208,10 @@ Assets/StompyRobot/
 Assets/StompyRobot.meta
 Assets/SimpleFx/
 Assets/SimpleFx.meta
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
