@@ -93,7 +93,7 @@ AnimatorStateTransition:
     m_ConditionEvent: RightSpeed
     m_EventTreshold: 0.1
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 7622213292380773549}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -178,7 +178,7 @@ AnimatorStateTransition:
     m_ConditionEvent: RightSpeed
     m_EventTreshold: 0.1
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 7622213292380773549}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -642,7 +642,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 8960255167236231274, guid: 591b8bf650e73d641a396d03b9f6af89,
       type: 3}
-    m_Threshold: 0.75
+    m_Threshold: 1
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1.5
     m_CycleOffset: 0
@@ -651,7 +651,7 @@ BlendTree:
   m_BlendParameter: ForwardSpeed
   m_BlendParameterY: ForwardSpeed
   m_MinThreshold: 0
-  m_MaxThreshold: 0.75
+  m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -2963,7 +2963,7 @@ AnimatorStateTransition:
     m_ConditionEvent: RightSpeed
     m_EventTreshold: 0.1
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 7622213292380773549}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -2985,7 +2985,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 7622213292380773549}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -3094,7 +3094,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 7622213292380773549}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
