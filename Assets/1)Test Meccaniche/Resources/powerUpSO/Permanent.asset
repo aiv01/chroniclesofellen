@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c048ef5c5959f74898bf45bff245dd7, type: 3}
   m_Name: Permanent
   m_EditorClassIdentifier: 
-  type: 0
-  damageIncrease: 0
-  healthIncrease: 0
+  damageIncrease: 2
+  healthIncrease: 2
