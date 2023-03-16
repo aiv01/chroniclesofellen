@@ -22,8 +22,9 @@ public class PlayerController : MonoBehaviour
    private Vector3 movement;
    [SerializeField]
    private float movementSpeed;
-   private float rotationSpeed = 3f;
-   [SerializeField]
+   private float rotationTime = 0.1f;
+   private float currentAngle;
+   private float currentAngleVelocity;
    private bool isGrounded = true;
    private float gravity = -9.81f;
    private float groundedGravity = -0.5f;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
+        Cursor.lockState = CursorLockMode.Confined;
 
         SetInput();
         staff.SetActive(false);
@@ -123,18 +125,21 @@ public class PlayerController : MonoBehaviour
 
    private void Movement()
    {
-      Vector3 cameraForward = new Vector3(cameraTransform.forward.x,0,cameraTransform.forward.z);
-      Vector3 cameraRight = new Vector3(cameraTransform.right.x,0,cameraTransform.right.z);
-      Vector3 moveDirection = cameraForward.normalized * movementInput.y + cameraRight.normalized * movementInput.x;
-      movement.x = moveDirection.x * movementSpeed;
-      movement.z = moveDirection.z * movementSpeed;
-      Vector3 faceDirection = new Vector3(movement.x,0,movement.z);
-      if(faceDirection == Vector3.zero) return;
-      Quaternion targetRotation = Quaternion.LookRotation(faceDirection);
-      transform.rotation = Quaternion.Slerp(transform.rotation,targetRotation,rotationSpeed* Time.deltaTime);
+      movement = new Vector3(movementInput.x,0,movementInput.y);
+      if(movement.magnitude >= 0.1f)
+      {
+          float angle = Mathf.Atan2(movement.x,movement.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+          currentAngle = Mathf.SmoothDampAngle(currentAngle,angle,ref currentAngleVelocity,rotationTime);
+          Vector3 rotatedMovement = Quaternion.Euler(0,angle,0) * Vector3.forward;
+          transform.rotation = Quaternion.Euler(0,currentAngle,0);
+          characterController.Move(rotatedMovement.normalized * movementSpeed * Time.deltaTime);
+          float velocity = Vector3.Dot(rotatedMovement.normalized,transform.forward);
+          animator.SetFloat("ForwardSpeed",velocity,0.5f,Time.deltaTime);
+      }
+     
       if(movement == Vector3.zero) return;
-      characterController.Move(movement.normalized * movementSpeed * Time.deltaTime);
-      animator.SetFloat("ForwardSpeed",movement.z);
+      
+      
 
    }
 
@@ -210,6 +215,7 @@ public class PlayerController : MonoBehaviour
      if(isAttackPressed && isGrounded && !isAttacking)
       {
           isAttacking = true;
+          movement = Vector3.zero;
           animator.SetBool("IsAttacking",true);
           comboCounter ++;
           animator.SetInteger("ComboCounter",comboCounter);
