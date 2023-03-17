@@ -121,7 +121,8 @@ public class PlayerController : MonoBehaviour
           ApplyGravity(); 
           Jump();
           if(isMeleeReady) MeleeAttack();
-          if(isRangedReady) Shoot();
+          Aim();
+          Shoot();
           TimeOutToIdle();
                
           
@@ -293,17 +294,28 @@ public class PlayerController : MonoBehaviour
     }
     private void Aim()
     {
-      //TODO: fare la logica della mira
+      if(isRangedReady)
+      {
+          animator.SetBool("IsShootReady",true);
+          animator.SetLayerWeight(1,1f);
+      }else
+      {
+          animator.SetBool("IsShootReady",false);
+          animator.SetLayerWeight(1,0f);
+      }
+      
     }
     private void onShoot(InputAction.CallbackContext context)
     {
           if(context.started)
           {
                isShootPressed = true;
+             
 
           }else if(context.canceled)
           {
                isShootPressed = false;
+               
           }
           
           
@@ -312,8 +324,12 @@ public class PlayerController : MonoBehaviour
     {
         if(isRangedReady && isShootPressed && !isMeleeReady)
         {
+           animator.SetBool("IsShooting",true);
            shootComponent.Shoot();
 
+        }else
+        {
+          animator.SetBool("IsShooting",false);
         }
     }
    #endregion 
