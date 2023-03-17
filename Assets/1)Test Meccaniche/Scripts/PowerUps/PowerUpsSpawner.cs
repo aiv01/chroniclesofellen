@@ -8,9 +8,9 @@ namespace TheChroniclesOfEllen
 
     public class PowerUpsSpawner : MonoBehaviour
     {
-        private PowerUps[,] powerups;
+        private PowerUp[,] powerups;
         [SerializeField]
-        private PowerUps prefabPowerUp;
+        private PowerUp prefabPowerUp;
 
         private int instancePerPoweUp;
 
@@ -29,7 +29,7 @@ namespace TheChroniclesOfEllen
         private void InitSpawner()
         {
             string path = "powerUpSO/";
-            powerups = new PowerUps[(int)PowerUpType.Last, instancePerPoweUp];
+            powerups = new PowerUp[(int)PowerUpType.Last, instancePerPoweUp];
 
             for (int i = 0; i < powerups.GetLength(0); i++) 
             {
@@ -50,7 +50,7 @@ namespace TheChroniclesOfEllen
                 }
                 for (int y = 0; y < powerups.GetLength(1); y++) 
                 {
-                    PowerUps pu = Instantiate<PowerUps>(prefabPowerUp);
+                    PowerUp pu = Instantiate<PowerUp>(prefabPowerUp);
                     pu.gameObject.SetActive(false);
                     pu.powerUpsSO = Resources.Load<PowerUpSO>(path);
                     pu.powerUpsSO.SetPowerUpType();
@@ -62,7 +62,7 @@ namespace TheChroniclesOfEllen
             }
         }
 
-        public PowerUps SpawnPowerUp(PowerUpType type)
+        public PowerUp SpawnPowerUp(PowerUpType type)
         {
             for(int i = 0; i < powerups.GetLength(1); i++)
             {

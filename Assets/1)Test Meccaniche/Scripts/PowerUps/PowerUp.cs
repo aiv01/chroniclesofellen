@@ -6,14 +6,14 @@ using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
-    public abstract class PowerUps : MonoBehaviour
+    public abstract class PowerUp : MonoBehaviour
     {
         [SerializeField] 
         private UnityEvent<object> pickUp;
 
         public PowerUpSO powerUpsSO;
 
-        public PowerUpType type;
+        private PowerUpType type;
 
 
         public virtual void OnStart() { }
@@ -22,6 +22,7 @@ namespace TheChroniclesOfEllen
         public virtual void OnHit() { }
         public virtual void ResetPowerUp() { }
         public virtual void OnPickUp() { }
+        public virtual void OnShoot() { }
 
         private void OnTriggerEnter(Collider other)
         {

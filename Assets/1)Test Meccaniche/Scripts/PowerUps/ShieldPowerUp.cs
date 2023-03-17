@@ -1,41 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
-    public class ShieldPowerUp : PowerUps
+    public class ShieldPowerUp : PowerUp
     {
-        public int resistence;
+        [SerializeField]
+        private UnityEvent<bool> OnShieldDestroy;
+        private ShieldPUSO shieldSO;
         private int hitLeft;
 
         public override void OnHit()
         {
-            if (true)
+            hitLeft--;
+            if (hitLeft == 0) 
             {
-                //evita il danno
-                hitLeft--;
+                OnShieldDestroy.Invoke(false);
             }
         }
 
         public override void OnStart()
         {
-            ShieldPUSO pu = (ShieldPUSO)powerUpsSO;
-            resistence = pu.resistence;
-            hitLeft = resistence;
+            shieldSO = (ShieldPUSO)powerUpsSO;
+
+            hitLeft = shieldSO.resistence;
         }
 
         public override void OnUpdate()
         {
-            if (hitLeft == 0)
-            {
-                //rimuovo il powerup
-            }
         }
 
         public override void ResetPowerUp()
         {
-            hitLeft = resistence;
+            hitLeft = shieldSO.resistence;
         }
     }
 }

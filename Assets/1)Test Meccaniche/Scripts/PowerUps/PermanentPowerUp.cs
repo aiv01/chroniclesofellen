@@ -6,27 +6,24 @@ using UnityEngine.Events;
 namespace TheChroniclesOfEllen
 {
 
-    public class PermanentPowerUp : PowerUps
+    public class PermanentPowerUp : PowerUp
     {
         [SerializeField]
         private UnityEvent<float> IncrementHealth;
         [SerializeField]
         private UnityEvent<float> IncrementDamage;
 
-        public int damageIncrease;
-        public int healthIncrease;
+        private PermanentPUSO permanentSO;
 
         public override void OnStart()
         {
-            PermanentPUSO pu = (PermanentPUSO)powerUpsSO;
-            damageIncrease = pu.damageIncrease;
-            healthIncrease = pu.healthIncrease;
+            permanentSO = (PermanentPUSO)powerUpsSO;
         }
 
         public override void OnPickUp()
         {
-            IncrementHealth.Invoke(healthIncrease);
-            IncrementDamage.Invoke(damageIncrease);
+            IncrementHealth.Invoke(permanentSO.healthIncrease);
+            IncrementDamage.Invoke(permanentSO.damageIncrease);
         }
     }
 }

@@ -5,21 +5,19 @@ using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
-    public class HealthPowerUp : PowerUps
+    public class HealthPowerUp : PowerUp
     {
         [SerializeField]
-        private UnityEvent<int> Heal;
-        public int healAmount;
+        private UnityEvent<float> Heal;
+        private HealthPUSO HealthSO;
 
         public override void OnStart()
         {
-            HealthPUSO pu = (HealthPUSO)powerUpsSO;
-            healAmount = pu.healAmount;
+            HealthSO = (HealthPUSO)powerUpsSO;
         }
         public override void OnPickUp()
         {
-            Debug.Log("Ociuccio è curato di " + healAmount);
-            Heal.Invoke(healAmount);
+            Heal.Invoke(HealthSO.healAmount);
         }
     }
 }

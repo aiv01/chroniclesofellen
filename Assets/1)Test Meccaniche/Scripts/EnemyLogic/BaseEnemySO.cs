@@ -7,7 +7,8 @@ namespace TheChroniclesOfEllen
     [CreateAssetMenu(menuName = "Window/Base Enemy", fileName = "Enemy")]
     public class BaseEnemySO : ScriptableObject
     {
-        public int healthPoint;
+        public float healthPoint;
+        public float damage;
         public float speed;
         public EnemyType type;
 

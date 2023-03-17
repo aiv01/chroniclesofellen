@@ -74,8 +74,8 @@ namespace TheChroniclesOfEllen
         {
             currentFile.SavePointNumber = savePoint;
             string saveData = JsonUtility.ToJson(currentFile);
-            text=new TextAsset(saveData);
-            File.WriteAllText(Application.dataPath + "/1)Test Meccaniche/Resources/JsonFile/DataFile.json", saveData);
+            text = new TextAsset(saveData);
+            File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
             Debug.Log("Save: " + currentFile.ToString());
         }
 

@@ -2,20 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
     public class HealthComponent : MonoBehaviour
     {
+        [SerializeField]
+        private UnityEvent OnShiedDamage;
         private float maxHealth;
         private float currentHealth;
-        private bool canTakeDamage;
+        private bool isShieldActive;
 
         // Start is called before the first frame update
         void Start()
         {
             //controllo se ho lo scudo
-            canTakeDamage = true;
+            isShieldActive = true;
             //prendo da file la vita massima
             maxHealth = 10;
             currentHealth = maxHealth;
@@ -38,10 +41,19 @@ namespace TheChroniclesOfEllen
 
         public void TakeDamage(float damageAmount)
         {
-            if (canTakeDamage)
+            if (!isShieldActive)
             {
                 currentHealth -= damageAmount;
             }
+            else
+            {
+                OnShiedDamage.Invoke();
+            }
+        }
+
+        public void ManageShield(bool shieldStatus)
+        {
+            isShieldActive = !shieldStatus;
         }
 
         public void IncreaseMaxHealth(float healthIncreaseValue)

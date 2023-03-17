@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
 
-    public class GunPowerUp : PowerUps
+    public class GunPowerUp : PowerUp
     {
-        public int maxBullet;
-        private int currentBullet;
-        public float damageScale;
+        [SerializeField]
+        private UnityEvent BulletEnd;
+        private GunPUSO gunSO;
+        private int bulletLeft;
 
         public override void OnHit()
         {
@@ -17,28 +19,26 @@ namespace TheChroniclesOfEllen
 
         public override void OnStart()
         {
-            GunPUSO pu = (GunPUSO)powerUpsSO;
-            maxBullet = pu.chargeBulletNumber;
-            currentBullet = maxBullet;
-            damageScale = pu.damageScale;
+            gunSO = (GunPUSO)powerUpsSO;
+            bulletLeft = gunSO.chargeBulletNumber;
         }
 
         public override void OnUpdate()
         {
-            if (currentBullet == 0)
+        }
+
+        public override void OnShoot()
+        {
+            bulletLeft--;
+            if (bulletLeft == 0)
             {
-                //rimuovo il powerup
-            }
-            //condizione per far sparare il colpo caricato
-            if (true)
-            {
-                currentBullet--;
+                BulletEnd.Invoke();
             }
         }
 
         public override void ResetPowerUp()
         {
-            currentBullet = maxBullet;
+            bulletLeft = gunSO.chargeBulletNumber;
         }
     }
 }

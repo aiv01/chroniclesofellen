@@ -10,11 +10,8 @@ namespace TheChroniclesOfEllen
     {
         //decidere se farlo con tot powerups contemporaneamente
         [SerializeField]
-        private PowerUps power;
-        public PowerUpType CurrentPUType
-        {
-            get { return HasPowerUp ? power.type : PowerUpType.Last; }
-        }
+        private PowerUp power;
+
         public bool HasPowerUp
         {
             get { return power != null; }
@@ -29,20 +26,12 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
-
+            power.OnHit();
         }
 
-        public void ChangePowerUp(PowerUps newPowerUp)
+        public void ChangePowerUp(PowerUp newPowerUp)
         {
-            if (newPowerUp.type == CurrentPUType)
-            {
-                power.ResetPowerUp();
-                return;
-            }
             power = newPowerUp;
         }
-
-
     }
-
 }

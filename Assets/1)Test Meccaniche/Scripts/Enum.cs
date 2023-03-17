@@ -48,6 +48,6 @@ namespace TheChroniclesOfEllen
         Gun,
         Health,
         Permanent,
-        Last
+        None
     }
 }
