@@ -8,51 +8,61 @@ namespace TheChroniclesOfEllen{
 
 public class PlayerController : MonoBehaviour
 {
-   //Component variables
+   #region Components and objects reference
    private Animator animator;
    private CharacterController characterController;
    private PlayerInput playerInput;
+   [SerializeField]
+   private StaffComponent staff;
+   public StaffComponent Staff {get{return staff;} set { staff = value;}}
+   [SerializeField]
+   private Transform cameraTransform;
+   [SerializeField]
+   private ShootComponent shootComponent;
 
-   //Input variables
+   #endregion
+   #region Input variables
    private Vector2 movementInput;
    private bool isMovementPressed = false;
-  
-
-   //Movement variables
+   private bool isGrounded = true;
+   private bool isJumpPressed = false;
+   private bool isJumping = false;
+   private bool isAttackPressed = false;
+   private bool isAttacking = false;
+   private bool isMeleeReady = false;
+   public bool IsMeleeReady { get { return isMeleeReady;} set{isMeleeReady = value;}}
+   private bool isRangedReady = false;
+   private bool isShootPressed = false;
+   #endregion
+   #region Movement variables
    private Vector3 movement;
+   private float velocity;
    [SerializeField]
    private float movementSpeed;
    private float rotationTime = 0.1f;
    private float currentAngle;
    private float currentAngleVelocity;
-   private bool isGrounded = true;
+   #endregion
+   #region gravity variables
    private float gravity = -9.81f;
    private float groundedGravity = -0.5f;
    private float fallMultiplier = 2.0f;
-   
-   //Jump variables
+   #endregion   
+   #region Jump variables
    private Vector3 jump;
-   private bool isJumpPressed = false;
-   private bool isJumping = false;
    private float jumpVelocity = 10f;
    private int jumpCounter = 0;
-   
-
-   //attack variables
-   private bool isAttackPressed = false;
-   private bool isAttacking = false;
-   private bool isMeleeReady = false;
+   #endregion
+   #region Attack variables
    private int comboCounter = 0;
-   private float timeForAttack = 0;
-   private float maxTimeForAttack = 2f;
-
-   //miscellaneous
+   private int actualUse = 0;
+   #endregion
+   #region other
    float timer = 0;
    int randomIdle;
-   [SerializeField]
-   private GameObject staff;
-   [SerializeField]
-   private Transform cameraTransform;
+   private bool hasKey;
+   public bool HasKey { get{ return hasKey;} set { hasKey = value;}}
+   #endregion
 
    void Awake()
    {
@@ -60,16 +70,16 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
         Cursor.lockState = CursorLockMode.Confined;
-
+     
+        
+        staff.gameObject.SetActive(false);
         SetInput();
-        staff.SetActive(false);
 
    }
     void OnEnable()
    {
         playerInput.Enable();
    }
-   
       void OnDisable()
    {
         playerInput.Disable();
@@ -86,6 +96,13 @@ public class PlayerController : MonoBehaviour
         playerInput.Player.MeleeAttack.started +=onMeleeAttack;
         playerInput.Player.MeleeAttack.performed +=onMeleeAttack;
         playerInput.Player.MeleeAttack.canceled +=onMeleeAttack;
+        playerInput.Player.Shoot.started += onShoot;
+        playerInput.Player.Shoot.performed += onShoot;
+        playerInput.Player.Shoot.canceled += onShoot;
+        playerInput.Player.Aim.started += onAim;
+        playerInput.Player.Aim.performed += onAim;
+        playerInput.Player.Aim.canceled += onAim;
+
    }
  
    void Update()
@@ -104,12 +121,12 @@ public class PlayerController : MonoBehaviour
           ApplyGravity(); 
           Jump();
           if(isMeleeReady) MeleeAttack();
+          Aim();
+          Shoot();
           TimeOutToIdle();
                
           
    }
-
-
    #region Movement Mechanics
    private void onMovement(InputAction.CallbackContext context)
    {
@@ -117,7 +134,9 @@ public class PlayerController : MonoBehaviour
           if(context.canceled)
           {
                movementInput = Vector2.zero;
-
+               velocity = 0;
+               movement = Vector3.zero;
+               animator.SetFloat("ForwardSpeed",velocity);
           }
 
           isMovementPressed = movementInput.x !=0 || movementInput.y != 0;
@@ -133,20 +152,41 @@ public class PlayerController : MonoBehaviour
           Vector3 rotatedMovement = Quaternion.Euler(0,angle,0) * Vector3.forward;
           transform.rotation = Quaternion.Euler(0,currentAngle,0);
           characterController.Move(rotatedMovement.normalized * movementSpeed * Time.deltaTime);
-          float velocity = Vector3.Dot(rotatedMovement.normalized,transform.forward);
+          velocity = Vector3.Dot(rotatedMovement.normalized,transform.forward);
           animator.SetFloat("ForwardSpeed",velocity,0.5f,Time.deltaTime);
       }
      
       if(movement == Vector3.zero) return;
-      
-      
 
    }
+   private void TimeOutToIdle()
+    {
+      
+      float maxTimerToIdle = 15f;
 
-   
+      if(isMovementPressed || isJumpPressed || isAttackPressed || isRangedReady || isShootPressed)
+      {
+          MakeWeaponAppearinInputDetected();
+          timer = 0;
+          return;
+      
+      }else
+      {
+          timer += Time.deltaTime;
+
+      if(timer >= maxTimerToIdle )
+      {
+          animator.SetTrigger("TimeoutToIdle");
+          randomIdle = Random.Range(0,2);
+          animator.SetInteger("RandomIdle",randomIdle);
+          MakeWeaponDisappearInIdle();
+          
+          timer = 0;
+      }
+          
+      }
+    }
    #endregion
-
-
    #region Jump Mechanics
    void onJump(InputAction.CallbackContext context)
    { 
@@ -200,10 +240,7 @@ public class PlayerController : MonoBehaviour
      
    }
    #endregion
-
-
    #region Attack Mechanics
-
     private void onMeleeAttack(InputAction.CallbackContext context)
     {
           
@@ -218,12 +255,23 @@ public class PlayerController : MonoBehaviour
           movement = Vector3.zero;
           animator.SetBool("IsAttacking",true);
           comboCounter ++;
+          actualUse++;
           animator.SetInteger("ComboCounter",comboCounter);
           if(comboCounter >= 4)
           {
                comboCounter = 0;
                animator.SetInteger("ComboCounter",comboCounter);
           }
+          if(actualUse >= staff.MaxUses)
+          {
+               isMeleeReady = false;
+               isAttacking = false;
+               comboCounter = 0;
+               actualUse = 0;
+               staff.gameObject.SetActive(false);
+               animator.SetBool("IsAttacking",isAttacking);
+          }
+
 
       }else if(!isAttackPressed && isAttacking && isGrounded)
       {
@@ -239,55 +287,61 @@ public class PlayerController : MonoBehaviour
       }
         
      
-    } 
-    private void TimeOutToIdle()
+    }
+    private void onAim(InputAction.CallbackContext context)
     {
-      
-      float maxTimerToIdle = 15f;
-
-      if(isMovementPressed || isJumpPressed || isAttackPressed)
+        isRangedReady = context.ReadValueAsButton();  
+    }
+    private void Aim()
+    {
+      if(isRangedReady)
       {
-          MakeWeaponAppearinInputDetected();
-          timer = 0;
-          return;
-      
+          animator.SetBool("IsShootReady",true);
+          animator.SetLayerWeight(1,1f);
       }else
       {
-          timer += Time.deltaTime;
-
-      if(timer >= maxTimerToIdle )
-      {
-          animator.SetTrigger("TimeoutToIdle");
-          randomIdle = Random.Range(0,2);
-          animator.SetInteger("RandomIdle",randomIdle);
-          MakeWeaponDisappearInIdle();
-          
-          timer = 0;
+          animator.SetBool("IsShootReady",false);
+          animator.SetLayerWeight(1,0f);
       }
-          
-      }
+      
     }
-
-   #endregion 
-
-     void OnTriggerEnter(Collider other)
-     {
-          if(other.gameObject.tag == "Weapon")
+    private void onShoot(InputAction.CallbackContext context)
+    {
+          if(context.started)
           {
-               staff.SetActive(true);
-               isMeleeReady = true;
-          }
+               isShootPressed = true;
+             
 
-     }
+          }else if(context.canceled)
+          {
+               isShootPressed = false;
+               
+          }
+          
+          
+    }
+    private void Shoot()
+    {
+        if(isRangedReady && isShootPressed && !isMeleeReady)
+        {
+           animator.SetBool("IsShooting",true);
+           shootComponent.Shoot();
+
+        }else
+        {
+          animator.SetBool("IsShooting",false);
+        }
+    }
+   #endregion 
      void MakeWeaponDisappearInIdle()
      {
           //control weapon type
-          if(staff.activeInHierarchy == false) return;
+          if(staff.gameObject.activeInHierarchy == false) return;
           staff.transform.GetComponentInChildren<Renderer>().enabled = false;
      }
      void MakeWeaponAppearinInputDetected()
      {
-          if(staff.activeInHierarchy == false) return;
+          if(staff.gameObject.activeInHierarchy == false) return;
           staff.transform.GetComponentInChildren<Renderer>().enabled = true;
      }
 }

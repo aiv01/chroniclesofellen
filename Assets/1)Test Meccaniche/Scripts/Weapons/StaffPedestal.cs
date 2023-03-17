@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace TheChroniclesOfEllen{
-public class StaffPedestal : MonoBehaviour
+public class StaffPedestal : Interactable
 {
     private float angle;
-
+    private InteractableType type;
+    public InteractableType Type {get { return type;}}
     private GameObject staffTransform;
 
     void Start()
     {
         staffTransform = transform.Find("Staff").gameObject;
+        type = InteractableType.StaffPedestal;
 
     }
     private void Update()
@@ -24,8 +26,16 @@ public class StaffPedestal : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            staffTransform.SetActive(false);
+           OnPickUp(other.GetComponent<PlayerController>());
         }
+    }
+
+    protected override void OnPickUp(PlayerController player)
+    {
+        if(player.IsMeleeReady) return;
+        player.Staff.gameObject.SetActive(true);
+        player.IsMeleeReady = true;
+        gameObject.SetActive(false);
     }
 }
 }

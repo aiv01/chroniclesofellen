@@ -49,7 +49,7 @@ namespace TheChroniclesOfEllen
                 },
                 {
                     ""name"": ""Aim"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""41eee2db-8371-40e3-8714-6618a4b2e25a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -58,7 +58,7 @@ namespace TheChroniclesOfEllen
                 },
                 {
                     ""name"": ""Shoot"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""46d7504c-76c3-4c5d-89fd-ea71fb50de94"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -196,7 +196,7 @@ namespace TheChroniclesOfEllen
                 {
                     ""name"": """",
                     ""id"": ""7e6144a4-d014-45b5-9cda-aeb6225870ba"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard/Mouse"",

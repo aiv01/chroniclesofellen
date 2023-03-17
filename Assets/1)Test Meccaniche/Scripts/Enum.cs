@@ -50,4 +50,11 @@ namespace TheChroniclesOfEllen
         Permanent,
         None
     }
+    public enum InteractableType
+    {
+        StaffPedestal,
+        SavePoint,
+        Key,
+        None
+    }
 }

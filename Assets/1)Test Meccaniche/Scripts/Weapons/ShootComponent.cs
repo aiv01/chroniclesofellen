@@ -12,6 +12,8 @@ namespace TheChroniclesOfEllen
         private Bullet bullet;
         public float shootCD = 0.5f;
         private float currentTimer;
+        private float bulletTimer;
+        private float bulletLifeTime = 3.5f;
         private float surriscaldamento = 10;
         private float surriscaldamentoAttuale;
         private float surriscaldamentoPerColpo = 1.5f;
@@ -26,12 +28,14 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
+            
             surriscaldamentoAttuale = Mathf.Max(surriscaldamentoAttuale - Time.deltaTime, 0);
         }
 
         public void Shoot()
         {
             currentTimer += Time.deltaTime;
+            
             if (currentTimer > shootCD && surriscaldamentoAttuale <= surriscaldamento) 
             {
                 surriscaldamentoAttuale += surriscaldamentoPerColpo;
@@ -41,8 +45,11 @@ namespace TheChroniclesOfEllen
                 bullet.damage = damage;
                 bullet.speed = 10;
                 bullet.direction = mouthOfFire.forward;
+                
+                
 
             }
+            
         }
 
 

@@ -16,5 +16,6 @@ public class WeaponFollowingPlayer : MonoBehaviour
     void Update()
     {
         transform.position = playerTarget.position;
+    
     }
 }

@@ -10,6 +10,7 @@ namespace TheChroniclesOfEllen
         private static Bullet[] bullets;
         public int poolSize;
         public Bullet bulletPrefab;
+      
 
         // Start is called before the first frame update
         void Awake()
@@ -43,5 +44,6 @@ namespace TheChroniclesOfEllen
             }
             return null;
         }
+
     }
 }
