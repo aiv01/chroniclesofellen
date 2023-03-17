@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
-
     public abstract class PowerUps : MonoBehaviour
     {
+        [SerializeField] 
+        private UnityEvent<object> pickUp;
+
         public PowerUpSO powerUpsSO;
 
         public PowerUpType type;
+
 
         public virtual void OnStart() { }
 
@@ -21,10 +25,11 @@ namespace TheChroniclesOfEllen
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Player")
+            if (other.tag == "Player") 
             {
                 gameObject.SetActive(false);
-                gameObject.GetComponent<PlayerPowerUp>().ChangePowerUp(this);
+                pickUp.Invoke(this);
+                OnPickUp();
             }
         }
 

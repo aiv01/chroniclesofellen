@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
 
     public class PermanentPowerUp : PowerUps
     {
+        [SerializeField]
+        private UnityEvent<float> IncrementHealth;
+        [SerializeField]
+        private UnityEvent<float> IncrementDamage;
+
         public int damageIncrease;
         public int healthIncrease;
 
@@ -19,7 +25,8 @@ namespace TheChroniclesOfEllen
 
         public override void OnPickUp()
         {
-            //incremento le robe al giocatore
+            IncrementHealth.Invoke(healthIncrease);
+            IncrementDamage.Invoke(damageIncrease);
         }
     }
 }

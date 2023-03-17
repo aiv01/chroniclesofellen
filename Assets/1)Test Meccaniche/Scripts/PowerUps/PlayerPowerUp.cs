@@ -9,6 +9,7 @@ namespace TheChroniclesOfEllen
     public class PlayerPowerUp : MonoBehaviour
     {
         //decidere se farlo con tot powerups contemporaneamente
+        [SerializeField]
         private PowerUps power;
         public PowerUpType CurrentPUType
         {
@@ -36,12 +37,12 @@ namespace TheChroniclesOfEllen
             if (newPowerUp.type == CurrentPUType)
             {
                 power.ResetPowerUp();
-                power.OnPickUp();
                 return;
             }
             power = newPowerUp;
-            power.OnPickUp();
         }
+
+
     }
 
 }

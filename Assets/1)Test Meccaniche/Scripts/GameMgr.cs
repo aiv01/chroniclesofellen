@@ -16,6 +16,7 @@ namespace TheChroniclesOfEllen
 
         public TextAsset text;
         public SafeFile currentFile;
+        public SafeFileSO defaultFile;
 
         private void Start()
         {
@@ -25,16 +26,13 @@ namespace TheChroniclesOfEllen
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                Load();
-            }
-            if(Input.GetKeyDown(KeyCode.S))
-            {
-                Save();
+                LoadNew();
             }
         }
 
+        
         private void ChangeProgression(Progression newProgression)
         {
             int actualProg = (int)gameStatus;
@@ -44,26 +42,37 @@ namespace TheChroniclesOfEllen
                 gameStatus = newProgression;
             }
         }
-
         private void ChangeArea(Area newArea)
         {
             //fare dei controlli
             currentArea = newArea;
         }
 
-        private void FoundKey()
+        public void FoundKey()
         {
             currentFile.HasKey = true;
         }
-        private void AddDoubleJump()
+        public void AddDoubleJump()
         {
             currentFile.HasDoubleJump = true;
         }
-
-        public void Save()
+        public void AddDash()
         {
-            
+            currentFile.HasDash = true;
+        }
 
+        public void IncrementHealth(float value)
+        {
+            currentFile.MaxHp += (int)value;
+        }
+        public void IncrementDamage(float value)
+        {
+            currentFile.DamageScale += (int)value;
+        }
+
+        public void Save(int savePoint = 0)
+        {
+            currentFile.SavePointNumber = savePoint;
             string saveData = JsonUtility.ToJson(currentFile);
             text=new TextAsset(saveData);
             File.WriteAllText(Application.dataPath + "/1)Test Meccaniche/Resources/JsonFile/DataFile.json", saveData);
@@ -74,6 +83,18 @@ namespace TheChroniclesOfEllen
         {
             currentFile = JsonUtility.FromJson<SafeFile>(text.text);
             Debug.Log("Load: " + currentFile.ToString());
+        }
+        public void LoadNew()
+        {
+            currentFile.MaxHp = defaultFile.MaxHp;
+            currentFile.DamageScale = defaultFile.DamageScale;
+            currentFile.HasDash = defaultFile.HasDash;
+            currentFile.HasDoubleJump = defaultFile.HasDoubleJump;
+            currentFile.HasKey = defaultFile.HasKey;
+            currentFile.Progression = defaultFile.Progression;
+            currentFile.Area = defaultFile.Area;
+            currentFile.SavePointNumber = defaultFile.SavePointNumber;
+            Debug.Log("Load New: " + currentFile.ToString());
         }
     }
 }

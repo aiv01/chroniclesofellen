@@ -9,16 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604ebaa74611fa44a8b73bb02d1fbbcd, type: 3}
-  m_Name: ChomperLiv1
+  m_Script: {fileID: 11500000, guid: 311a31212c1cb884d9a78f219e2b416a, type: 3}
+  m_Name: DefaultSafeFile
   m_EditorClassIdentifier: 
-  healthPoint: 20
-  speed: 1
-  type: 0
-  stayTime: 2
-  attackCD: 5
-  pursuitTime: 0.5
-  stopDistance: 1
-  attackStopDistance: 3
-  attackDistance: 4
-  pursuitDistance: 7
+  MaxHp: 3
+  DamageScale: 1
+  HasDoubleJump: 0
+  HasKey: 0
+  HasDash: 0
+  Progression: 0
+  Area: 0
+  SavePointNumber: 0

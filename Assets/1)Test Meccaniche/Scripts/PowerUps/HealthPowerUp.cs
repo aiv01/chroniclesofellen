@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
-
     public class HealthPowerUp : PowerUps
     {
+        [SerializeField]
+        private UnityEvent<int> Heal;
         public int healAmount;
 
         public override void OnStart()
@@ -16,7 +18,8 @@ namespace TheChroniclesOfEllen
         }
         public override void OnPickUp()
         {
-            //curo il giocatore
+            Debug.Log("Ociuccio è curato di " + healAmount);
+            Heal.Invoke(healAmount);
         }
     }
 }

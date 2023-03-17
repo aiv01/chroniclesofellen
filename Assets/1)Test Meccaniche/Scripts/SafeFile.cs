@@ -13,6 +13,7 @@ namespace TheChroniclesOfEllen
         public int DamageScale;
         public bool HasDoubleJump;
         public bool HasKey;
+        public bool HasDash;
         public int Progression;
         public int Area;
         public int SavePointNumber;

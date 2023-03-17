@@ -32,6 +32,7 @@ namespace TheChroniclesOfEllen
 
         public void HealMe(float healAmount)
         {
+            Debug.Log("Ociuccio è curato di " + healAmount);
             currentHealth = MathF.Max(healAmount + currentHealth, maxHealth);
         }
 

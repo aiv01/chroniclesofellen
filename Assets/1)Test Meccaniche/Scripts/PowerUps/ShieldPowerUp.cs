@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace TheChroniclesOfEllen
 {
-
     public class ShieldPowerUp : PowerUps
     {
         public int resistence;
