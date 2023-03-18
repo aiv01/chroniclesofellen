@@ -8,27 +8,36 @@ namespace TheChroniclesOfEllen
 {
     public class HealthComponent : MonoBehaviour
     {
-        [SerializeField]
-        private UnityEvent OnShiedDamage;
         private float maxHealth;
         private float currentHealth;
-        private bool isShieldActive;
+        private bool shieldActive;
+        private PlayerPowerUp powerUpSystem;
+        public Transform shield;
+        private bool isAlive;
+        public bool IsAlive
+        {
+            get { return isAlive; }
+        }
 
         // Start is called before the first frame update
         void Start()
         {
             //controllo se ho lo scudo
-            isShieldActive = true;
+            isAlive = true; 
+            shield.gameObject.SetActive(false);
             //prendo da file la vita massima
             maxHealth = 10;
             currentHealth = maxHealth;
+            powerUpSystem = GetComponent<PlayerPowerUp>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            shield.gameObject.SetActive(shieldActive);
             if (currentHealth <= 0)
             {
+                isAlive = false;
                 Debug.Log("Uaglio Ociuccio è morto");
             }
         }
@@ -41,19 +50,11 @@ namespace TheChroniclesOfEllen
 
         public void TakeDamage(float damageAmount)
         {
-            if (!isShieldActive)
+            shieldActive = powerUpSystem.IsShieldActive();
+            if (!shieldActive)
             {
                 currentHealth -= damageAmount;
             }
-            else
-            {
-                OnShiedDamage.Invoke();
-            }
-        }
-
-        public void ManageShield(bool shieldStatus)
-        {
-            isShieldActive = !shieldStatus;
         }
 
         public void IncreaseMaxHealth(float healthIncreaseValue)

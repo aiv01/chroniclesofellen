@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SpitterLiv1
   m_EditorClassIdentifier: 
   healthPoint: 20
+  damage: 2
   speed: 1
   type: 2
   stayTime: 0

@@ -8,8 +8,8 @@ namespace TheChroniclesOfEllen
     [CreateAssetMenu(menuName = "Window/Permanent", fileName = "Permanent")]
     public class PermanentPUSO : PowerUpSO
     {
-        public int damageIncrease;
-        public int healthIncrease;
+        public float damageIncrease;
+        public float healthIncrease;
 
         public override void SetPowerUpType()
         {

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: FastChomperLiv1
   m_EditorClassIdentifier: 
   healthPoint: 20
+  damage: 3
   speed: 3
   type: 1
   stayTime: 2

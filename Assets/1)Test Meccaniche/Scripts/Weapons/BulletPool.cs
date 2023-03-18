@@ -8,8 +8,11 @@ namespace TheChroniclesOfEllen
     public class BulletPool : MonoBehaviour
     {
         private static Bullet[] bullets;
+        private static Bullet[] bulletsSpecial;
         public int poolSize;
+        public int poolSpecialSize;
         public Bullet bulletPrefab;
+        public Bullet bulletSpecialPrefab;
       
 
         // Start is called before the first frame update
@@ -22,6 +25,7 @@ namespace TheChroniclesOfEllen
         {
             //TODO: vedere come fare per i tipi di proiettile
             bullets = new Bullet[poolSize];
+            bulletsSpecial = new Bullet[poolSpecialSize];
             Bullet go;
 
             for(int i = 0; i < poolSize; i++)
@@ -29,6 +33,12 @@ namespace TheChroniclesOfEllen
                 go = Instantiate<Bullet>(bulletPrefab);
                 go.gameObject.SetActive(false);
                 bullets[i] = go;
+            }
+            for(int i = 0; i < poolSpecialSize; i++)
+            {
+                go = Instantiate<Bullet>(bulletSpecialPrefab);
+                go.gameObject.SetActive(false);
+                bulletsSpecial[i] = go;
             }
         }
 
@@ -40,6 +50,18 @@ namespace TheChroniclesOfEllen
                 {
                     bullets[i].gameObject.SetActive(true);
                     return bullets[i];
+                }
+            }
+            return null;
+        }
+        public static Bullet GetBulletSpecial()
+        {
+            for (int i = 0; i < bulletsSpecial.Length; i++)
+            {
+                if (!bulletsSpecial[i].gameObject.activeInHierarchy)
+                {
+                    bulletsSpecial[i].gameObject.SetActive(true);
+                    return bulletsSpecial[i];
                 }
             }
             return null;
