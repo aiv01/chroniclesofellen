@@ -12,26 +12,54 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private PowerUp power;
 
-        public bool HasPowerUp
+        public PowerUpType CurrentPUType
         {
-            get { return power != null; }
-        }
-
-
-        void Start()
-        {
-
+            get { return power.type; }
         }
 
         // Update is called once per frame
         void Update()
         {
-            power.OnHit();
+            if (power == null)
+            {
+                return;
+            }
         }
 
         public void ChangePowerUp(PowerUp newPowerUp)
         {
             power = newPowerUp;
+
+            if(power != null ) 
+                power.OnStart();
+        }
+
+        public bool IsShieldActive()
+        {
+            if (power != null && CurrentPUType == PowerUpType.Shield)
+            {
+                bool shieldActive = power.OnHit();
+                if (!shieldActive)
+                {
+                    ChangePowerUp(null);
+                }
+                return shieldActive;
+            }
+            return false;
+        }
+
+        public bool HaveSpecialLeft()
+        {
+            if (power != null && CurrentPUType == PowerUpType.Gun)
+            {
+                bool specialActive = power.OnShoot();
+                if (!specialActive)
+                {
+                    ChangePowerUp(null);
+                }
+                return specialActive;
+            }
+            return false;
         }
     }
 }

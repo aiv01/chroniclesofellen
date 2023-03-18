@@ -14,33 +14,42 @@ namespace TheChroniclesOfEllen
         private float currentTimer;
         private float bulletTimer;
         private float bulletLifeTime = 3.5f;
-        private float surriscaldamento = 10;
-        private float surriscaldamentoAttuale;
-        private float surriscaldamentoPerColpo = 1.5f;
+        private float overheat = 10;
+        private float currentOverheat;
+        private float overheatPerBullet = 1.5f;
+        private PlayerPowerUp powerUpSystem;
 
         // Start is called before the first frame update
         void Start()
         {
             currentTimer = 0;
-            surriscaldamentoAttuale = 0;
+            currentOverheat = 0;
+            powerUpSystem = GetComponentInParent<PlayerPowerUp>();
         }
 
         // Update is called once per frame
         void Update()
         {
             
-            surriscaldamentoAttuale = Mathf.Max(surriscaldamentoAttuale - Time.deltaTime, 0);
+            currentOverheat = Mathf.Max(currentOverheat - Time.deltaTime, 0);
         }
 
         public void Shoot()
         {
             currentTimer += Time.deltaTime;
             
-            if (currentTimer > shootCD && surriscaldamentoAttuale <= surriscaldamento) 
+            if (currentTimer > shootCD && currentOverheat <= overheat) 
             {
-                surriscaldamentoAttuale += surriscaldamentoPerColpo;
+                if (powerUpSystem.HaveSpecialLeft())
+                {
+                    bullet = BulletPool.GetBulletSpecial();
+                }
+                else
+                {
+                    bullet = BulletPool.GetBullet();
+                }
+                currentOverheat += overheatPerBullet;
                 currentTimer = 0;
-                bullet = BulletPool.GetBullet();
                 bullet.transform.position = mouthOfFire.position;
                 bullet.damage = damage;
                 bullet.speed = 10;

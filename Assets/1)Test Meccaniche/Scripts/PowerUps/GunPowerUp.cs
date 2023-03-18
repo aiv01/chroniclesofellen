@@ -8,14 +8,8 @@ namespace TheChroniclesOfEllen
 
     public class GunPowerUp : PowerUp
     {
-        [SerializeField]
-        private UnityEvent BulletEnd;
         private GunPUSO gunSO;
-        private int bulletLeft;
-
-        public override void OnHit()
-        {
-        }
+        public int bulletLeft;
 
         public override void OnStart()
         {
@@ -23,17 +17,14 @@ namespace TheChroniclesOfEllen
             bulletLeft = gunSO.chargeBulletNumber;
         }
 
-        public override void OnUpdate()
-        {
-        }
-
-        public override void OnShoot()
+        public override bool OnShoot()
         {
             bulletLeft--;
-            if (bulletLeft == 0)
+            if (bulletLeft <= 0)
             {
-                BulletEnd.Invoke();
+                return false;
             }
+            return true;
         }
 
         public override void ResetPowerUp()

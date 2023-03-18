@@ -7,18 +7,17 @@ namespace TheChroniclesOfEllen
 {
     public class ShieldPowerUp : PowerUp
     {
-        [SerializeField]
-        private UnityEvent<bool> OnShieldDestroy;
         private ShieldPUSO shieldSO;
-        private int hitLeft;
+        public int hitLeft;
 
-        public override void OnHit()
+        public override bool OnHit()
         {
             hitLeft--;
             if (hitLeft == 0) 
             {
-                OnShieldDestroy.Invoke(false);
+                return true;
             }
+            return false;
         }
 
         public override void OnStart()

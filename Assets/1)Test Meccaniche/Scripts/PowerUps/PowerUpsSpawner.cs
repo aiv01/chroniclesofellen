@@ -29,7 +29,7 @@ namespace TheChroniclesOfEllen
         private void InitSpawner()
         {
             string path = "powerUpSO/";
-            powerups = new PowerUp[(int)PowerUpType.Last, instancePerPoweUp];
+            powerups = new PowerUp[(int)PowerUpType.None, instancePerPoweUp];
 
             for (int i = 0; i < powerups.GetLength(0); i++) 
             {
