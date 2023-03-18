@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
    private CharacterController characterController;
    private PlayerInput playerInput;
    [SerializeField]
-   private StaffComponent staff;
-   public StaffComponent Staff {get{return staff;} set { staff = value;}}
+   private Staff staff;
+   public Staff Staff {get{return staff;} set { staff = value;}}
    [SerializeField]
    private Transform cameraTransform;
    [SerializeField]
@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour
    private bool isShootPressed = false;
    #endregion
    #region Movement variables
+   #region Camera varables
+   private Vector2 lookInput;
+   private Vector3 look;
+   #endregion
    private Vector3 movement;
    private float velocity;
    [SerializeField]
@@ -102,6 +106,11 @@ public class PlayerController : MonoBehaviour
         playerInput.Player.Aim.started += onAim;
         playerInput.Player.Aim.performed += onAim;
         playerInput.Player.Aim.canceled += onAim;
+        playerInput.Player.Look.started += onLook;
+        playerInput.Player.Look.performed += onLook;
+        playerInput.Player.Look.canceled += onLook;
+   
+
 
    }
  
@@ -159,6 +168,18 @@ public class PlayerController : MonoBehaviour
       if(movement == Vector3.zero) return;
 
    }
+    private void onLook(InputAction.CallbackContext context)
+        {
+            lookInput = context.ReadValue<Vector2>();
+            if (context.canceled) lookInput = Vector2.zero;
+        }
+        private void Look()
+        {
+            look.x = lookInput.x;
+            look.y = lookInput.y;
+            float angle = Mathf.Atan2(look.x,look.y) * Mathf.Rad2Deg;
+            cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation,transform.rotation,angle * Time.deltaTime);
+        }
    private void TimeOutToIdle()
     {
       
@@ -255,14 +276,15 @@ public class PlayerController : MonoBehaviour
           movement = Vector3.zero;
           animator.SetBool("IsAttacking",true);
           comboCounter ++;
-          actualUse++;
+          
           animator.SetInteger("ComboCounter",comboCounter);
           if(comboCounter >= 4)
           {
+               actualUse++;
                comboCounter = 0;
                animator.SetInteger("ComboCounter",comboCounter);
           }
-          if(actualUse >= staff.MaxUses)
+          if(actualUse >= staff.MaxUsesSeries)
           {
                isMeleeReady = false;
                isAttacking = false;
