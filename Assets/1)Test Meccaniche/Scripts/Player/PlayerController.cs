@@ -14,8 +14,8 @@ namespace TheChroniclesOfEllen {
         private CharacterController characterController;
         private PlayerInput playerInput;
         [SerializeField]
-        private StaffComponent staff;
-        public StaffComponent Staff { get { return staff; } set { staff = value; } }
+        private Staff staff;
+        public Staff Staff { get { return staff; } set { staff = value; } }
         [SerializeField]
         private Transform cameraTransform;
         [SerializeField]
@@ -46,6 +46,10 @@ namespace TheChroniclesOfEllen {
         private float rotationTime = 0.1f;
         private float currentAngle;
         private float currentAngleVelocity;
+        #endregion
+        #region Camera variables
+        private Vector2 lookInput;
+        private Vector3 look;
         #endregion
         #region gravity variables
         private float gravity = -9.81f;
@@ -97,6 +101,9 @@ namespace TheChroniclesOfEllen {
             playerInput.Player.Movement.started += onMovement;
             playerInput.Player.Movement.performed += onMovement;
             playerInput.Player.Movement.canceled += onMovement;
+            playerInput.Player.Look.started += onLook;
+            playerInput.Player.Look.performed += onLook;
+            playerInput.Player.Look.canceled += onLook;
             playerInput.Player.MeleeAttack.started += onMeleeAttack;
             playerInput.Player.MeleeAttack.performed += onMeleeAttack;
             playerInput.Player.MeleeAttack.canceled += onMeleeAttack;
@@ -113,7 +120,7 @@ namespace TheChroniclesOfEllen {
         {
             if (!playerHealth.IsAlive)
             {
-                Debug.Log("A pischella è laziale");
+                Debug.Log("A pischella ï¿½ laziale");
                 return;
             }
             if (isGrounded)
@@ -122,16 +129,16 @@ namespace TheChroniclesOfEllen {
                 animator.SetBool("Grounded", true);
             }
 
-            if (isMovementPressed)
-            {
-                Movement();
+            if(isMovementPressed) Movement();
+            Look();
 
-            }
             ApplyGravity();
             Jump();
+
             if (isMeleeReady) MeleeAttack();
             Aim();
             Shoot();
+
             TimeOutToIdle();
 
 
@@ -167,6 +174,18 @@ namespace TheChroniclesOfEllen {
 
             if (movement == Vector3.zero) return;
 
+        }
+
+        private void onLook(InputAction.CallbackContext context)
+        {
+            lookInput = context.ReadValue<Vector2>();
+            if(context.canceled) lookInput = Vector2.zero;
+        }
+        private void Look()
+        {
+          look = new Vector3(lookInput.x,lookInput.y,0);
+          float angle = Mathf.Atan2(look.x,look.y) * Mathf.Rad2Deg;
+          cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation,transform.rotation,angle * Time.deltaTime);
         }
         private void TimeOutToIdle()
         {
@@ -271,7 +290,7 @@ namespace TheChroniclesOfEllen {
                     comboCounter = 0;
                     animator.SetInteger("ComboCounter", comboCounter);
                 }
-                if (actualUse >= staff.MaxUses)
+                if (actualUse >= staff.MaxUsesSeries)
                 {
                     isMeleeReady = false;
                     isAttacking = false;
