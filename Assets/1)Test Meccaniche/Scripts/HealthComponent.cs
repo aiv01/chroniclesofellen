@@ -50,6 +50,7 @@ namespace TheChroniclesOfEllen
 
         public void TakeDamage(float damageAmount)
         {
+            Debug.Log("Colpito");
             shieldActive = powerUpSystem.IsShieldActive();
             if (!shieldActive)
             {

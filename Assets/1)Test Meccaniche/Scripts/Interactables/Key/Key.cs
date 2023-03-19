@@ -17,6 +17,7 @@ namespace TheChroniclesOfEllen
             if (other.gameObject.tag == "Player")
             {
                 ItemFound.Invoke(true);
+                ItemFound.Invoke(true);
             }
         }
 
@@ -24,7 +25,6 @@ namespace TheChroniclesOfEllen
         {
             player.HasKey = true;
             Debug.Log("MIO PADRE");
-            gameObject.SetActive(false);
         }
 
     }

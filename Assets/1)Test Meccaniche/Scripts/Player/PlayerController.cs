@@ -378,7 +378,6 @@ namespace TheChroniclesOfEllen {
 
         public void SetStaffStatus(bool status)
         {
-            //TODO: chiedere a samuele
             if (IsMeleeReady) return;
             IsMeleeReady = true;
             staff.gameObject.SetActive(status);

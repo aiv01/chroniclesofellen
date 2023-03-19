@@ -115,11 +115,6 @@ namespace TheChroniclesOfEllen
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.layer == 3)
-            {
-                isGrounded = true;
-                enemyAnimator.SetBool("Grounded", true);
-            }
             if (isAttacking && collision.gameObject.tag == "Player")
             {
                 OnPlayerHit.Invoke(enemyDamage);
