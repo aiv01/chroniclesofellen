@@ -8,7 +8,7 @@ namespace TheChroniclesOfEllen
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(ShootComponent))]
-    public class SpitterController : MonoBehaviour
+    public class SpitterController : BaseEnemyComponent
     {
         public BaseEnemySO enemySO;
         public Transform fleeDirection;

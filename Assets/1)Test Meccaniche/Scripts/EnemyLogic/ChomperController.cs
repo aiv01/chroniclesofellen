@@ -9,7 +9,7 @@ namespace TheChroniclesOfEllen
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(NavMeshAgent))]
-    public class ChomperController : MonoBehaviour
+    public class ChomperController : BaseEnemyComponent
     {
         [SerializeField]
         private UnityEvent<float> OnPlayerHit;
