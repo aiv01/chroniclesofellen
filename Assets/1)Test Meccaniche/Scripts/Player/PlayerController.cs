@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.Android;
 
-namespace TheChroniclesOfEllen {
+namespace TheChroniclesOfEllen
+{
 
     public class PlayerController : MonoBehaviour
     {
@@ -16,13 +17,12 @@ namespace TheChroniclesOfEllen {
         private PlayerInput playerInput;
         [SerializeField]
         private Staff staff;
-        public Staff Staff { get { return staff; } set { staff = value; } }
         [SerializeField]
         private Transform cameraTransform;
         [SerializeField]
         private ShootComponent shootComponent;
         private HealthComponent playerHealth;
-        
+
         //reference powerup e vita e danno
 
         #endregion
@@ -35,7 +35,6 @@ namespace TheChroniclesOfEllen {
         private bool isAttackPressed = false;
         private bool isAttacking = false;
         private bool isMeleeReady = false;
-        public bool IsMeleeReady { get { return isMeleeReady; } set { isMeleeReady = value; } }
         private bool isRangedReady = false;
         private bool isShootPressed = false;
         #endregion
@@ -65,9 +64,12 @@ namespace TheChroniclesOfEllen {
         #region Attack variables
         private int comboCounter = 0;
         private int actualUse = 0;
+        [SerializeField]
+        private Transform shootTarget;
+        private float minDistanceToTarget = 10f;
         #endregion
         #region other
-       float timer = 0;
+        float timer = 0;
         int randomIdle;
         private bool hasKey;
         public bool HasKey { get { return hasKey; } set { hasKey = value; } }
@@ -102,9 +104,6 @@ namespace TheChroniclesOfEllen {
             playerInput.Player.Movement.started += onMovement;
             playerInput.Player.Movement.performed += onMovement;
             playerInput.Player.Movement.canceled += onMovement;
-            playerInput.Player.Look.started += onLook;
-            playerInput.Player.Look.performed += onLook;
-            playerInput.Player.Look.canceled += onLook;
             playerInput.Player.MeleeAttack.started += onMeleeAttack;
             playerInput.Player.MeleeAttack.performed += onMeleeAttack;
             playerInput.Player.MeleeAttack.canceled += onMeleeAttack;
@@ -125,6 +124,7 @@ namespace TheChroniclesOfEllen {
             if (!playerHealth.IsAlive)
             {
                 Debug.Log("A pischella � laziale");
+                animator.SetTrigger("Death");
                 return;
             }
             if (isGrounded)
@@ -133,13 +133,12 @@ namespace TheChroniclesOfEllen {
                 animator.SetBool("Grounded", true);
             }
 
-            if(isMovementPressed) Movement();
-            Look();
+            if (isMovementPressed) Movement();
 
             ApplyGravity();
             Jump();
 
-            if(isMeleeReady) MeleeAttack();
+            if (isMeleeReady) MeleeAttack();
             Aim();
             Shoot();
 
@@ -173,24 +172,11 @@ namespace TheChroniclesOfEllen {
                 transform.rotation = Quaternion.Euler(0, currentAngle, 0);
                 characterController.Move(rotatedMovement.normalized * movementSpeed * Time.deltaTime);
                 velocity = Vector3.Dot(rotatedMovement.normalized, transform.forward);
-                animator.SetFloat("ForwardSpeed", velocity, 0.5f, Time.deltaTime);
+                animator.SetFloat("ForwardSpeed", velocity);
             }
 
-        
 
-        }
 
-        private void onLook(InputAction.CallbackContext context)
-        {
-            lookInput = context.ReadValue<Vector2>();
-            if(context.canceled) lookInput = Vector2.zero;
-        }
-        private void Look()
-        {
-          look.x = lookInput.x;
-          look.y = lookInput.y;
-          float angle = Mathf.Atan2(look.x,look.y) * Mathf.Rad2Deg;
-          cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation,transform.rotation,angle * Time.deltaTime);
         }
         private void TimeOutToIdle()
         {
@@ -203,7 +189,8 @@ namespace TheChroniclesOfEllen {
                 timer = 0;
                 return;
 
-            } else
+            }
+            else
             {
                 timer += Time.deltaTime;
 
@@ -229,7 +216,8 @@ namespace TheChroniclesOfEllen {
         }
         private void Jump()
         {
-            if (!isJumping && isJumpPressed) {
+            if (!isJumping && isJumpPressed)
+            {
 
 
                 isJumping = true;
@@ -237,7 +225,8 @@ namespace TheChroniclesOfEllen {
                 animator.SetBool("Grounded", false);
                 jump.y = jumpVelocity;
 
-            } else if (isJumping && isJumpPressed && jumpCounter == 2)
+            }
+            else if (isJumping && isJumpPressed && jumpCounter == 2)
             {
                 jump.y = jumpVelocity * 2;
                 animator.SetFloat("AirborneVerticalSpeed", jump.y);
@@ -262,7 +251,8 @@ namespace TheChroniclesOfEllen {
                 jump.y = nextJumpVelocity;
                 animator.SetFloat("AirborneVerticalSpeed", jump.y);
 
-            } else if (isJumping)
+            }
+            else if (isJumping)
             {
                 jump.y += gravity * Time.deltaTime;
                 animator.SetFloat("AirborneVerticalSpeed", jump.y);
@@ -289,7 +279,7 @@ namespace TheChroniclesOfEllen {
                 movement = Vector3.zero;
                 animator.SetBool("IsAttacking", true);
                 comboCounter++;
-                
+
                 animator.SetInteger("ComboCounter", comboCounter);
                 if (comboCounter >= 4)
                 {
@@ -309,13 +299,15 @@ namespace TheChroniclesOfEllen {
                 }
 
 
-            } else if (!isAttackPressed && isAttacking && isGrounded)
+            }
+            else if (!isAttackPressed && isAttacking && isGrounded)
             {
 
                 isAttacking = false;
                 animator.SetBool("IsAttacking", false);
 
-            } else if (isAttacking && isAttackPressed && comboCounter >= 4)
+            }
+            else if (isAttacking && isAttackPressed && comboCounter >= 4)
             {
                 comboCounter = 0;
                 animator.SetInteger("ComboCounter", comboCounter);
@@ -326,11 +318,11 @@ namespace TheChroniclesOfEllen {
         }
         private void onAim(InputAction.CallbackContext context)
         {
-            if(shootComponent.gameObject.activeInHierarchy)
+            if (shootComponent.gameObject.activeInHierarchy)
             {
                 isRangedReady = context.ReadValueAsButton();
             }
-            
+
         }
         private void Aim()
         {
@@ -338,7 +330,20 @@ namespace TheChroniclesOfEllen {
             {
                 animator.SetBool("IsShootReady", true);
                 animator.SetLayerWeight(1, 1f);
-            } else
+                var target = FindFirstObjectByType<ChomperController>();
+                if(target == null) return;
+                if(Vector3.Distance(transform.position,target.transform.position) <= minDistanceToTarget)
+                {
+                    shootTarget.SetParent(target.transform);
+                    shootTarget.transform.localPosition = Vector3.zero;
+                    
+                }
+                Quaternion targetRotation = Quaternion.LookRotation(shootTarget.position - transform.position);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation,targetRotation,2f);
+
+
+            }
+            else
             {
                 animator.SetBool("IsShootReady", false);
                 animator.SetLayerWeight(1, 0f);
@@ -353,7 +358,8 @@ namespace TheChroniclesOfEllen {
                 isShootPressed = true;
 
 
-            } else if (context.canceled)
+            }
+            else if (context.canceled)
             {
                 isShootPressed = false;
 
@@ -367,7 +373,7 @@ namespace TheChroniclesOfEllen {
             {
                 animator.SetBool("IsShooting", true);
                 shootComponent.Shoot();
-            } 
+            }
             else
             {
                 animator.SetBool("IsShooting", false);
@@ -376,12 +382,13 @@ namespace TheChroniclesOfEllen {
         #endregion
         void onChangeWeapon(InputAction.CallbackContext context)
         {
-            if(context.started && shootComponent.gameObject.activeInHierarchy && isMeleeReady)
+            if (context.started && shootComponent.gameObject.activeInHierarchy && isMeleeReady)
             {
                 shootComponent.gameObject.SetActive(false);
                 staff.gameObject.SetActive(true);
 
-            }else if(context.started && staff.gameObject.activeInHierarchy)
+            }
+            else if (context.started && staff.gameObject.activeInHierarchy)
             {
                 shootComponent.gameObject.SetActive(true);
                 staff.gameObject.SetActive(false);
@@ -402,8 +409,8 @@ namespace TheChroniclesOfEllen {
 
         public void SetStaffStatus(bool status)
         {
-            if (IsMeleeReady) return;
-            IsMeleeReady = true;
+            if (isMeleeReady) return;
+            isMeleeReady = true;
             staff.gameObject.SetActive(status);
             shootComponent.gameObject.SetActive(false);
         }
