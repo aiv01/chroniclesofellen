@@ -22,4 +22,4 @@ MonoBehaviour:
   stopDistance: 1
   attackStopDistance: 3
   attackDistance: 4
-  pursuitDistance: 7
+  pursuitDistance: 10

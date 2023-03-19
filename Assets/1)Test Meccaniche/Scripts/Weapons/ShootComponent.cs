@@ -18,13 +18,16 @@ namespace TheChroniclesOfEllen
         private float currentOverheat;
         private float overheatPerBullet = 1.5f;
         private PlayerPowerUp powerUpSystem;
+        public bool isSpitter;
 
         // Start is called before the first frame update
         void Start()
         {
             currentTimer = 0;
             currentOverheat = 0;
-            powerUpSystem = GetComponentInParent<PlayerPowerUp>();
+
+            if(!isSpitter)
+                powerUpSystem = GetComponentInParent<PlayerPowerUp>();
         }
 
         // Update is called once per frame
@@ -40,7 +43,7 @@ namespace TheChroniclesOfEllen
             
             if (currentTimer > shootCD && currentOverheat <= overheat) 
             {
-                if (powerUpSystem.HaveSpecialLeft())
+                if (!isSpitter && powerUpSystem.HaveSpecialLeft()) 
                 {
                     bullet = BulletPool.GetBulletSpecial();
                 }

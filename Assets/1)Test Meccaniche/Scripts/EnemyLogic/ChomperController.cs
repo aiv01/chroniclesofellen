@@ -14,7 +14,7 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private UnityEvent<float> OnPlayerHit;
         public BaseEnemySO enemySO;
-        public Transform tergetPlayer;
+        public Transform targetPlayer;
         private NavMeshAgent agent;
         private Animator enemyAnimator;
         public Transform[] patrolPoints;
@@ -75,8 +75,8 @@ namespace TheChroniclesOfEllen
             currentPursuingTimer = 0;
             currentAttackCD = 0;
 
-            pursuingDistance = enemySO.pursuitDistance;
-            attackDistance = enemySO.attackDistance;
+            pursuingDistance = enemySO.pursuitDistance * enemySO.pursuitDistance;
+            attackDistance = enemySO.attackDistance * enemySO.attackDistance;
 
             enemyHealth = enemySO.healthPoint;
             currentEnemyHealth = enemyHealth;
@@ -160,7 +160,6 @@ namespace TheChroniclesOfEllen
         {
             isAttacking = IsAttackingPlayer();
             enemyAnimator.SetBool("InPursuit", !isAttacking);
-            isPursuing = !isAttacking;
             if (isAttacking)
             {
                 AttackPlayer();
@@ -191,18 +190,19 @@ namespace TheChroniclesOfEllen
             if (currentPursuingTimer >= pursuingTimer)
             {
                 currentPursuingTimer = 0;
-                agent.destination = tergetPlayer.position;
+                agent.destination = targetPlayer.position;
             }
         }
         private bool IsPursuingPlayer()
         {
-            float distance = (tergetPlayer.position - transform.position).sqrMagnitude;
+            float distance = (targetPlayer.position - transform.position).sqrMagnitude;
             return distance <= pursuingDistance;
         }
 
         private void AttackPlayer()
         {
             agent.stoppingDistance = attackStopDistance;
+            transform.LookAt(targetPlayer);
             currentAttackCD += Time.deltaTime;
             if (currentAttackCD >= attackCD)
             {
@@ -213,8 +213,8 @@ namespace TheChroniclesOfEllen
         }
         private bool IsAttackingPlayer()
         {
-            float distance = (tergetPlayer.position - transform.position).sqrMagnitude;
-            return distance <= (attackDistance * attackDistance);
+            float distance = (targetPlayer.position - transform.position).sqrMagnitude;
+            return distance <= attackDistance;
         }
     }
 
