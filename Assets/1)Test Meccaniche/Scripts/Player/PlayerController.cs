@@ -330,17 +330,27 @@ namespace TheChroniclesOfEllen
             {
                 animator.SetBool("IsShootReady", true);
                 animator.SetLayerWeight(1, 1f);
-                var target = FindFirstObjectByType<ChomperController>();
-                if(target == null) return;
-                if(Vector3.Distance(transform.position,target.transform.position) <= minDistanceToTarget)
+            
+                var target = GameObject.FindObjectsByType<ChomperController>(FindObjectsSortMode.None);
+
+                foreach(var tar in target)
                 {
-                    shootTarget.SetParent(target.transform);
+                    if(tar == null) return;
+                     if(Vector3.Distance(transform.position,tar.transform.position) <= minDistanceToTarget)
+                {
+                    shootTarget.SetParent(tar.transform);
                     shootTarget.transform.localPosition = Vector3.zero;
                     
+                }else 
+                    shootTarget.parent = null;
+                    
+                if(shootTarget.parent != null)
+                {
+                     Quaternion targetRotation = Quaternion.LookRotation(shootTarget.position - transform.position);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation,targetRotation,2f);
                 }
-                Quaternion targetRotation = Quaternion.LookRotation(shootTarget.position - transform.position);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation,targetRotation,2f);
 
+                }
 
             }
             else
