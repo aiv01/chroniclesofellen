@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEngine.Android;
 
 namespace TheChroniclesOfEllen {
 
@@ -373,6 +374,14 @@ namespace TheChroniclesOfEllen {
         {
             if (staff.gameObject.activeInHierarchy == false) return;
             staff.transform.GetComponentInChildren<Renderer>().enabled = true;
+        }
+
+        public void SetStaffStatus(bool status)
+        {
+            //TODO: chiedere a samuele
+            if (IsMeleeReady) return;
+            IsMeleeReady = true;
+            staff.gameObject.SetActive(status);
         }
     }
 }

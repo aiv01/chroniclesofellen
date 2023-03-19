@@ -206,6 +206,175 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214133462}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &279654138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 279654143}
+  - component: {fileID: 279654142}
+  - component: {fileID: 279654141}
+  - component: {fileID: 279654140}
+  - component: {fileID: 279654139}
+  m_Layer: 0
+  m_Name: PermanentPU
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &279654139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279654138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef9294a20845b534da8046ce6feda076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1225403590}
+        m_TargetAssemblyTypeName: TheChroniclesOfEllen.PlayerPowerUp, Assembly-CSharp
+        m_MethodName: ChangePowerUp
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 279654139}
+          m_ObjectArgumentAssemblyTypeName: TheChroniclesOfEllen.PowerUp, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  powerUpsSO: {fileID: 11400000, guid: 86502989d520b874ea309de698b5b845, type: 2}
+  type: 3
+  IncrementHealth:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1225403592}
+        m_TargetAssemblyTypeName: TheChroniclesOfEllen.HealthComponent, Assembly-CSharp
+        m_MethodName: IncreaseMaxHealth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1087136009}
+        m_TargetAssemblyTypeName: TheChroniclesOfEllen.GameMgr, Assembly-CSharp
+        m_MethodName: IncrementHealth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  IncrementDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1087136009}
+        m_TargetAssemblyTypeName: TheChroniclesOfEllen.GameMgr, Assembly-CSharp
+        m_MethodName: IncrementDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!135 &279654140
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279654138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &279654141
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279654138}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &279654142
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279654138}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &279654143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279654138}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.39515, y: 2.0528402, z: -7.86458}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &294468252
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +529,7 @@ Transform:
   - {fileID: 1700431153}
   - {fileID: 1612742294}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &296872923
 GameObject:
@@ -582,7 +751,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &356724519
 MonoBehaviour:
@@ -673,7 +842,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404504643}
-  m_LocalRotation: {x: 0.32714325, y: -0.00000001107685, z: 0.0000000038347236, w: 0.9449748}
+  m_LocalRotation: {x: 0.32714328, y: 0.000000030262516, z: -0.000000010476659, w: 0.9449748}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -924,6 +1093,148 @@ MonoBehaviour:
     type: 3}
   bulletSpecialPrefab: {fileID: 2142526837813181069, guid: 606c278ac73eaff469bfc083963519a1,
     type: 3}
+--- !u!1 &618980762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 618980767}
+  - component: {fileID: 618980766}
+  - component: {fileID: 618980765}
+  - component: {fileID: 618980764}
+  - component: {fileID: 618980763}
+  m_Layer: 0
+  m_Name: HeathPU
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &618980763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618980762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9e98b11c7bd8941bb7f30a75f72b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1225403590}
+        m_TargetAssemblyTypeName: TheChroniclesOfEllen.PlayerPowerUp, Assembly-CSharp
+        m_MethodName: ChangePowerUp
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 618980763}
+          m_ObjectArgumentAssemblyTypeName: TheChroniclesOfEllen.PowerUp, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  powerUpsSO: {fileID: 0}
+  type: 2
+  Heal:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1225403592}
+        m_TargetAssemblyTypeName: TheChroniclesOfEllen.HealthComponent, Assembly-CSharp
+        m_MethodName: HealMe
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!135 &618980764
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618980762}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &618980765
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618980762}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &618980766
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618980762}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &618980767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618980762}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.39515, y: 2.0528402, z: -7.86458}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &681667160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -939,12 +1250,12 @@ PrefabInstance:
     - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.55
+      value: 17.09
       objectReference: {fileID: 0}
     - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
         type: 3}
@@ -954,7 +1265,7 @@ PrefabInstance:
     - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.27
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
         type: 3}
@@ -1133,7 +1444,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864069138}
-  m_LocalRotation: {x: 0.28658772, y: -0.000000032969286, z: 0.0000000098622746, w: 0.95805407}
+  m_LocalRotation: {x: 0.28658772, y: 0.000000032969286, z: -0.0000000098622746, w: 0.95805407}
   m_LocalPosition: {x: 0, y: 3.54, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1208,106 +1519,199 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!1001 &1170333094
+--- !u!1001 &938234440
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 298828978785802515, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 100018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_Name
-      value: GunPU (1)
+      value: SwitchStanding
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.55
+      value: -4.5827236
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.76
+      value: -15.41
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 298828978785802518, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
+    - target: {fileID: 400018, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8607461691151445965, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
-      propertyPath: type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607461691151445965, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
-      propertyPath: bulletLeft
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607461691151445965, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
-      propertyPath: powerUpsSO
-      value: 
-      objectReference: {fileID: 11400000, guid: a05d5b92a45e7ee45a7f04ec035a2365,
-        type: 2}
-    - target: {fileID: 8607461691151445965, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
-      propertyPath: pickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1225403590}
-    - target: {fileID: 8607461691151445965, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
-      propertyPath: pickUp.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangePowerUp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607461691151445965, guid: 9f79c0f70d9fc3b47b414d5e61ce6705,
-        type: 3}
-      propertyPath: pickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: TheChroniclesOfEllen.PowerUp, Assembly-CSharp
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9f79c0f70d9fc3b47b414d5e61ce6705, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 7d3c05bccd7388942bcf8215cf4481c2, type: 3}
+--- !u!1 &938234441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100018, guid: 7d3c05bccd7388942bcf8215cf4481c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 938234440}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &938234442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100028, guid: 7d3c05bccd7388942bcf8215cf4481c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 938234440}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &938234443
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938234441}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &938234444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938234441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5399102d8f6f90d4ab4321a3ecc5b00e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SaveTheGame:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1087136009}
+        m_TargetAssemblyTypeName: TheChroniclesOfEllen.GameMgr, Assembly-CSharp
+        m_MethodName: Save
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  LoadTheGame:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1087136009}
+        m_TargetAssemblyTypeName: TheChroniclesOfEllen.GameMgr, Assembly-CSharp
+        m_MethodName: Load
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  savePointNumber: 1
+--- !u!65 &938234445
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938234442}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99427986, y: 2.2696662, z: 1.0114691}
+  m_Center: {x: 0.0026345253, y: -0.7113296, z: 0.00000011920929}
+--- !u!1 &1087136008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1087136010}
+  - component: {fileID: 1087136009}
+  m_Layer: 0
+  m_Name: GameMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1087136009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087136008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb735aaa61a51244988cdf0f2013ce32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 0}
+  currentFile:
+    MaxHp: 0
+    DamageScale: 0
+    HasDoubleJump: 0
+    HasKey: 0
+    HasDash: 0
+    Progression: 0
+    Area: 0
+    SavePointNumber: 0
+  defaultFile: {fileID: 11400000, guid: c7a3de1ea2bba524daf1713a6f356273, type: 2}
+--- !u!4 &1087136010
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087136008}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.14484979, y: 2.0528402, z: 2.90542}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1225403583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1500,7 +1904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shield: {fileID: 214133463}
---- !u!1 &1367183025
+--- !u!1 &1300918024
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1508,25 +1912,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1367183030}
-  - component: {fileID: 1367183029}
-  - component: {fileID: 1367183028}
-  - component: {fileID: 1367183027}
-  - component: {fileID: 1367183026}
+  - component: {fileID: 1300918029}
+  - component: {fileID: 1300918028}
+  - component: {fileID: 1300918027}
+  - component: {fileID: 1300918026}
+  - component: {fileID: 1300918025}
   m_Layer: 0
-  m_Name: ShieldPuso
+  m_Name: ShieldPU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1367183026
+--- !u!114 &1300918025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1367183025}
+  m_GameObject: {fileID: 1300918024}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 452c85fa44ee2e841a6ab313f5c8a44c, type: 3}
@@ -1540,7 +1944,7 @@ MonoBehaviour:
         m_MethodName: ChangePowerUp
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1367183026}
+          m_ObjectArgument: {fileID: 1300918025}
           m_ObjectArgumentAssemblyTypeName: TheChroniclesOfEllen.PowerUp, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1549,28 +1953,27 @@ MonoBehaviour:
         m_CallState: 2
   powerUpsSO: {fileID: 11400000, guid: 75a01c38899d23f4184b095fc2c1658d, type: 2}
   type: 0
-  hitLeft: 5
---- !u!136 &1367183027
-CapsuleCollider:
+  hitLeft: 0
+--- !u!135 &1300918026
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1367183025}
+  m_GameObject: {fileID: 1300918024}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!23 &1367183028
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1300918027
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1367183025}
+  m_GameObject: {fileID: 1300918024}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -1606,28 +2009,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1367183029
+--- !u!33 &1300918028
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1367183025}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1367183030
+  m_GameObject: {fileID: 1300918024}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1300918029
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1367183025}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.674, y: 1.08, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_GameObject: {fileID: 1300918024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.39515, y: 2.0528402, z: -7.86458}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1389823123
 GameObject:
@@ -1659,7 +2062,7 @@ Transform:
   m_Children:
   - {fileID: 1225403589}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1612742292
 GameObject:
@@ -1808,7 +2211,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700431151}
-  m_LocalRotation: {x: 0.28658772, y: -0.000000016484641, z: 0.000000004931138, w: 0.958054}
+  m_LocalRotation: {x: 0.28658772, y: 0.000000016484641, z: -0.000000004931138, w: 0.958054}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1899,7 +2302,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1967305618
 BoxCollider:
@@ -2285,6 +2688,41 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
+    - target: {fileID: 3316536609370853881, guid: fbf991a19e87a6e489526c9832c2e3d5,
+        type: 3}
+      propertyPath: ItemFound.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316536609370853881, guid: fbf991a19e87a6e489526c9832c2e3d5,
+        type: 3}
+      propertyPath: ItemFound.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316536609370853881, guid: fbf991a19e87a6e489526c9832c2e3d5,
+        type: 3}
+      propertyPath: ItemFound.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1225403586}
+    - target: {fileID: 3316536609370853881, guid: fbf991a19e87a6e489526c9832c2e3d5,
+        type: 3}
+      propertyPath: ItemFound.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316536609370853881, guid: fbf991a19e87a6e489526c9832c2e3d5,
+        type: 3}
+      propertyPath: ItemFound.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetStaffStatus
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316536609370853881, guid: fbf991a19e87a6e489526c9832c2e3d5,
+        type: 3}
+      propertyPath: ItemFound.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TheChroniclesOfEllen.PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316536609370853881, guid: fbf991a19e87a6e489526c9832c2e3d5,
+        type: 3}
+      propertyPath: ItemFound.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbf991a19e87a6e489526c9832c2e3d5, type: 3}
 --- !u!1001 &4348749191390188606
@@ -2353,6 +2791,71 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1225403586}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1087136009}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_HasKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: FoundKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TheChroniclesOfEllen.PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TheChroniclesOfEllen.GameMgr, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348749191316495404, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe,
+        type: 3}
+      propertyPath: KeyFound.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7e2c151e82ff0242a2cf5ab5fa7cbbe, type: 3}

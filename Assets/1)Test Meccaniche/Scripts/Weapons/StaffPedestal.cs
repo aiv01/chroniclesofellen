@@ -1,41 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace TheChroniclesOfEllen{
-public class StaffPedestal : Interactable
+namespace TheChroniclesOfEllen
 {
-    private float angle;
-    private InteractableType type;
-    public InteractableType Type {get { return type;}}
-    private GameObject staffTransform;
-
-    void Start()
+    public class StaffPedestal : Interactable
     {
-        staffTransform = transform.Find("Staff").gameObject;
-        type = InteractableType.StaffPedestal;
+        private float angle;
+        private InteractableType type;
+        public InteractableType Type { get { return type; } }
+        private GameObject staffTransform;
 
-    }
-    private void Update()
-    {
-        angle += 4f * Time.deltaTime;
-        staffTransform.gameObject.transform.localPosition = Vector3.forward * Mathf.Sin(angle) * 0.5f;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Player")
+        void Start()
         {
-           OnPickUp(other.GetComponent<PlayerController>());
+            staffTransform = transform.Find("Staff").gameObject;
+            type = InteractableType.StaffPedestal;
+
+        }
+        private void Update()
+        {
+            angle += 4f * Time.deltaTime;
+            staffTransform.gameObject.transform.localPosition = Vector3.forward * Mathf.Sin(angle) * 0.5f;
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                ItemFound.Invoke(true);
+                gameObject.SetActive(false);
+            }
+        }
+
+        protected override void OnPickUp(PlayerController player)
+        {
         }
     }
-
-    protected override void OnPickUp(PlayerController player)
-    {
-        if(player.IsMeleeReady) return;
-        player.Staff.gameObject.SetActive(true);
-        player.IsMeleeReady = true;
-        gameObject.SetActive(false);
-    }
-}
 }

@@ -8,7 +8,7 @@ namespace TheChroniclesOfEllen
     [CreateAssetMenu(menuName = "Window/Health", fileName = "Health")]
     public class HealthPUSO : PowerUpSO
     {
-        public int healAmount;
+        public float healAmount;
 
         public override void SetPowerUpType()
         {

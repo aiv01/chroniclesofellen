@@ -48,9 +48,9 @@ namespace TheChroniclesOfEllen
             currentArea = newArea;
         }
 
-        public void FoundKey()
+        public void FoundKey(bool value)
         {
-            currentFile.HasKey = true;
+            currentFile.HasKey = value;
         }
         public void AddDoubleJump()
         {

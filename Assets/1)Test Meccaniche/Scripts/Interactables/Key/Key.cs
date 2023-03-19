@@ -1,31 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace TheChroniclesOfEllen{
-    
-public class Key : Interactable
+namespace TheChroniclesOfEllen
 {
-
-    void Update()
+    public class Key : Interactable
     {
-        transform.Rotate(Vector3.up,Space.World);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Player")
+        void Update()
         {
-            OnPickUp(other.GetComponent<PlayerController>());
+            transform.Rotate(Vector3.up, Space.World);
         }
-    }
 
-    protected override void OnPickUp(PlayerController player)
-    {
-        player.HasKey = true;
-        Debug.Log("MIO PADRE");
-        gameObject.SetActive(false);
-    }
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                ItemFound.Invoke(true);
+            }
+        }
 
-}   
+        protected override void OnPickUp(PlayerController player)
+        {
+            player.HasKey = true;
+            Debug.Log("MIO PADRE");
+            gameObject.SetActive(false);
+        }
+
+    }
 }

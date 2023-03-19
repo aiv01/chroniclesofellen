@@ -30,8 +30,9 @@ namespace TheChroniclesOfEllen
         {
             power = newPowerUp;
 
-            if(power != null ) 
+            if (power != null)
                 power.OnStart();
+
         }
 
         public bool IsShieldActive()
