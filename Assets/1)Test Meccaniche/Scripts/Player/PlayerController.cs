@@ -114,6 +114,9 @@ namespace TheChroniclesOfEllen {
             playerInput.Player.Aim.started += onAim;
             playerInput.Player.Aim.performed += onAim;
             playerInput.Player.Aim.canceled += onAim;
+            playerInput.Player.Makeaction.started += onChangeWeapon;
+            playerInput.Player.Makeaction.performed += onChangeWeapon;
+            playerInput.Player.Makeaction.canceled += onChangeWeapon;
 
         }
 
@@ -136,7 +139,7 @@ namespace TheChroniclesOfEllen {
             ApplyGravity();
             Jump();
 
-            if (isMeleeReady) MeleeAttack();
+            if(isMeleeReady) MeleeAttack();
             Aim();
             Shoot();
 
@@ -173,7 +176,7 @@ namespace TheChroniclesOfEllen {
                 animator.SetFloat("ForwardSpeed", velocity, 0.5f, Time.deltaTime);
             }
 
-            if (movement == Vector3.zero) return;
+        
 
         }
 
@@ -184,7 +187,8 @@ namespace TheChroniclesOfEllen {
         }
         private void Look()
         {
-          look = new Vector3(lookInput.x,lookInput.y,0);
+          look.x = lookInput.x;
+          look.y = lookInput.y;
           float angle = Mathf.Atan2(look.x,look.y) * Mathf.Rad2Deg;
           cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation,transform.rotation,angle * Time.deltaTime);
         }
@@ -270,6 +274,7 @@ namespace TheChroniclesOfEllen {
         }
         #endregion
         #region Attack Mechanics
+
         private void onMeleeAttack(InputAction.CallbackContext context)
         {
 
@@ -284,10 +289,11 @@ namespace TheChroniclesOfEllen {
                 movement = Vector3.zero;
                 animator.SetBool("IsAttacking", true);
                 comboCounter++;
-                actualUse++;
+                
                 animator.SetInteger("ComboCounter", comboCounter);
                 if (comboCounter >= 4)
                 {
+                    actualUse++;
                     comboCounter = 0;
                     animator.SetInteger("ComboCounter", comboCounter);
                 }
@@ -298,6 +304,7 @@ namespace TheChroniclesOfEllen {
                     comboCounter = 0;
                     actualUse = 0;
                     staff.gameObject.SetActive(false);
+                    shootComponent.gameObject.SetActive(true);
                     animator.SetBool("IsAttacking", isAttacking);
                 }
 
@@ -319,7 +326,11 @@ namespace TheChroniclesOfEllen {
         }
         private void onAim(InputAction.CallbackContext context)
         {
-            isRangedReady = context.ReadValueAsButton();
+            if(shootComponent.gameObject.activeInHierarchy)
+            {
+                isRangedReady = context.ReadValueAsButton();
+            }
+            
         }
         private void Aim()
         {
@@ -363,7 +374,20 @@ namespace TheChroniclesOfEllen {
             }
         }
         #endregion
-        //cunzione scudo
+        void onChangeWeapon(InputAction.CallbackContext context)
+        {
+            if(context.started && shootComponent.gameObject.activeInHierarchy && isMeleeReady)
+            {
+                shootComponent.gameObject.SetActive(false);
+                staff.gameObject.SetActive(true);
+
+            }else if(context.started && staff.gameObject.activeInHierarchy)
+            {
+                shootComponent.gameObject.SetActive(true);
+                staff.gameObject.SetActive(false);
+
+            }
+        }
         void MakeWeaponDisappearInIdle()
         {
             //control weapon type
@@ -381,6 +405,9 @@ namespace TheChroniclesOfEllen {
             if (IsMeleeReady) return;
             IsMeleeReady = true;
             staff.gameObject.SetActive(status);
+            shootComponent.gameObject.SetActive(false);
         }
+
+
     }
 }
