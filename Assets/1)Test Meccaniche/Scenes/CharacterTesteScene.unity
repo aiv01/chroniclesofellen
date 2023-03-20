@@ -627,6 +627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySO: {fileID: 11400000, guid: 8aafec5c07779a64693bdeda900c645d, type: 2}
+  playerPosition: {fileID: 1225403589}
   OnPlayerHit:
     m_PersistentCalls:
       m_Calls:
@@ -642,8 +644,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enemySO: {fileID: 11400000, guid: 8aafec5c07779a64693bdeda900c645d, type: 2}
-  targetPlayer: {fileID: 1225403589}
   patrolPoints:
   - {fileID: 335649139}
   - {fileID: 1702223033}
@@ -655,7 +655,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429355199}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1538,6 +1538,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 202796514}
   shootComponent: {fileID: 612657195}
   movementSpeed: 3
+  shootTarget: {fileID: 0}
 --- !u!114 &1225403587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,6 +1852,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7873714603540115119, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 82d077d3e270e894b8062247b1fd88b7, type: 2}
     m_RemovedComponents:
     - {fileID: 7873714603489500591, guid: ca53ef3cea8c4944fb83729b4e0656a8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ca53ef3cea8c4944fb83729b4e0656a8, type: 3}
@@ -2048,8 +2054,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 2ea1a83f5813c9146a706cdbfc129ed1, type: 2}
-  fleeDirection: {fileID: 335649139}
   playerPosition: {fileID: 1225403589}
+  fleeDirection: {fileID: 335649139}
 --- !u!114 &1895415890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2376,7 +2382,7 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: 748bc1874cde6d94285c61d6736aad60, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 009395dc7090d314ea40f3b81c03d2a0, type: 2}
+      objectReference: {fileID: 9100000, guid: 70ccd20033c4ca54aac126c89a8da47a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 748bc1874cde6d94285c61d6736aad60, type: 3}
 --- !u!1001 &1893223196932970764

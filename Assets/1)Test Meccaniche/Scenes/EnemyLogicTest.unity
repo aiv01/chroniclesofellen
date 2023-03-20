@@ -228,7 +228,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149792363}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.14, y: 0.5, z: 10.74}
+  m_LocalPosition: {x: 6.12, y: 0.5, z: 5.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -430,6 +430,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7873714603540115119, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 82d077d3e270e894b8062247b1fd88b7, type: 2}
     m_RemovedComponents:
     - {fileID: 7873714603489500591, guid: ca53ef3cea8c4944fb83729b4e0656a8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ca53ef3cea8c4944fb83729b4e0656a8, type: 3}
@@ -584,23 +589,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySO: {fileID: 11400000, guid: 8aafec5c07779a64693bdeda900c645d, type: 2}
+  playerPosition: {fileID: 149792368}
   OnPlayerHit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 149792369}
-        m_TargetAssemblyTypeName: TheChroniclesOfEllen.HealthComponent, Assembly-CSharp
-        m_MethodName: TakeDamage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  enemySO: {fileID: 11400000, guid: 8aafec5c07779a64693bdeda900c645d, type: 2}
-  tergetPlayer: {fileID: 149792368}
+      m_Calls: []
   patrolPoints:
   - {fileID: 1291258206}
   - {fileID: 773931781}
@@ -950,8 +943,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 2ea1a83f5813c9146a706cdbfc129ed1, type: 2}
-  fleeDirection: {fileID: 0}
   playerPosition: {fileID: 0}
+  fleeDirection: {fileID: 0}
 --- !u!114 &1627921993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,6 +960,7 @@ MonoBehaviour:
   mouthOfFire: {fileID: 0}
   damage: 0
   shootCD: 0.5
+  isSpitter: 0
 --- !u!195 &1627921994
 NavMeshAgent:
   m_ObjectHideFlags: 0
