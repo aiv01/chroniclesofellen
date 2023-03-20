@@ -10,48 +10,30 @@ namespace TheChroniclesOfEllen
     [RequireComponent(typeof(ShootComponent))]
     public class SpitterController : BaseEnemyComponent
     {
-        public BaseEnemySO enemySO;
         public Transform fleeDirection;
-        public Transform playerPosition;
-        private NavMeshAgent agent;
-        private Animator enemyAnimator;
         private ShootComponent shootComponent;
+        private Transform[] fleePoints;
 
-        private EnemyType type;
-
-        private bool isGrounded;
-        private bool isAttacking;
         private bool isFleeing;
-
-        private float normalStopDistance;
-        private float attackStopDistance;
-        private float sqrStopDistance;
 
         private float fleeingTimer;
         private float currentFleeingTimer;
+        private int currentFleePoint;
 
         private float fleeingDistance;
-        private float attackDistance;
 
-        private float enemyHealth;
-        private float currentEnemyHealth;
-
-
-
+        private float distanceToFleePoint
+        {
+            get { return (fleePoints[currentFleePoint].position - transform.position).sqrMagnitude; }
+        }
 
         // Start is called before the first frame update
         void Start()
         {
-            isGrounded = true;
+            base.Start();
             isFleeing = false;
-            isAttacking = false;
 
-            agent = GetComponent<NavMeshAgent>();
-            enemyAnimator = GetComponent<Animator>();
             shootComponent = GetComponent<ShootComponent>();
-
-            normalStopDistance = enemySO.stopDistance;
-            attackStopDistance = enemySO.attackStopDistance;
 
             fleeingTimer = enemySO.pursuitTime; 
             shootComponent.shootCD = enemySO.attackCD;
@@ -59,51 +41,26 @@ namespace TheChroniclesOfEllen
             currentFleeingTimer = 0;
 
             fleeingDistance = enemySO.pursuitDistance * enemySO.pursuitDistance;
-            attackDistance = enemySO.attackDistance * enemySO.attackDistance;
-
-            enemyHealth = enemySO.healthPoint;
-            currentEnemyHealth = enemyHealth;
-            type = enemySO.type;
+            currentFleePoint = Random.Range(0, fleePoints.Length);
+            agent.SetDestination(fleePoints[currentFleePoint].position);
         }
 
         // Update is called once per frame
         void Update()
         {
-            //TODO: capire come fare sta roba
-
-            if (isGrounded)
+            Flee();
+            if (!isFleeing)
             {
-                Flee();
-                if (!isFleeing)
-                {
-                    Attack();
-                }
-            }
-            else
-            {
-                ApplyGravity();
+                Attack();
             }
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.layer == 3)
-            {
-                isGrounded = true;
-                enemyAnimator.SetBool("Grounded", true);
-            }
             if (collision.gameObject.tag == "PlayerWeaponHitBox")
             {
                 enemyAnimator.SetTrigger("Hit");
 
-            }
-        }
-        private void OnCollisionExit(Collision collision)
-        {
-            if (collision.gameObject.layer == 3)
-            {
-                isGrounded = false;
-                enemyAnimator.SetBool("Grounded", false);
             }
         }
         private void ApplyGravity()
@@ -113,47 +70,47 @@ namespace TheChroniclesOfEllen
 
         private void Flee()
         {
-            isFleeing = IsFleeingPlayer();
-            enemyAnimator.SetBool("Fleeing", isFleeing);
             if (isFleeing)
             {
-                FleePlayer();
+                RunAway();
             }
+            else
+                agent.Stop();
         }
-        private void FleePlayer()
+        private bool IsFleeing()
         {
-            currentFleeingTimer += Time.deltaTime;
-            if (currentFleeingTimer >= fleeingTimer)
+            float distance = (transform.position - playerPosition.position).sqrMagnitude;
+            isFleeing = distance < fleeingDistance;
+            enemyAnimator.SetBool("IsFleeing", isFleeing);
+            return isFleeing;
+        }
+        private void RunAway()
+        {
+            if (distanceToFleePoint <= sqrStopDistance)
             {
-                currentFleeingTimer = 0;
-                agent.destination = fleeDirection.position;
+                currentFleePoint = Random.Range(0, fleePoints.Length);
+                agent.SetDestination(fleePoints[currentFleePoint].position);
             }
-        }
-        private bool IsFleeingPlayer()
-        {
-            float distance = (playerPosition.position - transform.position).sqrMagnitude;
-            return distance <= fleeingDistance;
         }
 
         private void Attack()
         {
-            bool haveTarget = IsAttackingPlayer();
-            enemyAnimator.SetBool("HaveTarget", haveTarget);
-            if (haveTarget)
+            if (IsShooting())
             {
-                enemyAnimator.SetTrigger("Attack");
-                AttackPlayer();
-            }
 
+            }
         }
-        private void AttackPlayer()
-        {
-            shootComponent.Shoot();
-        }
-        private bool IsAttackingPlayer()
+        private bool IsShooting()
         {
             float distance = (transform.position - playerPosition.position).sqrMagnitude;
-            return distance <= attackDistance;
+            isAttacking = distance <= attackDistance;
+            enemyAnimator.SetBool("IsAttacking", isAttacking);
+            return isAttacking;
         }
+        private void Shoot()
+        {
+            //usare in qualche modo lo sparo
+        }
+
     }
 }

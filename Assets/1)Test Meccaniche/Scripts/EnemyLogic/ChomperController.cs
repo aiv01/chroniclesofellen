@@ -13,24 +13,12 @@ namespace TheChroniclesOfEllen
     {
         [SerializeField]
         private UnityEvent<float> OnPlayerHit;
-        public BaseEnemySO enemySO;
-        public Transform targetPlayer;
-        private NavMeshAgent agent;
-        private Animator enemyAnimator;
         public Transform[] patrolPoints;
 
-        private EnemyType type;
-
-        private bool isGrounded;
-        private bool isAttacking;
         private bool isPursuing;
         private bool isPatroling;
 
-        private float normalStopDistance;
-        private float attackStopDistance;
-
         private int currentPatrolPoint;
-        private float sqrStopDistance;
 
         private float stayTimer;
         private float currentStayTimer;
@@ -39,77 +27,48 @@ namespace TheChroniclesOfEllen
         private float currentPursuingTimer;
         private float pursuingDistance;
 
-        private float attackCD;
-        private float currentAttackCD;
-        private float attackDistance;
+        //private float attackCD;
+        //private float currentAttackCD;
 
-        private float enemyHealth;
         private float enemyDamage;
-        private float currentEnemyHealth;
 
         // Start is called before the first frame update
         void Start()
         {
-            isGrounded = true;
+            base.Start();
             isPursuing = false;
-            isAttacking = false; 
             isPatroling = false;
-
 
             stayTimer = enemySO.stayTime;
             currentStayTimer = 0;
 
             currentPatrolPoint = 0;
 
-            agent = GetComponent<NavMeshAgent>();
-            enemyAnimator = GetComponent<Animator>();
-
-            enemyAnimator.SetBool("Grounded", isGrounded);
-
-            normalStopDistance = enemySO.stopDistance;
-            attackStopDistance = enemySO.attackStopDistance;
-
             pursuingTimer = enemySO.pursuitTime;
-            attackCD = enemySO.attackCD;
+            //currentAttackCD = 0;
+            //attackCD = enemySO.attackCD;
 
             currentPursuingTimer = 0;
-            currentAttackCD = 0;
 
             pursuingDistance = enemySO.pursuitDistance * enemySO.pursuitDistance;
-            attackDistance = enemySO.attackDistance * enemySO.attackDistance;
 
-            enemyHealth = enemySO.healthPoint;
-            currentEnemyHealth = enemyHealth;
-            type = enemySO.type;
-
+            agent.SetDestination(patrolPoints[currentPatrolPoint].position);
             agent.speed = enemySO.speed;
             //da vedere come fare per le animazioni
             //enemyAnimator.speed = enemySO.speed;
-
-            sqrStopDistance = agent.stoppingDistance * agent.stoppingDistance;
         }
 
         // Update is called once per frame
         void Update()
         {
-            //TODO: capire come fare sta roba
-
-            if (isGrounded)
+            Attack();
+            if (!isAttacking)
             {
-                Attack();
-                if (!isAttacking)
+                Pursuit();
+                if (!isPursuing)
                 {
-                    agent.stoppingDistance = normalStopDistance;
-                    Pursuit();
-                    if (!isPursuing)
-                    {
-                        Patrol();
-                    }
+                    Patrol();
                 }
-            }
-            else
-            {
-                ApplyGravity();
             }
         }
 
@@ -125,14 +84,6 @@ namespace TheChroniclesOfEllen
 
             }
         }
-        private void OnCollisionExit(Collision collision)
-        {
-            if (collision.gameObject.layer == 3)
-            {
-                isGrounded = false;
-                enemyAnimator.SetBool("Grounded", false);
-            }
-        }
         private void ApplyGravity()
         {
             transform.position += new Vector3(0, -9.81f * Time.deltaTime, 0);
@@ -140,82 +91,73 @@ namespace TheChroniclesOfEllen
 
         private void Patrol()
         {
-            isPatroling = IsNearCheckPoint();
-            enemyAnimator.SetBool("NearBase", isPatroling);
-            if (isPatroling)
+            if (!IsPatroling())
             {
-                MoveToPatroPoint();
+                ChangePatrolPoint();
             }
         }
-        private void Pursuit()
+        private bool IsPatroling()
         {
-            isPursuing = IsPursuingPlayer();
-            enemyAnimator.SetBool("InPursuit", isPursuing);
-            if (isPursuing)
-            {
-                PursuitPlayer();
-            }
+            float distance = (transform.position - patrolPoints[currentPatrolPoint].position).sqrMagnitude;
+            isPatroling = distance >= sqrStopDistance;
+            enemyAnimator.SetBool("IsPatroling", isPatroling);
+            enemyAnimator.SetBool("IsNearBase", !isPatroling);
+            return isPatroling;
         }
-        private void Attack()
-        {
-            isAttacking = IsAttackingPlayer();
-            enemyAnimator.SetBool("InPursuit", !isAttacking);
-            if (isAttacking)
-            {
-                AttackPlayer();
-            }
-        }
-
-        private bool IsNearCheckPoint()
-        {
-            Vector3 deltaPosition = agent.destination - transform.position;
-
-            return deltaPosition.sqrMagnitude <= sqrStopDistance;
-        }
-        private void MoveToPatroPoint()
+        private void ChangePatrolPoint()
         {
             currentStayTimer += Time.deltaTime;
-
             if (currentStayTimer >= stayTimer)
             {
                 currentStayTimer = 0;
-                currentPatrolPoint = (currentPatrolPoint + 1) % patrolPoints.Length;
+                currentPatrolPoint = currentPatrolPoint + 1 % patrolPoints.Length;
                 agent.SetDestination(patrolPoints[currentPatrolPoint].position);
             }
         }
 
+        private void Pursuit()
+        {
+            if(IsPursuing())
+            {
+                PursuitPlayer();
+            }
+        }
+        private bool IsPursuing()
+        {
+            float disance = (transform.position - playerPosition.position).sqrMagnitude;
+            isPursuing = disance <= pursuingDistance;
+            enemyAnimator.SetBool("IsPursuing", isPursuing);
+            return isPursuing;
+        }
         private void PursuitPlayer()
         {
             currentPursuingTimer += Time.deltaTime;
             if (currentPursuingTimer >= pursuingTimer)
             {
-                currentPursuingTimer = 0;
-                agent.destination = targetPlayer.position;
+                agent.SetDestination(playerPosition.position);
             }
         }
-        private bool IsPursuingPlayer()
-        {
-            float distance = (targetPlayer.position - transform.position).sqrMagnitude;
-            return distance <= pursuingDistance;
-        }
 
-        private void AttackPlayer()
+        private void Attack()
         {
-            agent.stoppingDistance = attackStopDistance;
-            transform.LookAt(targetPlayer);
-            currentAttackCD += Time.deltaTime;
-            if (currentAttackCD >= attackCD)
+            if (IsAttacking())
             {
-                currentAttackCD = 0;
-                enemyAnimator.SetTrigger("Attack");
+                RotateEnemy();
             }
-
         }
-        private bool IsAttackingPlayer()
+        private bool IsAttacking()
         {
-            float distance = (targetPlayer.position - transform.position).sqrMagnitude;
-            return distance <= attackDistance;
+            float distance = (transform.position - playerPosition.position).sqrMagnitude;
+            isAttacking = distance <= attackDistance;
+            enemyAnimator.SetBool("IsAttacking", isAttacking);
+            return isAttacking;
         }
+        private void RotateEnemy()
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.LookRotation((playerPosition.position - transform.position).normalized), Time.deltaTime);
+        }
+
     }
 
 }
