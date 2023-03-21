@@ -10,7 +10,6 @@ namespace TheChroniclesOfEllen
     [RequireComponent(typeof(ShootComponent))]
     public class SpitterController : BaseEnemyComponent
     {
-        public Transform fleeDirection;
         private ShootComponent shootComponent;
         [SerializeField]
         private Transform[] fleePoints;
@@ -74,9 +73,12 @@ namespace TheChroniclesOfEllen
             if (IsFleeing())
             {
                 RunAway();
+                agent.isStopped = false;
             }
             else
-                agent.Stop();
+            {
+                agent.isStopped = true;
+            }
         }
         private bool IsFleeing()
         {
@@ -98,7 +100,7 @@ namespace TheChroniclesOfEllen
         {
             if (IsShooting())
             {
-
+                Shoot();
             }
         }
         private bool IsShooting()
@@ -111,6 +113,8 @@ namespace TheChroniclesOfEllen
         private void Shoot()
         {
             //usare in qualche modo lo sparo
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.LookRotation((playerPosition.position - transform.position).normalized), Time.deltaTime);
         }
 
     }
