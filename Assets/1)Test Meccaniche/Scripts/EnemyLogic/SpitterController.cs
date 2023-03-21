@@ -12,6 +12,7 @@ namespace TheChroniclesOfEllen
     {
         public Transform fleeDirection;
         private ShootComponent shootComponent;
+        [SerializeField]
         private Transform[] fleePoints;
 
         private bool isFleeing;
@@ -70,7 +71,7 @@ namespace TheChroniclesOfEllen
 
         private void Flee()
         {
-            if (isFleeing)
+            if (IsFleeing())
             {
                 RunAway();
             }

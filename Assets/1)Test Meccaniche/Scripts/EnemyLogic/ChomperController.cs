@@ -45,6 +45,9 @@ namespace TheChroniclesOfEllen
             currentPatrolPoint = 0;
 
             pursuingTimer = enemySO.pursuitTime;
+
+            enemyDamage = enemySO.damage;
+            
             //currentAttackCD = 0;
             //attackCD = enemySO.attackCD;
 

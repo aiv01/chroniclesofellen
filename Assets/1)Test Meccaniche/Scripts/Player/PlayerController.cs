@@ -58,6 +58,7 @@ namespace TheChroniclesOfEllen
         #endregion
         #region Jump variables
         private Vector3 jump;
+        [SerializeField]
         private float jumpVelocity = 10f;
         private int jumpCounter = 0;
         #endregion
@@ -127,16 +128,14 @@ namespace TheChroniclesOfEllen
                 animator.SetTrigger("Death");
                 return;
             }
-            if (isGrounded)
-            {
-                jump.y = groundedGravity;
-                animator.SetBool("Grounded", true);
-            }
+
+
 
             if (isMovementPressed) Movement();
 
-            ApplyGravity();
+            
             Jump();
+            ApplyGravity();
 
             if (isMeleeReady) MeleeAttack();
             Aim();
@@ -242,25 +241,20 @@ namespace TheChroniclesOfEllen
         }
         private void ApplyGravity()
         {
-            if (transform.localPosition.y < -1.0f)
-            {
-                animator.SetBool("Grounded", false);
-                float previousJumpVelocity = jump.y;
-                float newJumpVelocity = jump.y + (gravity * fallMultiplier * Time.deltaTime);
-                float nextJumpVelocity = (previousJumpVelocity + newJumpVelocity) * 0.5f;
-                jump.y = nextJumpVelocity;
-                animator.SetFloat("AirborneVerticalSpeed", jump.y);
-
-            }
-            else if (isJumping)
+            
+            
+            if(!isGrounded)
             {
                 jump.y += gravity * Time.deltaTime;
+                animator.SetBool("Grounded", false);
                 animator.SetFloat("AirborneVerticalSpeed", jump.y);
 
+            }else
+            {
+                jump.y = groundedGravity;
+                animator.SetBool("Grounded", true);
             }
-            if (characterController.isGrounded) isGrounded = true;
-
-
+                
         }
         #endregion
         #region Attack Mechanics
@@ -424,6 +418,8 @@ namespace TheChroniclesOfEllen
             staff.gameObject.SetActive(status);
             shootComponent.gameObject.SetActive(false);
         }
+
+    
 
 
     }

@@ -23,7 +23,7 @@ namespace TheChroniclesOfEllen
                 {
                     LoadTheGame.Invoke();
                 }
-                if (Input.GetKey(KeyCode.S))
+                if (Input.GetKey(KeyCode.K))
                 {
                     SaveTheGame.Invoke(savePointNumber);
                 }
