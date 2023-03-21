@@ -72,13 +72,13 @@ namespace TheChroniclesOfEllen
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (isAttacking && collision.gameObject.tag == "Player")
+            if (isAttacking && other.tag == "Player")
             {
                 OnPlayerHit.Invoke(enemyDamage);
             }
-            if (collision.gameObject.tag == "PlayerWeaponHitBox")
+            if (other.tag == "PlayerWeaponHitBox")
             {
                 enemyAnimator.SetTrigger("Hit");
 
@@ -157,7 +157,7 @@ namespace TheChroniclesOfEllen
             transform.rotation = Quaternion.Lerp(transform.rotation,
                 Quaternion.LookRotation((playerPosition.position - transform.position).normalized), Time.deltaTime);
         }
-
     }
 
+    
 }
