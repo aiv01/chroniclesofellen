@@ -12,6 +12,7 @@ namespace TheChroniclesOfEllen
     public class PlayerController : MonoBehaviour
     {
         #region Components and objects reference
+        [Header("Components Reference")]
         private Animator animator;
         private CharacterController characterController;
         private PlayerInput playerInput;
@@ -22,11 +23,10 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private ShootComponent shootComponent;
         private HealthComponent playerHealth;
-
-        //reference powerup e vita e danno
-
         #endregion
         #region Input variables
+
+        [Header("Input variables")]
         private Vector2 movementInput;
         private bool isMovementPressed = false;
         private bool isGrounded = true;
@@ -39,6 +39,7 @@ namespace TheChroniclesOfEllen
         private bool isShootPressed = false;
         #endregion
         #region Movement variables
+        [Header("Movement variables")]
         private Vector3 movement;
         private float velocity;
         [SerializeField]
@@ -48,28 +49,38 @@ namespace TheChroniclesOfEllen
         private float currentAngleVelocity;
         #endregion
         #region Camera variables
+
+        [Header("Camera variables")]
         private Vector2 lookInput;
         private Vector3 look;
         #endregion
         #region gravity variables
+
+        [Header("Gravity variables")]
         private float gravity = -9.81f;
         private float groundedGravity = -0.5f;
         private float fallMultiplier = 2.0f;
         #endregion
+
         #region Jump variables
+        [Header("Jump varialbles")]
         private Vector3 jump;
         [SerializeField]
         private float jumpVelocity = 10f;
         private int jumpCounter = 0;
         #endregion
+
         #region Attack variables
+        [Header("Attack variables")]
         private int comboCounter = 0;
         private int actualUse = 0;
         [SerializeField]
         private Transform shootTarget;
         private float minDistanceToTarget = 10f;
         #endregion
+
         #region other
+        [Header("Other")]
         float timer = 0;
         int randomIdle;
         private bool hasKey;
