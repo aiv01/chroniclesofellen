@@ -33,15 +33,13 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
-            
+            currentTimer += Time.deltaTime;
             currentOverheat = Mathf.Max(currentOverheat - Time.deltaTime, 0);
         }
 
-        public void Shoot()
+        public void Shoot(Transform target)
         {
-            currentTimer += Time.deltaTime;
-            
-            if (currentTimer > shootCD && currentOverheat <= overheat) 
+            if (currentTimer > shootCD && currentOverheat <= overheat)
             {
                 if (!isSpitter && powerUpSystem.HaveSpecialLeft()) 
                 {
@@ -50,6 +48,10 @@ namespace TheChroniclesOfEllen
                 else
                 {
                     bullet = BulletPool.GetBullet();
+                }
+                if (target != null)
+                {
+                    bullet.SetTarget(target);
                 }
                 currentOverheat += overheatPerBullet;
                 currentTimer = 0;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 namespace TheChroniclesOfEllen
 {
@@ -98,23 +99,23 @@ namespace TheChroniclesOfEllen
 
         private void Attack()
         {
-            if (IsShooting())
-            {
-                Shoot();
-            }
+            IsShooting();
         }
-        private bool IsShooting()
+        private void IsShooting()
         {
             float distance = (transform.position - playerPosition.position).sqrMagnitude;
             isAttacking = distance <= attackDistance;
             enemyAnimator.SetBool("IsAttacking", isAttacking);
-            return isAttacking;
         }
+
         private void Shoot()
         {
             //usare in qualche modo lo sparo
             transform.rotation = Quaternion.Lerp(transform.rotation,
                 Quaternion.LookRotation((playerPosition.position - transform.position).normalized), Time.deltaTime);
+
+            shootComponent.Shoot(playerPosition);
+            
         }
 
     }

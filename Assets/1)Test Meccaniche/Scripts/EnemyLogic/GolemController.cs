@@ -33,6 +33,11 @@ namespace TheChroniclesOfEllen
             float x = Vector3.Dot(angle.normalized, transform.forward);
             golemAnimator.SetFloat("Angle", x);
         }
+
+        private void StartAttack()
+        {
+
+        }
     }
 
 }

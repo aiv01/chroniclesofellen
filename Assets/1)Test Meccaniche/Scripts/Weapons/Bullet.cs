@@ -17,7 +17,6 @@ namespace TheChroniclesOfEllen
         private void Start()
         {
             bulletTimer = 0;
-            directionTarget = GameObject.Find("ShootTarget").transform;
         }
 
         private void Update()
@@ -34,15 +33,26 @@ namespace TheChroniclesOfEllen
             if(bulletTimer >= bulletLifeTime)
             {
                 gameObject.SetActive(false);
+                directionTarget = null;
                 bulletTimer = 0;
             }
 
         } 
 
-        private void OnCollisionEnter(Collision collision)
+        public void SetTarget(Transform target)
         {
-            //fare danno al nemico
+            if (directionTarget != null)
+                return;
+            directionTarget = target;
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("Sono morto");
+            if (other.tag == "Player")
+            {
+                bulletTimer = bulletLifeTime;
+            }
+        }
     }
 }

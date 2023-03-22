@@ -135,8 +135,6 @@ namespace TheChroniclesOfEllen
         {
             if (!playerHealth.IsAlive)
             {
-                Debug.Log("A pischella � laziale");
-                animator.SetTrigger("Death");
                 return;
             }
 
@@ -387,7 +385,7 @@ namespace TheChroniclesOfEllen
             if (isRangedReady && isShootPressed && shootComponent.gameObject.activeInHierarchy)
             {
                 animator.SetBool("IsShooting", true);
-                shootComponent.Shoot();
+                shootComponent.Shoot(shootTarget);
             }
             else
             {
