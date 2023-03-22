@@ -16668,7 +16668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb735aaa61a51244988cdf0f2013ce32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 1114676576}
+  load: {fileID: 0}
   textAsset: {fileID: 4900000, guid: d7eadbba6b4ca15408607aac3bff8d7e, type: 3}
   currentFile:
     MaxHp: 0
@@ -18145,7 +18145,7 @@ PrefabInstance:
     - target: {fileID: 4137809886339653261, guid: 62047f1982e0f8f45bd0e03de31a5e04,
         type: 3}
       propertyPath: SaveTheGame.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4137809886339653261, guid: 62047f1982e0f8f45bd0e03de31a5e04,
         type: 3}

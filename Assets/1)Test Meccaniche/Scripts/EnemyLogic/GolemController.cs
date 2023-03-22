@@ -30,8 +30,9 @@ namespace TheChroniclesOfEllen
             {
                 golemAnimator.SetFloat("PlayerDistance", distance); 
             }
-            float angle = Vector3.Dot(transform.position, playerTransform.position) / 360;
-            golemAnimator.SetFloat("Angle", angle);
+            Vector3 angle = Quaternion.FromToRotation(transform.forward, (transform.position - playerTransform.position).normalized).eulerAngles;
+            float x = Vector3.Dot(angle.normalized, transform.forward);
+            golemAnimator.SetFloat("Angle", x);
         }
     }
 

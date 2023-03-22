@@ -10,7 +10,7 @@ namespace TheChroniclesOfEllen
 
     public class GameMgr : MonoBehaviour
     {
-        public TextMeshProUGUI text;
+        public TextMeshProUGUI load;
         private Progression gameStatus;
         private Area currentArea;
 
@@ -72,20 +72,22 @@ namespace TheChroniclesOfEllen
             currentFile.DamageScale += (int)value;
         }
 
-        public void Save(int savePoint = 0)
+        public void Save(int savePoint)
         {
             currentFile.SavePointNumber = savePoint;
             string saveData = JsonUtility.ToJson(currentFile);
             textAsset = new TextAsset(saveData);
             File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
             Debug.Log("Save: " + currentFile.ToString());
-            text.text = "Save Complete.";
+            load.text = "save";
         }
 
         public void Load()
         {
-            currentFile = JsonUtility.FromJson<SafeFile>(text.text);
+            currentFile = JsonUtility.FromJson<SafeFile>(textAsset.text);
             Debug.Log("Load: " + currentFile.ToString());
+            load.text = "load";
+
         }
         public void LoadNew()
         {
@@ -98,7 +100,6 @@ namespace TheChroniclesOfEllen
             currentFile.Area = defaultFile.Area;
             currentFile.SavePointNumber = defaultFile.SavePointNumber;
             Debug.Log("Load New: " + currentFile.ToString());
-            text.text = "Loading Complete.";
         }
     }
 }
