@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 namespace TheChroniclesOfEllen
 {
     public class HealthComponent : MonoBehaviour
     {
+        public TextMeshProUGUI text;
         private float maxHealth;
         private float currentHealth;
         private bool shieldActive;
@@ -34,6 +36,10 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
+            if(this.tag == "Player")
+            {
+                text.text = currentHealth + " / " + maxHealth;
+            }
             shield.gameObject.SetActive(shieldActive);
             if (currentHealth <= 0)
             {
@@ -46,7 +52,7 @@ namespace TheChroniclesOfEllen
         public void HealMe(float healAmount)
         {
             Debug.Log("Ociuccio � curato di " + healAmount);
-            currentHealth = MathF.Max(healAmount + currentHealth, maxHealth);
+            currentHealth = MathF.Min(healAmount + currentHealth, maxHealth);
         }
 
         public void TakeDamage(float damageAmount)

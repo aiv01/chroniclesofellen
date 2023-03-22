@@ -17,15 +17,17 @@ namespace TheChroniclesOfEllen
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.tag == "Player")
+            if (other.gameObject.tag == "Player")
             {
                 if (Input.GetKey(KeyCode.L))
                 {
                     LoadTheGame.Invoke();
+                
                 }
                 if (Input.GetKey(KeyCode.K))
                 {
                     SaveTheGame.Invoke(savePointNumber);
+                    
                 }
             }
         }

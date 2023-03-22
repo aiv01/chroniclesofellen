@@ -17,14 +17,8 @@ namespace TheChroniclesOfEllen
             if (other.gameObject.tag == "Player")
             {
                 ItemFound.Invoke(true);
-                ItemFound.Invoke(true);
+                gameObject.SetActive(false);
             }
-        }
-
-        protected override void OnPickUp(PlayerController player)
-        {
-            player.HasKey = true;
-            Debug.Log("MIO PADRE");
         }
 
     }

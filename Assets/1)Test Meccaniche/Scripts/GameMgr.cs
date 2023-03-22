@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEditor.ShaderGraph.Serialization;
+using TMPro;
 
 namespace TheChroniclesOfEllen
 {
 
     public class GameMgr : MonoBehaviour
     {
+        public TextMeshProUGUI text;
         private Progression gameStatus;
         private Area currentArea;
 
         private Transform lastTeleport;
 
-        public TextAsset text;
+        public TextAsset textAsset;
         public SafeFile currentFile;
         public SafeFileSO defaultFile;
 
@@ -74,9 +76,10 @@ namespace TheChroniclesOfEllen
         {
             currentFile.SavePointNumber = savePoint;
             string saveData = JsonUtility.ToJson(currentFile);
-            text = new TextAsset(saveData);
+            textAsset = new TextAsset(saveData);
             File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
             Debug.Log("Save: " + currentFile.ToString());
+            text.text = "Save Complete.";
         }
 
         public void Load()
@@ -95,6 +98,7 @@ namespace TheChroniclesOfEllen
             currentFile.Area = defaultFile.Area;
             currentFile.SavePointNumber = defaultFile.SavePointNumber;
             Debug.Log("Load New: " + currentFile.ToString());
+            text.text = "Loading Complete.";
         }
     }
 }

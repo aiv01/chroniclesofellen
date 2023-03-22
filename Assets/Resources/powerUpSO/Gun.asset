@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aadd3953e0b88a40806455bf6ad30f6, type: 3}
   m_Name: Gun
   m_EditorClassIdentifier: 
-  chargeBulletNumber: 3
+  chargeBulletNumber: 5
   damageScale: 2

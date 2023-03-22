@@ -333,7 +333,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &6940271842668599033
+--- !u!114 &6940271842668599027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,14 +342,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6940271842668696002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 147f05c7836a3ec49873630778d463d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 84e513918deca984e85bcccaa545091e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staff: {fileID: 6940271843445219682}
-  cameraTransform: {fileID: 0}
-  shootComponent: {fileID: 6940271842341294608}
-  movementSpeed: 3
-  shootTarget: {fileID: 0}
+  shield: {fileID: 6940271841665683692}
 --- !u!114 &6940271842668599032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,6 +401,24 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &6940271842668599033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940271842668696002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147f05c7836a3ec49873630778d463d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staff: {fileID: 6940271843445219682}
+  cameraTransform: {fileID: 0}
+  shootComponent: {fileID: 6940271842341294608}
+  movementSpeed: 3
+  jumpVelocity: 10
+  shootTarget: {fileID: 0}
 --- !u!114 &6940271842668599037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,19 +432,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: {fileID: 0}
---- !u!114 &6940271842668599027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6940271842668696002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e513918deca984e85bcccaa545091e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shield: {fileID: 6940271841665683692}
 --- !u!4 &6940271842668988956 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400536, guid: a5674d01884853d4e8f2386a171e14d9,

@@ -81,7 +81,7 @@ namespace TheChroniclesOfEllen
             {
                 OnPlayerHit.Invoke(enemyDamage);
             }
-            if (other.tag == "PlayerWeaponHitBox")
+            if (other.tag == "Weapon")
             {
                 enemyAnimator.SetTrigger("Hit");
 

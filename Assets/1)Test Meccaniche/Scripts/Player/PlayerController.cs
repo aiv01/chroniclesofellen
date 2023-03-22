@@ -76,7 +76,7 @@ namespace TheChroniclesOfEllen
         private int actualUse = 0;
         [SerializeField]
         private Transform shootTarget;
-        private float minDistanceToTarget = 10f;
+        private float minDistanceToTarget = 20f;
         #endregion
 
         #region other
@@ -278,7 +278,7 @@ namespace TheChroniclesOfEllen
         }
         private void MeleeAttack()
         {
-            if (isAttackPressed && isGrounded && !isAttacking)
+            if (isAttackPressed && isGrounded && !isAttacking && staff.gameObject.activeInHierarchy)
             {
                 isAttacking = true;
                 movement = Vector3.zero;
@@ -384,7 +384,7 @@ namespace TheChroniclesOfEllen
         }
         private void Shoot()
         {
-            if (isRangedReady && isShootPressed && !isMeleeReady)
+            if (isRangedReady && isShootPressed && shootComponent.gameObject.activeInHierarchy)
             {
                 animator.SetBool("IsShooting", true);
                 shootComponent.Shoot();
