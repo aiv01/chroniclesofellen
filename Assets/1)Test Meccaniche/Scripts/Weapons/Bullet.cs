@@ -46,12 +46,14 @@ namespace TheChroniclesOfEllen
             directionTarget = target;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnCollisionEnter(Collision collision)
         {
             Debug.Log("Sono morto");
-            if (other.tag == "Player")
+            if (collision.gameObject.tag == "Player")
             {
                 bulletTimer = bulletLifeTime;
+                directionTarget = null;
+                gameObject.SetActive(false);
             }
         }
     }
