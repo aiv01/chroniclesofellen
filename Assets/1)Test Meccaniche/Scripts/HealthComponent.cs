@@ -44,20 +44,17 @@ namespace TheChroniclesOfEllen
             if (currentHealth <= 0)
             {
                 isAlive = false;
-                Debug.Log("Uaglio Ociuccio � morto");
                 currentHealth = 0;
             }
         }
 
         public void HealMe(float healAmount)
         {
-            Debug.Log("Ociuccio � curato di " + healAmount);
             currentHealth = MathF.Min(healAmount + currentHealth, maxHealth);
         }
 
         public void TakeDamage(float damageAmount)
         {
-            Debug.Log("Colpito");
             shieldActive = powerUpSystem.IsShieldActive();
             if (!shieldActive)
             {

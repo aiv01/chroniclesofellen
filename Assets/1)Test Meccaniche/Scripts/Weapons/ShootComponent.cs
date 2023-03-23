@@ -41,7 +41,11 @@ namespace TheChroniclesOfEllen
         {
             if (currentTimer > shootCD && currentOverheat <= overheat)
             {
-                if (!isSpitter && powerUpSystem.HaveSpecialLeft()) 
+                if (isSpitter)
+                {
+                    bullet = BulletPool.GetBulletEnemy();
+                }
+                else if (!isSpitter && powerUpSystem.HaveSpecialLeft()) 
                 {
                     bullet = BulletPool.GetBulletSpecial();
                 }
@@ -49,6 +53,7 @@ namespace TheChroniclesOfEllen
                 {
                     bullet = BulletPool.GetBullet();
                 }
+                
                 if (target != null)
                 {
                     bullet.SetTarget(target);

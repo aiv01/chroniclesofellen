@@ -33,7 +33,7 @@ namespace TheChroniclesOfEllen
             if(bulletTimer >= bulletLifeTime)
             {
                 gameObject.SetActive(false);
-                directionTarget = null;
+                //directionTarget = null;
                 bulletTimer = 0;
             }
 
@@ -48,13 +48,14 @@ namespace TheChroniclesOfEllen
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("Sono morto");
-            if (collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag=="Enemy" || collision.gameObject.tag == "Player")
             {
                 bulletTimer = bulletLifeTime;
-                directionTarget = null;
+                collision.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);
+                //directionTarget = null;
                 gameObject.SetActive(false);
             }
+            
         }
     }
 }
