@@ -8,16 +8,20 @@ namespace TheChroniclesOfEllen
     public class ShieldPowerUp : PowerUp
     {
         private ShieldPUSO shieldSO;
-        public int hitLeft;
+        private int hitLeft;
+        public bool ShieldStatus
+        {
+            get { return (hitLeft > 0); }
+        }
 
         public override bool OnHit()
         {
-            hitLeft--;
             if (hitLeft == 0) 
             {
-                return true;
+                return false;
             }
-            return false;
+            hitLeft--;
+            return true;
         }
 
         public override void OnStart()

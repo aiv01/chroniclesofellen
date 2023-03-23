@@ -36,11 +36,11 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
-            if(this.tag == "Player")
+            if(tag == "Player")
             {
                 text.text = currentHealth + " / " + maxHealth;
+                shield.gameObject.SetActive(powerUpSystem.IsShieldActive());
             }
-            shield.gameObject.SetActive(shieldActive);
             if (currentHealth <= 0)
             {
                 isAlive = false;
@@ -55,11 +55,16 @@ namespace TheChroniclesOfEllen
 
         public void TakeDamage(float damageAmount)
         {
-            shieldActive = powerUpSystem.IsShieldActive();
-            if (!shieldActive)
+            if (tag == "Player")
             {
-                
+                if (powerUpSystem.OnHit())
+                {
+                    Debug.Log("protetto");
+                    Debug.Log(currentHealth);
+                    return;
+                }
             }
+                    Debug.Log(currentHealth);
             currentHealth -= damageAmount;
         }
 
@@ -70,6 +75,12 @@ namespace TheChroniclesOfEllen
                 maxHealth += healthIncreaseValue;
                 currentHealth = maxHealth;
             }
+        }
+
+        public void Shield(bool shieldStatus)
+        {
+            Debug.Log(shieldStatus);
+            shield.gameObject.SetActive(shieldStatus);
         }
     }
 }

@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Gound
   - Weapon
+  - Interactable
+  - Enemy
+  - EnemyBullet
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
@@ -14,9 +18,9 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
-  - 
-  - 
+  - Player
+  - Player Bullet
+  - Enemy Bullet
   - 
   - 
   - 

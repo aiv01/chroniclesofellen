@@ -31,7 +31,10 @@ namespace TheChroniclesOfEllen
             power = newPowerUp;
 
             if (power != null)
+            {
                 power.OnStart();
+            }
+            
 
         }
 
@@ -39,12 +42,7 @@ namespace TheChroniclesOfEllen
         {
             if (power != null && CurrentPUType == PowerUpType.Shield)
             {
-                bool shieldActive = power.OnHit();
-                if (!shieldActive)
-                {
-                    ChangePowerUp(null);
-                }
-                return shieldActive;
+                return ((ShieldPowerUp)power).ShieldStatus;
             }
             return false;
         }
@@ -61,6 +59,15 @@ namespace TheChroniclesOfEllen
                 return specialActive;
             }
             return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>returns if the hit is blocked</returns>
+        public bool OnHit ()
+        {
+            return power.OnHit();
         }
     }
 }
