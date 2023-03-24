@@ -1,43 +1,113 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TheChroniclesOfEllen
 {
-    
+
     public class GolemController : MonoBehaviour
     {
         private Animator golemAnimator;
         public Transform playerTransform;
+
+        public float closeRangeDistance;
+        public float meleeDistance;
+        public float walkDistance;
+        public float runDistance;
+        private int animIsCloseRangeB;
+        private int animIsMeleeB;
+        private int animIsRunningB;
+        private int animIsWalkingB;
+        private int animIsWaintingB;
+        private int animAngleF;
+
+        public float maxHP;
+        public float currHP;
+        public float damage;
+
+        public bool isAttacking;
+
         // Start is called before the first frame update
         void Start()
         {
             golemAnimator = GetComponent<Animator>();
+
+            closeRangeDistance *= closeRangeDistance;
+            meleeDistance *= meleeDistance;
+            walkDistance *= walkDistance;
+            runDistance *= runDistance;
+            animAngleF = Animator.StringToHash("Angle");
+            animIsMeleeB = Animator.StringToHash("IsMelee");
+            animIsRunningB = Animator.StringToHash("IsRunning");
+            animIsWalkingB = Animator.StringToHash("IsWalking");
+            animIsCloseRangeB = Animator.StringToHash("IsCloseRange");
         }
 
         // Update is called once per frame
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 golemAnimator.SetTrigger("IsDead");
             }
 
-            float distance = (transform.position - playerTransform.position).magnitude;
+            Vector3 vDistance = (playerTransform.position - transform.position);
 
-            if (distance <= 20)
-            {
-                golemAnimator.SetFloat("PlayerDistance", distance); 
-            }
-            Vector3 angle = Quaternion.FromToRotation(transform.forward, (transform.position - playerTransform.position).normalized).eulerAngles;
-            float x = Vector3.Dot(angle.normalized, transform.forward);
-            golemAnimator.SetFloat("Angle", x);
+            float distance = vDistance.sqrMagnitude;
+            ManageDistance(distance);
+
+            float angle = Vector3.SignedAngle(transform.forward, vDistance, Vector3.up);
+
+            golemAnimator.SetFloat(animAngleF, angle);
         }
 
         private void StartAttack()
         {
+            isAttacking = true;
+        }
 
+        private void EndAttack()
+        {
+            isAttacking = false;
+        }
+
+        private void ManageDistance(float distance)
+        {
+            if (distance <= closeRangeDistance)
+            {
+                golemAnimator.SetBool(animIsCloseRangeB, true);
+                golemAnimator.SetBool(animIsRunningB, false);
+                golemAnimator.SetBool(animIsMeleeB, false);
+                golemAnimator.SetBool(animIsWalkingB, false);
+            }
+            else if (distance <= meleeDistance)
+            {
+                golemAnimator.SetBool(animIsMeleeB, true);
+                golemAnimator.SetBool(animIsCloseRangeB, false);
+                golemAnimator.SetBool(animIsRunningB, false);
+                golemAnimator.SetBool(animIsWalkingB, false);
+            }
+            else if (distance <= walkDistance)
+            {
+                golemAnimator.SetBool(animIsWalkingB, true);
+                golemAnimator.SetBool(animIsCloseRangeB, false);
+                golemAnimator.SetBool(animIsRunningB, false);
+                golemAnimator.SetBool(animIsMeleeB, false);
+                transform.forward = Vector3.Lerp(transform.forward,
+                    new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
+                    Time.deltaTime);
+            }
+            else
+            {
+                golemAnimator.SetBool(animIsRunningB, true);
+                golemAnimator.SetBool(animIsCloseRangeB, false);
+                golemAnimator.SetBool(animIsMeleeB, false);
+                golemAnimator.SetBool(animIsWalkingB, false);
+                transform.forward = Vector3.Lerp(transform.forward,
+                    new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
+                    Time.deltaTime);
+            }
         }
     }
-
 }
