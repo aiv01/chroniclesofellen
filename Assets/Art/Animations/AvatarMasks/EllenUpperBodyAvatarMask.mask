@@ -42,9 +42,9 @@ AvatarMask:
   - m_Path: Ellen_Skeleton/Ellen_Root/Ellen_Hips/Ellen_Spine
     m_Weight: 0
   - m_Path: Ellen_Skeleton/Ellen_Root/Ellen_Hips/Ellen_Spine/Ellen_Chest
-    m_Weight: 0
-  - m_Path: Ellen_Skeleton/Ellen_Root/Ellen_Hips/Ellen_Spine/Ellen_Chest/Ellen_UpperChest
     m_Weight: 1
+  - m_Path: Ellen_Skeleton/Ellen_Root/Ellen_Hips/Ellen_Spine/Ellen_Chest/Ellen_UpperChest
+    m_Weight: 0
   - m_Path: Ellen_Skeleton/Ellen_Root/Ellen_Hips/Ellen_Spine/Ellen_Chest/Ellen_UpperChest/Ellen_Left_Shoulder
     m_Weight: 1
   - m_Path: Ellen_Skeleton/Ellen_Root/Ellen_Hips/Ellen_Spine/Ellen_Chest/Ellen_UpperChest/Ellen_Left_Shoulder/Ellen_Left_UpperArm
