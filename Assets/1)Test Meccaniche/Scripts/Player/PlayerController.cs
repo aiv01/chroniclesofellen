@@ -22,6 +22,8 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private Transform cameraTransform;
         [SerializeField]
+        private GameObject prefabFollow;
+        [SerializeField]
         private CinemachineVirtualCamera playerCamera;
         [SerializeField]
         private CinemachineVirtualCamera aimCamera;
@@ -29,6 +31,7 @@ namespace TheChroniclesOfEllen
         private ShootComponent shootComponent;
         private HealthComponent playerHealth;
         #endregion
+
         #region Input variables
         [Header("Input variables")]
         private Vector2 movementInput;
@@ -42,6 +45,7 @@ namespace TheChroniclesOfEllen
         private bool isRangedReady = false;
         private bool isShootPressed = false;
         #endregion
+
         #region Movement variables
         [Header("Movement variables")]
         private Vector3 movement;
@@ -53,24 +57,32 @@ namespace TheChroniclesOfEllen
         private float currentAngle;
         private float currentAngleVelocity;
         #endregion
+
         #region Camera variables
         [Header("Camera variables")]
+        [SerializeField]
+        private Transform cameraFollowTarget;
         private Vector2 lookInput;
-        private Vector3 look;
+        private float xRotation;
+        private float yRotation;
         #endregion
+
         #region gravity variables
         [Header("Gravity variables")]
         private float gravity = -9.81f;
         private float groundedGravity = -0.5f;
         private float fallMultiplier = 2.0f;
         #endregion
+
         #region Jump variables
         [Header("Jump varialbles")]
         private Vector3 jump;
         [SerializeField]
         private float jumpVelocity = 10f;
         private int jumpCounter = 0;
+        private float counter = 0f;
         #endregion
+
         #region Attack variables
         [Header("Attack variables")]
         private int comboCounter = 0;
@@ -79,6 +91,7 @@ namespace TheChroniclesOfEllen
         private Transform shootTarget;
         private float minDistanceToTarget = 20f;
         #endregion
+        
         #region other
         [Header("Other")]
         float timer = 0;
@@ -90,7 +103,7 @@ namespace TheChroniclesOfEllen
 
         void Awake()
         {
-            animator = GetComponent<Animator>();
+            animator = GetComponentInChildren<Animator>();
             playerHealth = GetComponent<HealthComponent>();
             characterController = GetComponent<CharacterController>();
             cameraTransform = Camera.main.transform;
@@ -128,10 +141,18 @@ namespace TheChroniclesOfEllen
             playerInput.Player.Makeaction.started += onChangeWeapon;
             playerInput.Player.Makeaction.performed += onChangeWeapon;
             playerInput.Player.Makeaction.canceled += onChangeWeapon;
+            playerInput.Player.Look.started += onCameraControl;
+            playerInput.Player.Look.performed += onCameraControl;
+            playerInput.Player.Look.canceled += onCameraControl;
+
+
 
         }
         void Update()
         {
+            
+            prefabFollow.transform.position = transform.position;
+            
             if (!playerHealth.IsAlive)
             {
                 Debug.Log("A pischella � laziale");
@@ -144,7 +165,7 @@ namespace TheChroniclesOfEllen
             {
                 animator.SetBool("IsShootReady", isRangedReady);
                 Movement();
-                Jump();
+                
             }
             if (isMovementPressed && isRangedReady)
             {
@@ -156,10 +177,15 @@ namespace TheChroniclesOfEllen
             if (isMeleeReady) MeleeAttack();
             Aim();
             Shoot();
-
+            CameraControl();
             TimeOutToIdle();
 
 
+        }
+
+        void LateUpdate()
+        {
+           CameraControl();
         }
         #region Movement Mechanics
         private void onMovement(InputAction.CallbackContext context)
@@ -181,16 +207,19 @@ namespace TheChroniclesOfEllen
         {
 
             movement = new Vector3(movementInput.x, 0, movementInput.y);
+            float targetRotation = 0;
+
             if (movement.magnitude >= 0.1f)
             {
-                float angle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
-                currentAngle = Mathf.SmoothDampAngle(currentAngle, angle, ref currentAngleVelocity, rotationTime);
-                Vector3 rotatedMovement = Quaternion.Euler(0, angle, 0) * Vector3.forward;
-                transform.rotation = Quaternion.Euler(0, currentAngle, 0);
-                characterController.Move(rotatedMovement.normalized * movementSpeed * Time.deltaTime);
-                velocity = Vector3.Dot(rotatedMovement.normalized, transform.forward);
-                animator.SetFloat("ForwardSpeed", velocity);
+                targetRotation = Quaternion.LookRotation(movement).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
+                Quaternion rotation = Quaternion.Euler(0,targetRotation,0);
+                transform.rotation = Quaternion.Slerp(transform.rotation,rotation, 7 * Time.deltaTime);
+                
             }
+                animator.SetFloat("ForwardSpeed", movementInput.magnitude);
+                Vector3 targetDirection = Quaternion.Euler(0,targetRotation,0) * Vector3.forward;
+                characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
+                
         }
         private void MovementOnAim()
         {
@@ -199,20 +228,22 @@ namespace TheChroniclesOfEllen
             characterController.Move(movementOnAim * movementSpeed * Time.deltaTime);
             animator.SetFloat("GunForward", movementOnAim.z);
             animator.SetFloat("GunStrafe", movementOnAim.x);
+            float targetRotation = 0;
 
             if (movementOnAim.magnitude >= 0.1f)
             {
-                float angle = Mathf.Atan2(movementOnAim.x, movementOnAim.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
-                currentAngle = Mathf.SmoothDampAngle(currentAngle, angle, ref currentAngleVelocity, rotationTime);
-                Vector3 rotatedMovement = Quaternion.Euler(0, angle, 0) * Vector3.forward;
-                transform.rotation = Quaternion.Euler(0, currentAngle, 0);
-                velocity = Vector3.Dot(rotatedMovement.normalized, transform.forward);
-
+                targetRotation = Quaternion.LookRotation(movementOnAim).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
+                Quaternion rotation = Quaternion.Euler(0,targetRotation,0);
+                transform.rotation = Quaternion.Slerp(transform.rotation,rotation, 7 * Time.deltaTime);
+                
             }
+                animator.SetFloat("ForwardSpeed", movementInput.magnitude);
+                Vector3 targetDirection = Quaternion.Euler(0,targetRotation,0) * Vector3.forward;
+                characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
         }
         private bool IsGrounded()
         {
-            if (Physics.SphereCast(characterController.bounds.center, 0.2f, Vector3.down, out hitInfo, characterController.bounds.extents.y + 0.1f))
+            if (Physics.Raycast(characterController.bounds.center,-Vector3.up,out hitInfo,characterController.bounds.extents.y+0.1f))
             {
                 return isGrounded = true;
             }
@@ -269,6 +300,12 @@ namespace TheChroniclesOfEllen
             {
                 jump.y = jumpVelocity + (jumpVelocity / 2);
                 animator.SetFloat("AirborneVerticalSpeed", jump.y);
+                counter += Time.deltaTime;
+                if(isJumpPressed && counter >= 0.2f)
+                {
+                    counter = 0;
+                    isJumpPressed = false;
+                }
             }
             else if (!isJumpPressed && isJumping && isGrounded)
             {
@@ -430,6 +467,23 @@ namespace TheChroniclesOfEllen
             }
         }
         #endregion
+        #region Camera Mechanics
+        void onCameraControl(InputAction.CallbackContext context)
+        {
+            lookInput = context.ReadValue<Vector2>();
+        }
+
+        void CameraControl()
+        {
+            
+            xRotation += lookInput.y;
+            yRotation += lookInput.x;
+            xRotation = Mathf.Clamp(xRotation,-30,70);
+            Quaternion rotation = Quaternion.Euler(xRotation,yRotation,0);
+            cameraFollowTarget.rotation = rotation;
+        }
+        #endregion
+
         void onChangeWeapon(InputAction.CallbackContext context)
         {
             if (context.started && shootComponent.gameObject.activeInHierarchy && isMeleeReady)
