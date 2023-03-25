@@ -9,6 +9,7 @@ namespace TheChroniclesOfEllen
 
     public class GolemController : MonoBehaviour
     {
+        
         private Animator golemAnimator;
         public Transform playerTransform;
         [SerializeField]

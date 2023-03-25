@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
@@ -38,6 +37,16 @@ namespace TheChroniclesOfEllen
         public override void ResetPowerUp()
         {
             hitLeft = shieldSO.resistence;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Palyer")
+            {
+                gameObject.SetActive(false);
+                other.GetComponent<PlayerPowerUp>().ChangePowerUp(this);
+                OnPickUp();
+            }
         }
     }
 }

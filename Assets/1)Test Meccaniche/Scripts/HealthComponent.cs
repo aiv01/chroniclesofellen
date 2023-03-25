@@ -11,7 +11,7 @@ namespace TheChroniclesOfEllen
     {
         public TextMeshProUGUI text;
         private float maxHealth;
-        private float currentHealth;
+        public float currentHealth;
         private bool shieldActive;
         private PlayerPowerUp powerUpSystem;
         public Transform shield;

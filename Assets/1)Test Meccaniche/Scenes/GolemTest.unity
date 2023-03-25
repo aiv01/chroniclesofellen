@@ -312,7 +312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359893817}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 9.46}
+  m_LocalPosition: {x: 0, y: 0.5, z: 9.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -514,7 +514,8 @@ MonoBehaviour:
   runDistance: 0
   maxHP: 0
   currHP: 0
-  isAttacking: 0
+  isMelee: 0
+  isCloseRange: 0
 --- !u!54 &1595362342
 Rigidbody:
   m_ObjectHideFlags: 0

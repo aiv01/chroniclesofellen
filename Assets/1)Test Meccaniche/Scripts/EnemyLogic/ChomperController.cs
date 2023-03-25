@@ -14,6 +14,8 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private UnityEvent<float> OnPlayerHit;
         public Transform[] patrolPoints;
+        [SerializeField]
+        private PowerUp powerUp;
 
         private bool isPursuing;
         private bool isPatroling;
@@ -39,6 +41,7 @@ namespace TheChroniclesOfEllen
             isPursuing = false;
             isPatroling = false;
 
+            powerUp = PowerUpsSpawner.SpawnPowerUp(SpawnPowerUp());
             stayTimer = enemySO.stayTime;
             currentStayTimer = 0;
 
@@ -64,6 +67,16 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
+            if (currentEnemyHealth <= 0)
+            {
+                if (powerUp != null)
+                {
+                    powerUp.gameObject.SetActive(true);
+                    powerUp.transform.position = transform.position + Vector3.up;
+                }
+                gameObject.SetActive(false);
+                return;
+            }
             Attack();
             if (!isAttacking)
             {
@@ -160,7 +173,27 @@ namespace TheChroniclesOfEllen
             transform.rotation = Quaternion.Lerp(transform.rotation,
                 Quaternion.LookRotation((playerPosition.position - transform.position).normalized), Time.deltaTime);
         }
-    }
 
-    
+        private PowerUpType SpawnPowerUp()
+        {
+            int powerup = Random.RandomRange(0, 100);
+
+            if (powerup <= 30)
+            {
+                return PowerUpType.Health;
+            }
+            else if (powerup <= 50)
+            {
+                return PowerUpType.Shield;
+            }
+            else if (powerup <= 55)
+            {
+                return PowerUpType.Gun;
+            }
+            else
+            {
+                return PowerUpType.None;
+            }
+        }
+    }
 }

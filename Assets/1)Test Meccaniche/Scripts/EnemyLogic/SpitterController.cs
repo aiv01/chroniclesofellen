@@ -49,6 +49,11 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
+            if (currentEnemyHealth <= 0)
+            {
+                OnDie.Invoke(SpawnPowerUp());
+                return;
+            }
             Flee();
             if (!isFleeing)
             {
@@ -116,6 +121,28 @@ namespace TheChroniclesOfEllen
 
             shootComponent.Shoot(playerPosition);
             
+        }
+
+        private int SpawnPowerUp()
+        {
+            int powerup = Random.RandomRange(0, 100);
+
+            if (powerup <= 30)
+            {
+                return (int)PowerUpType.Health;
+            }
+            else if (powerup <= 50)
+            {
+                return (int)PowerUpType.Gun;
+            }
+            else if (powerup <= 55)
+            {
+                return (int)PowerUpType.Shield;
+            }
+            else
+            {
+                return (int)PowerUpType.None;
+            }
         }
 
     }

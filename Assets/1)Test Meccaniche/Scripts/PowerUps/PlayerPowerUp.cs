@@ -32,7 +32,7 @@ namespace TheChroniclesOfEllen
 
             if (power != null)
             {
-                power.OnStart();
+                power.ResetPowerUp();
             }
             
 

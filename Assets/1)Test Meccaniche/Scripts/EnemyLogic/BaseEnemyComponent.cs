@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 
 namespace TheChroniclesOfEllen
@@ -11,6 +12,9 @@ namespace TheChroniclesOfEllen
     [RequireComponent(typeof(NavMeshAgent))]
     public abstract class BaseEnemyComponent : MonoBehaviour
     {
+        [SerializeField]
+        protected UnityEvent<int> OnDie;
+
         public BaseEnemySO enemySO;
         public Transform playerPosition;
         protected NavMeshAgent agent;
@@ -25,7 +29,7 @@ namespace TheChroniclesOfEllen
         protected float attackDistance;
         
         protected float enemyHealth;
-        protected float currentEnemyHealth;
+        public float currentEnemyHealth;
 
         protected void Start()
         {
