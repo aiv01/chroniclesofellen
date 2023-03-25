@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
@@ -10,6 +11,12 @@ namespace TheChroniclesOfEllen
     {
         private Animator golemAnimator;
         public Transform playerTransform;
+        [SerializeField]
+        private UnityEvent OnDie;
+        [SerializeField]
+        private EnemyHitBox rightArm;
+        [SerializeField]
+        private EnemyHitBox leftArm;
 
         public float closeRangeDistance;
         public float meleeDistance;
@@ -19,14 +26,20 @@ namespace TheChroniclesOfEllen
         private int animIsMeleeB;
         private int animIsRunningB;
         private int animIsWalkingB;
-        private int animIsWaintingB;
+        private int animIsWaitingB;
         private int animAngleF;
 
         public float maxHP;
         public float currHP;
-        public float damage;
 
         public bool isAttacking;
+
+        private float playerPositionCheckCD = 0.5f;
+        private float currentPlayerPositionCheckCD;
+        private float minAttackCD = 2;
+        private float maxAttackCD = 10;
+        private float attackCD;
+        private float currentAttackCD;
 
         // Start is called before the first frame update
         void Start()
@@ -41,21 +54,31 @@ namespace TheChroniclesOfEllen
             animIsMeleeB = Animator.StringToHash("IsMelee");
             animIsRunningB = Animator.StringToHash("IsRunning");
             animIsWalkingB = Animator.StringToHash("IsWalking");
+            animIsWaitingB = Animator.StringToHash("IsWaiting");
             animIsCloseRangeB = Animator.StringToHash("IsCloseRange");
+            currentPlayerPositionCheckCD = 0;
+            currentAttackCD = 0;
         }
 
         // Update is called once per frame
         void Update()
         {
+            currentPlayerPositionCheckCD += Time.deltaTime;
+            currentAttackCD += Time.deltaTime;
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 golemAnimator.SetTrigger("IsDead");
+                OnDie.Invoke();
             }
 
             Vector3 vDistance = (playerTransform.position - transform.position);
 
-            float distance = vDistance.sqrMagnitude;
-            ManageDistance(distance);
+            if (currentPlayerPositionCheckCD >= playerPositionCheckCD)
+            {
+                float distance = vDistance.sqrMagnitude;
+
+                ManageDistance(distance);
+            }
 
             float angle = Vector3.SignedAngle(transform.forward, vDistance, Vector3.up);
 
@@ -70,23 +93,52 @@ namespace TheChroniclesOfEllen
         private void EndAttack()
         {
             isAttacking = false;
+            currentAttackCD = 0;
+            attackCD = Random.Range(minAttackCD, maxAttackCD);
+
         }
 
         private void ManageDistance(float distance)
         {
             if (distance <= closeRangeDistance)
             {
+                if(currentAttackCD < attackCD)
+                {
+                    golemAnimator.SetBool(animIsWaitingB, true);
+                    return;
+                }
                 golemAnimator.SetBool(animIsCloseRangeB, true);
                 golemAnimator.SetBool(animIsRunningB, false);
                 golemAnimator.SetBool(animIsMeleeB, false);
                 golemAnimator.SetBool(animIsWalkingB, false);
+                golemAnimator.SetBool(animIsWaitingB, false);
+
+                if (isAttacking)
+                {
+                    rightArm.isAttacking = true;
+                    leftArm.isAttacking = false;
+                    isAttacking = false;
+                }
             }
             else if (distance <= meleeDistance)
             {
+                if(currentAttackCD >= attackCD)
+                {
+                    golemAnimator.SetBool(animIsWaitingB, true);
+                    return;
+                }
                 golemAnimator.SetBool(animIsMeleeB, true);
                 golemAnimator.SetBool(animIsCloseRangeB, false);
                 golemAnimator.SetBool(animIsRunningB, false);
                 golemAnimator.SetBool(animIsWalkingB, false);
+                golemAnimator.SetBool(animIsWaitingB, false);
+
+                if (isAttacking)
+                {
+                    rightArm.isAttacking = false;
+                    leftArm.isAttacking = true;
+                    isAttacking = false;
+                }
             }
             else if (distance <= walkDistance)
             {

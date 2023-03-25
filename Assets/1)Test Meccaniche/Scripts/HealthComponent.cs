@@ -59,13 +59,11 @@ namespace TheChroniclesOfEllen
             {
                 if (powerUpSystem.OnHit())
                 {
-                    Debug.Log("protetto");
-                    Debug.Log(currentHealth);
                     return;
                 }
             }
-                    Debug.Log(currentHealth);
             currentHealth -= damageAmount;
+            Debug.Log(currentHealth);
         }
 
         public void IncreaseMaxHealth(float healthIncreaseValue)
