@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TheChroniclesOfEllen;
 using UnityEngine;
 
 namespace TheChroniclesOfEllen
 {
 
-    public class Death : StateMachineBehaviour
+    public class Melee : StateMachineBehaviour
     {
+        private GolemController golem;
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-        //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        //{
-        //    
-        //}
+        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if (golem == null)
+            {
+                golem = animator.gameObject.GetComponent<GolemController>();
+            }
+            golem.isMelee = true;
+        }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
         //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -22,7 +28,7 @@ namespace TheChroniclesOfEllen
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.gameObject.SetActive(false);
+            golem.isMelee = false;
         }
 
         // OnStateMove is called right after Animator.OnAnimatorMove()

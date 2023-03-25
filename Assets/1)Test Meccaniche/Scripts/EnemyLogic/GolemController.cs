@@ -32,9 +32,11 @@ namespace TheChroniclesOfEllen
         public float maxHP;
         public float currHP;
 
-        public bool isAttacking;
+        private bool isAttacking;
+        public bool isMelee;
+        public bool isCloseRange;
 
-        private float playerPositionCheckCD = 0.5f;
+        private float playerPositionCheckCD = 0.25f;
         private float currentPlayerPositionCheckCD;
         private float minAttackCD = 2;
         private float maxAttackCD = 10;
@@ -65,11 +67,6 @@ namespace TheChroniclesOfEllen
         {
             currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                golemAnimator.SetTrigger("IsDead");
-                OnDie.Invoke();
-            }
 
             Vector3 vDistance = (playerTransform.position - transform.position);
 
@@ -78,6 +75,23 @@ namespace TheChroniclesOfEllen
                 float distance = vDistance.sqrMagnitude;
 
                 ManageDistance(distance);
+            }
+
+            if (isAttacking)
+            {
+                if (isMelee)
+                {
+                    rightArm.isAttacking = false;
+                    leftArm.isAttacking = true;
+                    isAttacking = false;
+                }
+                else if (isCloseRange)
+                {
+                    rightArm.isAttacking = true;
+                    leftArm.isAttacking = false;
+                    isAttacking = false;
+                }
+                
             }
 
             float angle = Vector3.SignedAngle(transform.forward, vDistance, Vector3.up);
@@ -95,12 +109,13 @@ namespace TheChroniclesOfEllen
             isAttacking = false;
             currentAttackCD = 0;
             attackCD = Random.Range(minAttackCD, maxAttackCD);
+            Debug.Log(attackCD);
 
         }
 
         private void ManageDistance(float distance)
         {
-            if (distance <= closeRangeDistance)
+            if (distance <= closeRangeDistance) 
             {
                 if(currentAttackCD < attackCD)
                 {
@@ -112,17 +127,10 @@ namespace TheChroniclesOfEllen
                 golemAnimator.SetBool(animIsMeleeB, false);
                 golemAnimator.SetBool(animIsWalkingB, false);
                 golemAnimator.SetBool(animIsWaitingB, false);
-
-                if (isAttacking)
-                {
-                    rightArm.isAttacking = true;
-                    leftArm.isAttacking = false;
-                    isAttacking = false;
-                }
             }
             else if (distance <= meleeDistance)
             {
-                if(currentAttackCD >= attackCD)
+                if(currentAttackCD < attackCD)
                 {
                     golemAnimator.SetBool(animIsWaitingB, true);
                     return;
@@ -132,13 +140,6 @@ namespace TheChroniclesOfEllen
                 golemAnimator.SetBool(animIsRunningB, false);
                 golemAnimator.SetBool(animIsWalkingB, false);
                 golemAnimator.SetBool(animIsWaitingB, false);
-
-                if (isAttacking)
-                {
-                    rightArm.isAttacking = false;
-                    leftArm.isAttacking = true;
-                    isAttacking = false;
-                }
             }
             else if (distance <= walkDistance)
             {
