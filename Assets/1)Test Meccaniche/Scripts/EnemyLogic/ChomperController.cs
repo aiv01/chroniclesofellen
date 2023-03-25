@@ -14,8 +14,6 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private UnityEvent<float> OnPlayerHit;
         public Transform[] patrolPoints;
-        [SerializeField]
-        private PowerUp powerUp;
 
         private bool isPursuing;
         private bool isPatroling;
@@ -67,7 +65,7 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
-            if (currentEnemyHealth <= 0)
+            if (!enemyHealth.IsAlive)
             {
                 if (powerUp != null)
                 {
@@ -96,7 +94,9 @@ namespace TheChroniclesOfEllen
             }
             if (other.tag == "Weapon")
             {
+                Debug.Log("Colpito");
                 enemyAnimator.SetTrigger("Hit");
+                enemyHealth.TakeDamage(5);
 
             }
         }

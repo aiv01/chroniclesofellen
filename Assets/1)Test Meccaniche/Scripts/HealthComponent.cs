@@ -48,6 +48,12 @@ namespace TheChroniclesOfEllen
             }
         }
 
+        public void SetMaxHealth(float maxHealth)
+        {
+            this.maxHealth = maxHealth;
+            currentHealth = maxHealth;
+        }
+
         public void HealMe(float healAmount)
         {
             currentHealth = MathF.Min(healAmount + currentHealth, maxHealth);

@@ -49,9 +49,14 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
-            if (currentEnemyHealth <= 0)
+            if (!enemyHealth.IsAlive)
             {
-                OnDie.Invoke(SpawnPowerUp());
+                if (powerUp != null)
+                {
+                    powerUp.gameObject.SetActive(true);
+                    powerUp.transform.position = transform.position + Vector3.up;
+                }
+                gameObject.SetActive(false);
                 return;
             }
             Flee();

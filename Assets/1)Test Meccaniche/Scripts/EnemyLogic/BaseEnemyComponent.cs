@@ -10,15 +10,16 @@ namespace TheChroniclesOfEllen
 
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(HealthComponent))]
     public abstract class BaseEnemyComponent : MonoBehaviour
     {
-        [SerializeField]
-        protected UnityEvent<int> OnDie;
-
         public BaseEnemySO enemySO;
         public Transform playerPosition;
         protected NavMeshAgent agent;
         protected Animator enemyAnimator;
+        protected HealthComponent enemyHealth;
+        [SerializeField]
+        protected PowerUp powerUp;
 
         protected EnemyType type;
         protected bool isAttacking;
@@ -27,9 +28,6 @@ namespace TheChroniclesOfEllen
         protected float attackStopDistance;
         protected float sqrStopDistance;
         protected float attackDistance;
-        
-        protected float enemyHealth;
-        public float currentEnemyHealth;
 
         protected void Start()
         {
@@ -37,6 +35,7 @@ namespace TheChroniclesOfEllen
 
             agent = GetComponent<NavMeshAgent>();
             enemyAnimator = GetComponent<Animator>();
+            enemyHealth = GetComponent<HealthComponent>();
 
             sqrStopDistance = agent.stoppingDistance * agent.stoppingDistance;
 
@@ -45,8 +44,8 @@ namespace TheChroniclesOfEllen
 
             attackDistance = enemySO.attackDistance * enemySO.attackDistance;
 
-            enemyHealth = enemySO.healthPoint;
-            currentEnemyHealth = enemyHealth;
+            enemyHealth.SetMaxHealth(enemySO.healthPoint);
+
             type = enemySO.type;
         }
     }
