@@ -48,7 +48,7 @@ namespace TheChroniclesOfEllen
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag=="Enemy" || collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Player" || collision.gameObject.tag == "Boss") ;
             {
                 bulletTimer = bulletLifeTime;
                 collision.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);

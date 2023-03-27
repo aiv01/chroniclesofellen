@@ -7,11 +7,8 @@ using UnityEngine.Events;
 namespace TheChroniclesOfEllen
 {
 
-    public class GolemController : MonoBehaviour
+    public class GolemController : BaseBossController
     {
-        
-        private Animator golemAnimator;
-        public Transform playerTransform;
         [SerializeField]
         private UnityEvent OnDie;
         [SerializeField]
@@ -30,25 +27,15 @@ namespace TheChroniclesOfEllen
         private int animIsWaitingB;
         private int animAngleF;
 
-        public float maxHP;
-        public float currHP;
-
         private bool isAttacking;
         public bool isMelee;
         public bool isCloseRange;
 
-        private float playerPositionCheckCD = 0.25f;
-        private float currentPlayerPositionCheckCD;
-        private float minAttackCD = 2;
-        private float maxAttackCD = 10;
-        private float attackCD;
-        private float currentAttackCD;
 
         // Start is called before the first frame update
         void Start()
         {
-            golemAnimator = GetComponent<Animator>();
-
+            base.Start();
             closeRangeDistance *= closeRangeDistance;
             meleeDistance *= meleeDistance;
             walkDistance *= walkDistance;
@@ -59,8 +46,6 @@ namespace TheChroniclesOfEllen
             animIsWalkingB = Animator.StringToHash("IsWalking");
             animIsWaitingB = Animator.StringToHash("IsWaiting");
             animIsCloseRangeB = Animator.StringToHash("IsCloseRange");
-            currentPlayerPositionCheckCD = 0;
-            currentAttackCD = 0;
         }
 
         // Update is called once per frame
@@ -69,13 +54,17 @@ namespace TheChroniclesOfEllen
             currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;
 
-            Vector3 vDistance = (playerTransform.position - transform.position);
 
             if (currentPlayerPositionCheckCD >= playerPositionCheckCD)
             {
+                currentPlayerPositionCheckCD = 0;
+                Vector3 vDistance = (playerTransform.position - transform.position);
                 float distance = vDistance.sqrMagnitude;
+                float angle = Vector3.SignedAngle(transform.forward, vDistance, Vector3.up);
 
                 ManageDistance(distance);
+
+                bossAnimator.SetFloat(animAngleF, angle / 180f);
             }
 
             if (isAttacking)
@@ -95,10 +84,9 @@ namespace TheChroniclesOfEllen
                 
             }
 
-            float angle = Vector3.SignedAngle(transform.forward, vDistance, Vector3.up);
-
-            golemAnimator.SetFloat(animAngleF, angle);
         }
+
+
 
         private void StartAttack()
         {
@@ -120,44 +108,44 @@ namespace TheChroniclesOfEllen
             {
                 if(currentAttackCD < attackCD)
                 {
-                    golemAnimator.SetBool(animIsWaitingB, true);
+                    bossAnimator.SetBool(animIsWaitingB, true);
                     return;
                 }
-                golemAnimator.SetBool(animIsCloseRangeB, true);
-                golemAnimator.SetBool(animIsRunningB, false);
-                golemAnimator.SetBool(animIsMeleeB, false);
-                golemAnimator.SetBool(animIsWalkingB, false);
-                golemAnimator.SetBool(animIsWaitingB, false);
+                bossAnimator.SetBool(animIsCloseRangeB, true);
+                bossAnimator.SetBool(animIsRunningB, false);
+                bossAnimator.SetBool(animIsMeleeB, false);
+                bossAnimator.SetBool(animIsWalkingB, false);
+                bossAnimator.SetBool(animIsWaitingB, false);
             }
             else if (distance <= meleeDistance)
             {
                 if(currentAttackCD < attackCD)
                 {
-                    golemAnimator.SetBool(animIsWaitingB, true);
+                    bossAnimator.SetBool(animIsWaitingB, true);
                     return;
                 }
-                golemAnimator.SetBool(animIsMeleeB, true);
-                golemAnimator.SetBool(animIsCloseRangeB, false);
-                golemAnimator.SetBool(animIsRunningB, false);
-                golemAnimator.SetBool(animIsWalkingB, false);
-                golemAnimator.SetBool(animIsWaitingB, false);
+                bossAnimator.SetBool(animIsMeleeB, true);
+                bossAnimator.SetBool(animIsCloseRangeB, false);
+                bossAnimator.SetBool(animIsRunningB, false);
+                bossAnimator.SetBool(animIsWalkingB, false);
+                bossAnimator.SetBool(animIsWaitingB, false);
             }
             else if (distance <= walkDistance)
             {
-                golemAnimator.SetBool(animIsWalkingB, true);
-                golemAnimator.SetBool(animIsCloseRangeB, false);
-                golemAnimator.SetBool(animIsRunningB, false);
-                golemAnimator.SetBool(animIsMeleeB, false);
+                bossAnimator.SetBool(animIsWalkingB, true);
+                bossAnimator.SetBool(animIsCloseRangeB, false);
+                bossAnimator.SetBool(animIsRunningB, false);
+                bossAnimator.SetBool(animIsMeleeB, false);
                 transform.forward = Vector3.Lerp(transform.forward,
                     new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
                     Time.deltaTime);
             }
             else
             {
-                golemAnimator.SetBool(animIsRunningB, true);
-                golemAnimator.SetBool(animIsCloseRangeB, false);
-                golemAnimator.SetBool(animIsMeleeB, false);
-                golemAnimator.SetBool(animIsWalkingB, false);
+                bossAnimator.SetBool(animIsRunningB, true);
+                bossAnimator.SetBool(animIsCloseRangeB, false);
+                bossAnimator.SetBool(animIsMeleeB, false);
+                bossAnimator.SetBool(animIsWalkingB, false);
                 transform.forward = Vector3.Lerp(transform.forward,
                     new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
                     Time.deltaTime);

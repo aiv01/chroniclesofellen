@@ -9,16 +9,26 @@ namespace TheChroniclesOfEllen
 {
     public class HealthComponent : MonoBehaviour
     {
+        [SerializeField]
+        private UnityEvent OnPoiseBreak;
         public TextMeshProUGUI text;
         private float maxHealth;
         public float currentHealth;
         private bool shieldActive;
+        private float maxPoise;
+        private float currPoise;
+        private float regenPoisePerSec;
         private PlayerPowerUp powerUpSystem;
         public Transform shield;
         private bool isAlive;
         public bool IsAlive
         {
             get { return isAlive; }
+        }
+
+        public float HealthPerc
+        {
+            get { return currentHealth / maxHealth; }
         }
 
         // Start is called before the first frame update
@@ -31,11 +41,15 @@ namespace TheChroniclesOfEllen
             maxHealth = 10;
             currentHealth = maxHealth;
             powerUpSystem = GetComponent<PlayerPowerUp>();
+
+            currPoise = maxPoise;
         }
 
         // Update is called once per frame
         void Update()
         {
+            currPoise = MathF.Min(currPoise + regenPoisePerSec * Time.deltaTime, maxPoise);
+
             if(tag == "Player")
             {
                 text.text = currentHealth + " / " + maxHealth;
@@ -68,6 +82,14 @@ namespace TheChroniclesOfEllen
                     return;
                 }
             }
+            currPoise -= damageAmount;
+
+            if (currPoise <= 0)
+            {
+                currPoise = maxPoise;
+                OnPoiseBreak.Invoke();
+            }
+
             currentHealth -= damageAmount;
             Debug.Log(currentHealth);
         }

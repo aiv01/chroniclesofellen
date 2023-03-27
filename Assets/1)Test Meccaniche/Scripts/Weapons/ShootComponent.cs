@@ -12,8 +12,6 @@ namespace TheChroniclesOfEllen
         private Bullet bullet;
         public float shootCD = 0.5f;
         private float currentTimer;
-        private float bulletTimer;
-        private float bulletLifeTime = 3.5f;
         private float overheat = 10;
         private float currentOverheat;
         private float overheatPerBullet = 1.5f;
@@ -64,9 +62,6 @@ namespace TheChroniclesOfEllen
                 bullet.damage = damage;
                 bullet.speed = 10;
                 bullet.direction = mouthOfFire.forward;
-                
-                
-
             }
             
         }
