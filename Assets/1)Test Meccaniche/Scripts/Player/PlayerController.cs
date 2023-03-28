@@ -64,6 +64,7 @@ namespace TheChroniclesOfEllen
         #region gravity variables
         private float gravity = -9.81f;
         private float groundedGravity = -0.5f;
+        [SerializeField]
         private bool isGrounded;
         private Vector3 spherePos;
         [SerializeField]
@@ -88,6 +89,7 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private Transform shootTarget;
         private float minDistanceToTarget = 20f;
+        private Ray ray;
         #endregion
 
         #region other
@@ -103,6 +105,7 @@ namespace TheChroniclesOfEllen
             playerHealth = GetComponent<HealthComponent>();
             characterController = GetComponent<CharacterController>();
             input = GetComponent<InputMgr>();
+            ray = new Ray(characterController.bounds.center,Vector3.down);
             cameraTransform = Camera.main.transform;
             aimCamera.gameObject.SetActive(false);
             staff.gameObject.SetActive(false);
@@ -113,16 +116,14 @@ namespace TheChroniclesOfEllen
         void Update()
         {
 
-            prefabFollow.transform.position = transform.position;
+            //IsGrounded();
 
+            prefabFollow.transform.position = transform.position;
             if (!playerHealth.IsAlive)
             {
                 animator.SetTrigger("Death");
                 return;
             }
-
-            IsGrounded();
-
             if (input.IsMovementPressed && !input.IsAiming)
             {
                 animator.SetBool("IsShootReady", false);
@@ -142,6 +143,7 @@ namespace TheChroniclesOfEllen
             Shoot();
             CameraControl();
             TimeOutToIdle();
+            
 
 
         }
@@ -149,6 +151,7 @@ namespace TheChroniclesOfEllen
         void LateUpdate()
         {
             CameraControl();
+           
         }
         #region Movement Mechanics
 
@@ -206,26 +209,28 @@ namespace TheChroniclesOfEllen
             if (!input.IsMovementPressed)
             {
                 targetDirection = Vector3.zero;
-                movement = Vector3.zero;
+                movementOnAim = Vector3.zero;
+                input.MovementInput = Vector3.zero;
+                animator.SetFloat("GunForward", 0f);
+                animator.SetFloat("GunStrafe", 0f);
             }
         }
-        private bool IsGrounded()
+        private void IsGrounded()
         {
-            spherePos = new Vector3(transform.position.x, transform.position.y - groundOffsetY, transform.position.z);
-            if (Physics.CheckSphere(spherePos, characterController.radius - 0.05f, layerMask:default))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+             ray = new Ray(characterController.bounds.center,Vector3.down);
+             if(Physics.Raycast(characterController.center,Vector3.down,characterController.bounds.extents.y,layerMask))
+             {
+                isGrounded = true;
+                
+             } 
+            
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(spherePos, characterController.radius - 0.05f);
+            Gizmos.DrawRay(ray.origin,Vector3.down);
+            
         }
         private void TimeOutToIdle()
         {
@@ -262,8 +267,10 @@ namespace TheChroniclesOfEllen
         {
             if (!isJumping && input.IsJumpPressed)
             {
+                isGrounded = false;
                 isJumping = true;
                 jump.y = jumpVelocity;
+               
 
             }
             else if (isJumping && input.IsJumpPressed && input.InputJumpCounter == 2)
@@ -277,11 +284,12 @@ namespace TheChroniclesOfEllen
                     input.IsJumpPressed = false;
                 }
             }
-            else if (!input.IsJumpPressed && isJumping && IsGrounded())
+            else if (!input.IsJumpPressed && isJumping && isGrounded)
             {
                 isJumping = false;
                 input.InputJumpCounter = 0;
             }
+
             characterController.Move(jump * Time.deltaTime);
 
 
@@ -289,7 +297,7 @@ namespace TheChroniclesOfEllen
         private void ApplyGravity()
         {
 
-            if (IsGrounded())
+            if (!isGrounded)
             {
                 jump.y += gravity * Time.deltaTime;
                 animator.SetBool("Grounded", false);
@@ -334,7 +342,7 @@ namespace TheChroniclesOfEllen
 
 
             }
-            else if (!input.IsAttackPressed && isAttacking && IsGrounded())
+            else if (!input.IsAttackPressed && isAttacking && isGrounded)
             {
 
                 isAttacking = false;
@@ -373,36 +381,6 @@ namespace TheChroniclesOfEllen
                 aimTarget.y = transform.position.y;
                 Vector3 aimDirection = (aimTarget - transform.position).normalized;
                 transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
-                #region temp
-                /*var target = GameObject.FindObjectsByType<BaseEnemyComponent>(FindObjectsSortMode.None);
-
-                foreach (var tar in target)
-                {
-                    if (tar == null) return;
-
-                    if (Vector3.Distance(transform.position, tar.transform.position) <= minDistanceToTarget)
-                    {
-
-                        shootTarget.SetParent(tar.transform);
-                        shootTarget.transform.localPosition = Vector3.zero;
-                        aimCamera.LookAt = shootTarget;
-
-                    }
-                    else
-                    {
-                        shootTarget.parent = null;
-                        aimCamera.LookAt = null;
-                    }
-
-                    if (shootTarget.parent != null)
-                    {
-                        Quaternion targetRotation = Quaternion.LookRotation(shootTarget.position - transform.position);
-                        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 2f);
-                    }
-                
-                }*/
-                #endregion
-
             }
             else
             {
