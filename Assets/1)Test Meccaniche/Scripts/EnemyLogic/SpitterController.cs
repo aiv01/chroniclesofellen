@@ -124,7 +124,7 @@ namespace TheChroniclesOfEllen
             transform.rotation = Quaternion.Lerp(transform.rotation,
                 Quaternion.LookRotation((playerPosition.position - transform.position).normalized), Time.deltaTime);
 
-            shootComponent.Shoot(playerPosition);
+            shootComponent.OnShoot((playerPosition.position - transform.position).normalized);
             
         }
 

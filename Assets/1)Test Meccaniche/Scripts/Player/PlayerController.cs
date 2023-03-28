@@ -385,7 +385,7 @@ namespace TheChroniclesOfEllen
             if (isRangedReady && isShootPressed && shootComponent.gameObject.activeInHierarchy)
             {
                 animator.SetBool("IsShooting", true);
-                shootComponent.Shoot(shootTarget);
+                shootComponent.OnShoot(shootTarget);
             }
             else
             {

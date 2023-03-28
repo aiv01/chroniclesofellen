@@ -14,6 +14,8 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private UnityEvent<float> OnPlayerHit;
         public Transform[] patrolPoints;
+        [SerializeField]
+        private EnemyHitBox biteHitBox;
 
         private bool isPursuing;
         private bool isPatroling;
@@ -158,6 +160,7 @@ namespace TheChroniclesOfEllen
         {
             if (IsAttacking())
             {
+                biteHitBox.isAttacking = true;
                 RotateEnemy();
             }
         }

@@ -8,6 +8,8 @@ namespace TheChroniclesOfEllen
     public class MotherSpitterController : BaseBossController
     {
         private ShootComponent spitterShootComponent;
+        [SerializeField]
+        private EnemyHitBox biteHitBox;
         public Transform[] fleePoints;
         private int currFleePoint;
 
@@ -75,6 +77,7 @@ namespace TheChroniclesOfEllen
                     {
                         bossAnimator.SetBool(animIsAttackingB, true);
                         bossAnimator.SetBool(animIsFleeingB, false);
+                        biteHitBox.isAttacking = true;
                         return;
                     }
 
@@ -100,6 +103,10 @@ namespace TheChroniclesOfEllen
             currFleePoint = Random.Range(0, fleePoints.Length);
         }
 
+        public void Shoot()
+        {
+            spitterShootComponent.OnShoot((playerTransform.position - transform.position).normalized);
+        }
     }
 
 }

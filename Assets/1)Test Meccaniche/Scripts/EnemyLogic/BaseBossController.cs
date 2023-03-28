@@ -13,8 +13,8 @@ namespace TheChroniclesOfEllen
         public Transform playerTransform;
         protected HealthComponent bossHealth;
 
-        protected float minAttackCD = 2;
-        protected float maxAttackCD = 10;
+        protected float minAttackCD = 0.5f;
+        protected float maxAttackCD = 5f;
         protected float attackCD;
         protected float currentAttackCD;
 

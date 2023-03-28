@@ -98,7 +98,6 @@ namespace TheChroniclesOfEllen
             isAttacking = false;
             currentAttackCD = 0;
             attackCD = Random.Range(minAttackCD, maxAttackCD);
-            Debug.Log(attackCD);
 
         }
 
@@ -116,6 +115,8 @@ namespace TheChroniclesOfEllen
                 bossAnimator.SetBool(animIsMeleeB, false);
                 bossAnimator.SetBool(animIsWalkingB, false);
                 bossAnimator.SetBool(animIsWaitingB, false);
+                isCloseRange = false;
+                isMelee = true;
             }
             else if (distance <= meleeDistance)
             {
@@ -129,6 +130,8 @@ namespace TheChroniclesOfEllen
                 bossAnimator.SetBool(animIsRunningB, false);
                 bossAnimator.SetBool(animIsWalkingB, false);
                 bossAnimator.SetBool(animIsWaitingB, false);
+                isCloseRange = true;
+                isMelee = false;
             }
             else if (distance <= walkDistance)
             {
@@ -136,6 +139,8 @@ namespace TheChroniclesOfEllen
                 bossAnimator.SetBool(animIsCloseRangeB, false);
                 bossAnimator.SetBool(animIsRunningB, false);
                 bossAnimator.SetBool(animIsMeleeB, false);
+                isCloseRange = false;
+                isMelee = false;
                 transform.forward = Vector3.Lerp(transform.forward,
                     new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
                     Time.deltaTime);
@@ -146,6 +151,8 @@ namespace TheChroniclesOfEllen
                 bossAnimator.SetBool(animIsCloseRangeB, false);
                 bossAnimator.SetBool(animIsMeleeB, false);
                 bossAnimator.SetBool(animIsWalkingB, false);
+                isCloseRange = false;
+                isMelee = false;
                 transform.forward = Vector3.Lerp(transform.forward,
                     new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
                     Time.deltaTime);

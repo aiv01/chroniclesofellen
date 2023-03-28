@@ -86,12 +86,11 @@ namespace TheChroniclesOfEllen
 
             if (currPoise <= 0)
             {
-                currPoise = maxPoise;
                 OnPoiseBreak.Invoke();
+                currPoise = maxPoise;
             }
 
             currentHealth -= damageAmount;
-            Debug.Log(currentHealth);
         }
 
         public void IncreaseMaxHealth(float healthIncreaseValue)
@@ -105,7 +104,6 @@ namespace TheChroniclesOfEllen
 
         public void Shield(bool shieldStatus)
         {
-            Debug.Log(shieldStatus);
             shield.gameObject.SetActive(shieldStatus);
         }
     }

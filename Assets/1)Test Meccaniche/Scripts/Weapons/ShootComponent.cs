@@ -35,7 +35,7 @@ namespace TheChroniclesOfEllen
             currentOverheat = Mathf.Max(currentOverheat - Time.deltaTime, 0);
         }
 
-        public void Shoot(Transform target)
+        public void OnShoot(Transform target)
         {
             if (currentTimer > shootCD && currentOverheat <= overheat)
             {
@@ -52,10 +52,10 @@ namespace TheChroniclesOfEllen
                     bullet = BulletPool.GetBullet();
                 }
                 
-                if (target != null)
-                {
-                    bullet.SetTarget(target);
-                }
+                //if (target != null)
+                //{
+                //    bullet.SetTarget(target);
+                //}
                 currentOverheat += overheatPerBullet;
                 currentTimer = 0;
                 bullet.transform.position = mouthOfFire.position;
@@ -66,6 +66,31 @@ namespace TheChroniclesOfEllen
             
         }
 
+        public void OnShoot(Vector3 direction)
+        {
+            if (currentTimer > shootCD && currentOverheat <= overheat)
+            {
+                if (isSpitter)
+                {
+                    bullet = BulletPool.GetBulletEnemy();
+                }
+                else if (!isSpitter && powerUpSystem.HaveSpecialLeft())
+                {
+                    bullet = BulletPool.GetBulletSpecial();
+                }
+                else
+                {
+                    bullet = BulletPool.GetBullet();
+                }
 
+                bullet.direction = direction;
+                currentOverheat += overheatPerBullet;
+                currentTimer = 0;
+                bullet.transform.position = mouthOfFire.position;
+                bullet.damage = damage;
+                bullet.speed = 10;
+            }
+
+        }
     }
 }  
