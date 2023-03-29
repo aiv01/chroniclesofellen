@@ -22,13 +22,9 @@ namespace TheChroniclesOfEllen
         private void Update()
         {
             
-            if(directionTarget.parent != null)
-            {
-                transform.position = Vector3.MoveTowards(transform.position,directionTarget.position,speed * Time.deltaTime);
-            }else
-            {
-                transform.position += direction * speed * Time.deltaTime;
-            }
+            
+            transform.position += directionTarget.position * speed * Time.deltaTime;
+            
             bulletTimer += Time.deltaTime;
             if(bulletTimer >= bulletLifeTime)
             {

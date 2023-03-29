@@ -24,12 +24,8 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private Transform cameraTransform;
         [SerializeField]
-        private GameObject prefabFollow;
-        [SerializeField]
         private ShootComponent shootComponent;
         private HealthComponent playerHealth;
-        [SerializeField]
-        private LayerMask layerMask = new LayerMask();
         [SerializeField]
         private Image crossHair;
         #endregion
@@ -39,7 +35,6 @@ namespace TheChroniclesOfEllen
         private Vector3 movement;
         private Vector3 movementOnAim;
         private Vector3 targetDirection;
-        private float velocity;
         [SerializeField]
         private float movementSpeed;
         private float rotationTime = 0.1f;
@@ -59,13 +54,11 @@ namespace TheChroniclesOfEllen
         private float inputSensitivity;
         [SerializeField]
         private CinemachineVirtualCamera aimCamera;
-        private Vector3 aimDirection;
+        private Vector3 aimingDirection;
         #endregion
 
         #region gravity variables
         private float gravity = -9.81f;
-        private float groundedGravity = -0.5f;
-        private Vector3 spherePos;
         [SerializeField]
         private float groundOffsetY;
         #endregion
@@ -87,7 +80,6 @@ namespace TheChroniclesOfEllen
         private int actualUse = 0;
         [SerializeField]
         private Transform shootTarget;
-        private float minDistanceToTarget = 20f;
         private Ray ray;
         #endregion
 
@@ -100,11 +92,10 @@ namespace TheChroniclesOfEllen
 
         void Awake()
         {
-            animator = GetComponentInChildren<Animator>();
+            animator = GetComponent<Animator>();
             playerHealth = GetComponent<HealthComponent>();
             characterController = GetComponent<CharacterController>();
             input = GetComponent<InputMgr>();
-            ray = new Ray(characterController.bounds.center, Vector3.down);
             cameraTransform = Camera.main.transform;
             aimCamera.gameObject.SetActive(false);
             staff.gameObject.SetActive(false);
@@ -160,27 +151,21 @@ namespace TheChroniclesOfEllen
                 {
 
                     animator.SetBool("IsShootReady", true);
-
-                    if (aimDirection != Vector3.zero)
-                    {
-                        animator.SetFloat("GunForward", movement.z);
-                        animator.SetFloat("GunStrafe", movement.x);
-                        characterController.Move(aimDirection * movementSpeed * Time.deltaTime);
-                    }
-
-
+                    animator.SetFloat("GunForward", movement.z);
+                    animator.SetFloat("GunStrafe", movement.x);
                 }
                 else
                 {
                     animator.SetBool("IsShootReady", false);
-                    targetRotation = Quaternion.LookRotation(movement).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
-                    Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 7 * Time.deltaTime);
-                    targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
-                    characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
                     animator.SetFloat("ForwardSpeed", input.MovementInput.magnitude);
 
                 }
+
+                targetRotation = Quaternion.LookRotation(movement).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
+                Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 7 * Time.deltaTime);
+                targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
+                characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
 
             }
             else
@@ -264,7 +249,7 @@ namespace TheChroniclesOfEllen
             else if (isJumping && input.IsJumpPressed && input.InputJumpCounter == 2)
             {
                 jump.y = jumpVelocity + (jumpVelocity / 2);
-                animator.SetFloat("AirborneVerticalSpeed", jump.magnitude);
+                animator.SetFloat("AirborneVerticalSpeed", jump.y);
                 counter += Time.deltaTime;
                 if (input.IsJumpPressed && counter >= 0.2f)
                 {
@@ -348,7 +333,7 @@ namespace TheChroniclesOfEllen
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
             Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
 
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, layerMask))
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity))
             {
                 shootTarget.position = raycastHit.point;
                 worldPosition = raycastHit.point;
@@ -357,24 +342,22 @@ namespace TheChroniclesOfEllen
             if (input.IsAiming)
             {
                 animator.SetBool("IsShootReady", true);
-                animator.SetLayerWeight(1, 1f);
+                animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
                 aimCamera.gameObject.SetActive(true);
                 crossHair.enabled = true;
                 rotateOnMove = false;
                 Vector3 aimTarget = worldPosition;
                 aimTarget.y = transform.position.y;
-                Vector3 aimDirection = (aimTarget - transform.position);
-                float targetRotation = Quaternion.LookRotation(aimTarget).eulerAngles.y;
-                Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
-                transform.rotation = Quaternion.Lerp(rotation, transform.rotation, Time.deltaTime * 7f);
-                aimDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
+                Vector3 aimDirection = (aimTarget - transform.position).normalized;
+                transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 10f);
+
 
 
             }
             else
             {
                 animator.SetBool("IsShootReady", false);
-                animator.SetLayerWeight(1, 0f);
+                animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
                 aimCamera.gameObject.SetActive(false);
                 crossHair.enabled = false;
                 rotateOnMove = true;
