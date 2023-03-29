@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 namespace TheChroniclesOfEllen
 {
@@ -54,17 +55,16 @@ namespace TheChroniclesOfEllen
             currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;
 
-
             if (currentPlayerPositionCheckCD >= playerPositionCheckCD)
             {
                 currentPlayerPositionCheckCD = 0;
                 Vector3 vDistance = (playerTransform.position - transform.position);
                 float distance = vDistance.sqrMagnitude;
-                float angle = Vector3.SignedAngle(transform.forward, vDistance, Vector3.up);
 
                 ManageDistance(distance);
+                float angle = Vector3.SignedAngle(transform.forward, vDistance, Vector3.up);
+                bossAnimator.SetFloat(animAngleF, angle);
 
-                bossAnimator.SetFloat(animAngleF, angle / 180f);
             }
 
             if (isAttacking)
@@ -98,6 +98,7 @@ namespace TheChroniclesOfEllen
             isAttacking = false;
             currentAttackCD = 0;
             attackCD = Random.Range(minAttackCD, maxAttackCD);
+            bossAnimator.SetBool(animIsWaitingB, true);
 
         }
 

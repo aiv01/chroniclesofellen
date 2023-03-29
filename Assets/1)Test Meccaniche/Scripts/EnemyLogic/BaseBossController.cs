@@ -18,7 +18,7 @@ namespace TheChroniclesOfEllen
         protected float attackCD;
         protected float currentAttackCD;
 
-        protected float playerPositionCheckCD = 0.25f;
+        protected float playerPositionCheckCD = 0.5f;
         protected float currentPlayerPositionCheckCD;
 
         // Start is called before the first frame update
