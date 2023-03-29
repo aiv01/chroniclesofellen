@@ -59,13 +59,12 @@ namespace TheChroniclesOfEllen
         private float inputSensitivity;
         [SerializeField]
         private CinemachineVirtualCamera aimCamera;
+        private Vector3 aimDirection;
         #endregion
 
         #region gravity variables
         private float gravity = -9.81f;
         private float groundedGravity = -0.5f;
-        [SerializeField]
-        private bool isGrounded;
         private Vector3 spherePos;
         [SerializeField]
         private float groundOffsetY;
@@ -105,37 +104,28 @@ namespace TheChroniclesOfEllen
             playerHealth = GetComponent<HealthComponent>();
             characterController = GetComponent<CharacterController>();
             input = GetComponent<InputMgr>();
-            ray = new Ray(characterController.bounds.center,Vector3.down);
+            ray = new Ray(characterController.bounds.center, Vector3.down);
             cameraTransform = Camera.main.transform;
             aimCamera.gameObject.SetActive(false);
             staff.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Confined;
 
         }
-
+        void OnGUI()
+        {
+            GUILayout.Box(characterController.isGrounded.ToString());
+            GUILayout.Box(input.MovementInput.ToString());
+        }
         void Update()
         {
 
-            //IsGrounded();
-
-            prefabFollow.transform.position = transform.position;
             if (!playerHealth.IsAlive)
             {
                 animator.SetTrigger("Death");
                 return;
             }
-            if (input.IsMovementPressed && !input.IsAiming)
-            {
-                animator.SetBool("IsShootReady", false);
-                Movement();
 
-            }
-            if (input.IsMovementPressed && input.IsAiming)
-            {
-                animator.SetBool("IsShootReady", true);
-                MovementOnAim();
-            }
-
+            Movement();
             ApplyGravity();
             Jump();
             if (isMeleeReady) MeleeAttack();
@@ -143,7 +133,9 @@ namespace TheChroniclesOfEllen
             Shoot();
             CameraControl();
             TimeOutToIdle();
-            
+
+            animator.SetBool("Grounded", characterController.isGrounded);
+
 
 
         }
@@ -151,7 +143,7 @@ namespace TheChroniclesOfEllen
         void LateUpdate()
         {
             CameraControl();
-           
+
         }
         #region Movement Mechanics
 
@@ -159,32 +151,47 @@ namespace TheChroniclesOfEllen
         private void Movement()
         {
 
-            movement = new Vector3(input.MovementInput.x, 0, input.MovementInput.y);
-            float targetRotation = 0;
-
-            if (movement.magnitude >= 0.1f)
+            if (input.IsMovementPressed)
             {
+                movement = new Vector3(input.MovementInput.x, 0, input.MovementInput.y);
+                float targetRotation = 0;
 
-                if (rotateOnMove)
+                if (input.IsAiming)
                 {
 
+                    animator.SetBool("IsShootReady", true);
+
+                    if (aimDirection != Vector3.zero)
+                    {
+                        animator.SetFloat("GunForward", movement.z);
+                        animator.SetFloat("GunStrafe", movement.x);
+                        characterController.Move(aimDirection * movementSpeed * Time.deltaTime);
+                    }
+
+
+                }
+                else
+                {
+                    animator.SetBool("IsShootReady", false);
                     targetRotation = Quaternion.LookRotation(movement).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
                     Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 7 * Time.deltaTime);
+                    targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
+                    characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
+                    animator.SetFloat("ForwardSpeed", input.MovementInput.magnitude);
+
                 }
 
-
             }
-            if (!input.IsMovementPressed)
+            else
             {
                 targetDirection = Vector3.zero;
                 movement = Vector3.zero;
                 input.MovementInput = Vector2.zero;
                 animator.SetFloat("ForwardSpeed", 0f);
+                animator.SetFloat("GunForward", 0f);
+                animator.SetFloat("GunStrafe", 0f);
             }
-            animator.SetFloat("ForwardSpeed", input.MovementInput.magnitude);
-            targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
-            characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
 
 
         }
@@ -198,11 +205,9 @@ namespace TheChroniclesOfEllen
             {
                 targetRotation = Quaternion.LookRotation(movementOnAim).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
                 Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 7 * Time.deltaTime);
 
             }
-            animator.SetFloat("GunForward", movementOnAim.z);
-            animator.SetFloat("GunStrafe", movementOnAim.x);
+
             Vector3 targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
             characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
 
@@ -215,23 +220,7 @@ namespace TheChroniclesOfEllen
                 animator.SetFloat("GunStrafe", 0f);
             }
         }
-        private void IsGrounded()
-        {
-             ray = new Ray(characterController.bounds.center,Vector3.down);
-             if(Physics.Raycast(characterController.center,Vector3.down,characterController.bounds.extents.y,layerMask))
-             {
-                isGrounded = true;
-                
-             } 
-            
-        }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(ray.origin,Vector3.down);
-            
-        }
         private void TimeOutToIdle()
         {
 
@@ -265,18 +254,17 @@ namespace TheChroniclesOfEllen
 
         private void Jump()
         {
-            if (!isJumping && input.IsJumpPressed)
+            if (!isJumping && input.IsJumpPressed && characterController.isGrounded)
             {
-                isGrounded = false;
                 isJumping = true;
                 jump.y = jumpVelocity;
-               
+
 
             }
             else if (isJumping && input.IsJumpPressed && input.InputJumpCounter == 2)
             {
                 jump.y = jumpVelocity + (jumpVelocity / 2);
-                animator.SetFloat("AirborneVerticalSpeed", jump.y);
+                animator.SetFloat("AirborneVerticalSpeed", jump.magnitude);
                 counter += Time.deltaTime;
                 if (input.IsJumpPressed && counter >= 0.2f)
                 {
@@ -284,7 +272,7 @@ namespace TheChroniclesOfEllen
                     input.IsJumpPressed = false;
                 }
             }
-            else if (!input.IsJumpPressed && isJumping && isGrounded)
+            else if (!input.IsJumpPressed && isJumping && characterController.isGrounded)
             {
                 isJumping = false;
                 input.InputJumpCounter = 0;
@@ -297,25 +285,20 @@ namespace TheChroniclesOfEllen
         private void ApplyGravity()
         {
 
-            if (!isGrounded)
+            if (!characterController.isGrounded)
             {
-                jump.y += gravity * Time.deltaTime;
-                animator.SetBool("Grounded", false);
-                animator.SetFloat("AirborneVerticalSpeed", jump.y);
 
+                jump.y += gravity * Time.deltaTime;
+                animator.SetFloat("AirborneVerticalSpeed", jump.y);
             }
-            else
-            {
-                jump.y = groundedGravity * Time.deltaTime;
-                animator.SetBool("Grounded", true);
-            }
+
 
         }
         #endregion
         #region Attack Mechanics
         private void MeleeAttack()
         {
-            if (input.IsAttackPressed && isGrounded && !isAttacking && staff.gameObject.activeInHierarchy)
+            if (input.IsAttackPressed && characterController.isGrounded && !isAttacking && staff.gameObject.activeInHierarchy)
             {
                 isAttacking = true;
                 movement = Vector3.zero;
@@ -342,7 +325,7 @@ namespace TheChroniclesOfEllen
 
 
             }
-            else if (!input.IsAttackPressed && isAttacking && isGrounded)
+            else if (!input.IsAttackPressed && isAttacking && characterController.isGrounded)
             {
 
                 isAttacking = false;
@@ -364,6 +347,7 @@ namespace TheChroniclesOfEllen
             Vector3 worldPosition = Vector3.zero;
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
             Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+
             if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, layerMask))
             {
                 shootTarget.position = raycastHit.point;
@@ -379,8 +363,13 @@ namespace TheChroniclesOfEllen
                 rotateOnMove = false;
                 Vector3 aimTarget = worldPosition;
                 aimTarget.y = transform.position.y;
-                Vector3 aimDirection = (aimTarget - transform.position).normalized;
-                transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+                Vector3 aimDirection = (aimTarget - transform.position);
+                float targetRotation = Quaternion.LookRotation(aimTarget).eulerAngles.y;
+                Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
+                transform.rotation = Quaternion.Lerp(rotation, transform.rotation, Time.deltaTime * 7f);
+                aimDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
+
+
             }
             else
             {
