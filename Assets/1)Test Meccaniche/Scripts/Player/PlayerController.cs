@@ -11,7 +11,6 @@ namespace TheChroniclesOfEllen
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(InputMgr))]
     [RequireComponent(typeof(HealthComponent))]
-    [RequireComponent(typeof(ShootComponent))]
     public class PlayerController : MonoBehaviour
     {
         #region Components and objects reference
@@ -95,6 +94,7 @@ namespace TheChroniclesOfEllen
             animator = GetComponent<Animator>();
             playerHealth = GetComponent<HealthComponent>();
             characterController = GetComponent<CharacterController>();
+            shootComponent = GetComponentInChildren<ShootComponent>();
             input = GetComponent<InputMgr>();
             cameraTransform = Camera.main.transform;
             aimCamera.gameObject.SetActive(false);
@@ -147,25 +147,28 @@ namespace TheChroniclesOfEllen
                 movement = new Vector3(input.MovementInput.x, 0, input.MovementInput.y);
                 float targetRotation = 0;
 
+                targetRotation = Quaternion.LookRotation(movement).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
+                Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
+                
+                targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
+
                 if (input.IsAiming)
                 {
 
                     animator.SetBool("IsShootReady", true);
                     animator.SetFloat("GunForward", movement.z);
                     animator.SetFloat("GunStrafe", movement.x);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 7 * Time.deltaTime);
+
                 }
                 else
                 {
                     animator.SetBool("IsShootReady", false);
                     animator.SetFloat("ForwardSpeed", input.MovementInput.magnitude);
-
+                    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 7 * Time.deltaTime);
                 }
-
-                targetRotation = Quaternion.LookRotation(movement).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
-                Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 7 * Time.deltaTime);
-                targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
                 characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
+
 
             }
             else
@@ -371,12 +374,8 @@ namespace TheChroniclesOfEllen
         {
             if (input.IsAiming && input.IsShootPressed && shootComponent.gameObject.activeInHierarchy)
             {
-                animator.SetBool("IsShooting", true);
+
                 shootComponent.OnShoot(shootTarget);
-            }
-            else
-            {
-                animator.SetBool("IsShooting", false);
             }
         }
         #endregion
