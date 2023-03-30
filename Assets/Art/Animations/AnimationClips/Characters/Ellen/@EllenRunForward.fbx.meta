@@ -770,7 +770,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.4396227
+        functionName: PlayAudio
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 147f05c7836a3ec49873630778d463d5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.003584129
+        functionName: PlayAudio
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 147f05c7836a3ec49873630778d463d5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9869773
+        functionName: PlayAudio
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 147f05c7836a3ec49873630778d463d5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

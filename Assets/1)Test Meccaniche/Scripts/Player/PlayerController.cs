@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 
@@ -23,7 +24,7 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private Transform cameraTransform;
         [SerializeField]
-        private ShootComponent shootComponent;
+        private ShootComponent gun;
         private HealthComponent playerHealth;
         [SerializeField]
         private Image crossHair;
@@ -53,6 +54,8 @@ namespace TheChroniclesOfEllen
         private float inputSensitivity;
         [SerializeField]
         private CinemachineVirtualCamera aimCamera;
+        [SerializeField]
+        private CinemachineVirtualCamera playerCamera;
         private Vector3 aimingDirection;
         #endregion
 
@@ -89,12 +92,13 @@ namespace TheChroniclesOfEllen
         public bool HasKey { get { return hasKey; } set { hasKey = value; } }
         #endregion
 
+
         void Awake()
         {
             animator = GetComponent<Animator>();
             playerHealth = GetComponent<HealthComponent>();
             characterController = GetComponent<CharacterController>();
-            shootComponent = GetComponentInChildren<ShootComponent>();
+            gun = GetComponentInChildren<ShootComponent>();
             input = GetComponent<InputMgr>();
             cameraTransform = Camera.main.transform;
             aimCamera.gameObject.SetActive(false);
@@ -112,8 +116,7 @@ namespace TheChroniclesOfEllen
 
             if (!playerHealth.IsAlive)
             {
-                animator.SetTrigger("Death");
-                return;
+                Death();
             }
 
             Movement();
@@ -149,7 +152,7 @@ namespace TheChroniclesOfEllen
 
                 targetRotation = Quaternion.LookRotation(movement).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
                 Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
-                
+
                 targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
 
                 if (input.IsAiming)
@@ -251,7 +254,7 @@ namespace TheChroniclesOfEllen
             }
             else if (isJumping && input.IsJumpPressed && input.InputJumpCounter == 2)
             {
-                jump.y = jumpVelocity + (jumpVelocity / 2);
+                jump.y = jumpVelocity * 2;
                 animator.SetFloat("AirborneVerticalSpeed", jump.y);
                 counter += Time.deltaTime;
                 if (input.IsJumpPressed && counter >= 0.2f)
@@ -307,7 +310,7 @@ namespace TheChroniclesOfEllen
                     comboCounter = 0;
                     actualUse = 0;
                     staff.gameObject.SetActive(false);
-                    shootComponent.gameObject.SetActive(true);
+                    gun.gameObject.SetActive(true);
                     animator.SetBool("IsAttacking", isAttacking);
                 }
 
@@ -331,7 +334,7 @@ namespace TheChroniclesOfEllen
 
         private void Aim()
         {
-            if (!shootComponent.gameObject.activeInHierarchy) return;
+            if (!gun.gameObject.activeInHierarchy) return;
             Vector3 worldPosition = Vector3.zero;
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
             Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
@@ -372,10 +375,10 @@ namespace TheChroniclesOfEllen
 
         private void Shoot()
         {
-            if (input.IsAiming && input.IsShootPressed && shootComponent.gameObject.activeInHierarchy)
+            if (input.IsAiming && input.IsShootPressed && gun.gameObject.activeInHierarchy)
             {
 
-                shootComponent.OnShoot(shootTarget);
+                gun.OnShoot(shootTarget);
             }
         }
         #endregion
@@ -393,7 +396,14 @@ namespace TheChroniclesOfEllen
         }
         #endregion
 
-
+        void Death()
+        {
+            animator.SetTrigger("Death");
+            playerHealth.currentHealth = 0;
+            cameraFollowTarget.parent = null;
+            movement = Vector3.zero;
+            
+        }
         void MakeWeaponDisappearInIdle()
         {
             //control weapon type
@@ -411,8 +421,18 @@ namespace TheChroniclesOfEllen
             if (isMeleeReady) return;
             isMeleeReady = true;
             staff.gameObject.SetActive(status);
-            shootComponent.gameObject.SetActive(false);
+            gun.gameObject.SetActive(false);
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "DeathZone")
+            {
+                Death();
+            }
+        }
+
+
 
     }
 }
