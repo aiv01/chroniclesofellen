@@ -49,6 +49,16 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
+            if (!enemyHealth.IsAlive)
+            {
+                if (powerUp != null)
+                {
+                    powerUp.gameObject.SetActive(true);
+                    powerUp.transform.position = transform.position + Vector3.up;
+                }
+                gameObject.SetActive(false);
+                return;
+            }
             Flee();
             if (!isFleeing)
             {
@@ -114,8 +124,30 @@ namespace TheChroniclesOfEllen
             transform.rotation = Quaternion.Lerp(transform.rotation,
                 Quaternion.LookRotation((playerPosition.position - transform.position).normalized), Time.deltaTime);
 
-            shootComponent.Shoot(playerPosition);
+            shootComponent.OnShoot((playerPosition.position - transform.position).normalized);
             
+        }
+
+        private int SpawnPowerUp()
+        {
+            int powerup = Random.RandomRange(0, 100);
+
+            if (powerup <= 30)
+            {
+                return (int)PowerUpType.Health;
+            }
+            else if (powerup <= 50)
+            {
+                return (int)PowerUpType.Gun;
+            }
+            else if (powerup <= 55)
+            {
+                return (int)PowerUpType.Shield;
+            }
+            else
+            {
+                return (int)PowerUpType.None;
+            }
         }
 
     }

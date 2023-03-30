@@ -1,23 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
     public class ShieldPowerUp : PowerUp
     {
         private ShieldPUSO shieldSO;
-        public int hitLeft;
+        private int hitLeft;
+        public bool ShieldStatus
+        {
+            get { return (hitLeft > 0); }
+        }
 
         public override bool OnHit()
         {
-            hitLeft--;
             if (hitLeft == 0) 
             {
-                return true;
+                return false;
             }
-            return false;
+            hitLeft--;
+            return true;
         }
 
         public override void OnStart()
@@ -34,6 +37,16 @@ namespace TheChroniclesOfEllen
         public override void ResetPowerUp()
         {
             hitLeft = shieldSO.resistence;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Palyer")
+            {
+                gameObject.SetActive(false);
+                other.GetComponent<PlayerPowerUp>().ChangePowerUp(this);
+                OnPickUp();
+            }
         }
     }
 }

@@ -1,17 +1,12 @@
+using Cinemachine.Utility;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+using System.Collections;
 
 namespace TheChroniclesOfEllen
 {
 
     public class PermanentPowerUp : PowerUp
     {
-        [SerializeField]
-        private UnityEvent<float> IncrementHealth;
-        [SerializeField]
-        private UnityEvent<float> IncrementDamage;
 
         private PermanentPUSO permanentSO;
 
@@ -20,10 +15,15 @@ namespace TheChroniclesOfEllen
             permanentSO = (PermanentPUSO)powerUpsSO;
         }
 
-        public override void OnPickUp()
+        private void OnTriggerEnter(UnityEngine.Collider other)
         {
-            IncrementHealth.Invoke(permanentSO.healthIncrease);
-            IncrementDamage.Invoke(permanentSO.damageIncrease);
+            if (other.tag == "Palyer")
+            {
+                gameObject.SetActive(false);
+                other.GetComponent<HealthComponent>().IncreaseMaxHealth(permanentSO.healthIncrease);
+                //TODO: incrementare il danno
+                OnPickUp();
+            }
         }
     }
 }

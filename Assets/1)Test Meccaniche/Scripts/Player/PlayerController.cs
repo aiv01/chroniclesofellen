@@ -372,7 +372,7 @@ namespace TheChroniclesOfEllen
             if (input.IsAiming && input.IsShootPressed && shootComponent.gameObject.activeInHierarchy)
             {
                 animator.SetBool("IsShooting", true);
-                shootComponent.Shoot(shootTarget);
+                shootComponent.OnShoot(shootTarget);
             }
             else
             {

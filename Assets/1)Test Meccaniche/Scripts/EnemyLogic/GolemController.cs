@@ -1,43 +1,163 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 namespace TheChroniclesOfEllen
 {
-    
-    public class GolemController : MonoBehaviour
+
+    public class GolemController : BaseBossController
     {
-        private Animator golemAnimator;
-        public Transform playerTransform;
+        [SerializeField]
+        private UnityEvent OnDie;
+        [SerializeField]
+        private EnemyHitBox rightArm;
+        [SerializeField]
+        private EnemyHitBox leftArm;
+
+        public float closeRangeDistance;
+        public float meleeDistance;
+        public float walkDistance;
+        public float runDistance;
+        private int animIsCloseRangeB;
+        private int animIsMeleeB;
+        private int animIsRunningB;
+        private int animIsWalkingB;
+        private int animIsWaitingB;
+        private int animAngleF;
+
+        private bool isAttacking;
+        public bool isMelee;
+        public bool isCloseRange;
+
+
         // Start is called before the first frame update
         void Start()
         {
-            golemAnimator = GetComponent<Animator>();
+            base.Start();
+            closeRangeDistance *= closeRangeDistance;
+            meleeDistance *= meleeDistance;
+            walkDistance *= walkDistance;
+            runDistance *= runDistance;
+            animAngleF = Animator.StringToHash("Angle");
+            animIsMeleeB = Animator.StringToHash("IsMelee");
+            animIsRunningB = Animator.StringToHash("IsRunning");
+            animIsWalkingB = Animator.StringToHash("IsWalking");
+            animIsWaitingB = Animator.StringToHash("IsWaiting");
+            animIsCloseRangeB = Animator.StringToHash("IsCloseRange");
         }
 
         // Update is called once per frame
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            currentPlayerPositionCheckCD += Time.deltaTime;
+            currentAttackCD += Time.deltaTime;
+
+            if (currentPlayerPositionCheckCD >= playerPositionCheckCD)
             {
-                golemAnimator.SetTrigger("IsDead");
+                currentPlayerPositionCheckCD = 0;
+                Vector3 vDistance = (playerTransform.position - transform.position);
+                float distance = vDistance.sqrMagnitude;
+
+                ManageDistance(distance);
+                float angle = Vector3.SignedAngle(transform.forward, vDistance, Vector3.up);
+                bossAnimator.SetFloat(animAngleF, angle);
+
             }
 
-            float distance = (transform.position - playerTransform.position).magnitude;
-
-            if (distance <= 20)
+            if (isAttacking)
             {
-                golemAnimator.SetFloat("PlayerDistance", distance); 
+                if (isMelee)
+                {
+                    rightArm.isAttacking = false;
+                    leftArm.isAttacking = true;
+                    isAttacking = false;
+                }
+                else if (isCloseRange)
+                {
+                    rightArm.isAttacking = true;
+                    leftArm.isAttacking = false;
+                    isAttacking = false;
+                }
+                
             }
-            Vector3 angle = Quaternion.FromToRotation(transform.forward, (transform.position - playerTransform.position).normalized).eulerAngles;
-            float x = Vector3.Dot(angle.normalized, transform.forward);
-            golemAnimator.SetFloat("Angle", x);
+
         }
+
+
 
         private void StartAttack()
         {
+            isAttacking = true;
+        }
+
+        private void EndAttack()
+        {
+            isAttacking = false;
+            currentAttackCD = 0;
+            attackCD = Random.Range(minAttackCD, maxAttackCD);
+            bossAnimator.SetBool(animIsWaitingB, true);
 
         }
-    }
 
+        private void ManageDistance(float distance)
+        {
+            if (distance <= closeRangeDistance) 
+            {
+                if(currentAttackCD < attackCD)
+                {
+                    bossAnimator.SetBool(animIsWaitingB, true);
+                    return;
+                }
+                bossAnimator.SetBool(animIsCloseRangeB, true);
+                bossAnimator.SetBool(animIsRunningB, false);
+                bossAnimator.SetBool(animIsMeleeB, false);
+                bossAnimator.SetBool(animIsWalkingB, false);
+                bossAnimator.SetBool(animIsWaitingB, false);
+                isCloseRange = false;
+                isMelee = true;
+            }
+            else if (distance <= meleeDistance)
+            {
+                if(currentAttackCD < attackCD)
+                {
+                    bossAnimator.SetBool(animIsWaitingB, true);
+                    return;
+                }
+                bossAnimator.SetBool(animIsMeleeB, true);
+                bossAnimator.SetBool(animIsCloseRangeB, false);
+                bossAnimator.SetBool(animIsRunningB, false);
+                bossAnimator.SetBool(animIsWalkingB, false);
+                bossAnimator.SetBool(animIsWaitingB, false);
+                isCloseRange = true;
+                isMelee = false;
+            }
+            else if (distance <= walkDistance)
+            {
+                bossAnimator.SetBool(animIsWalkingB, true);
+                bossAnimator.SetBool(animIsCloseRangeB, false);
+                bossAnimator.SetBool(animIsRunningB, false);
+                bossAnimator.SetBool(animIsMeleeB, false);
+                isCloseRange = false;
+                isMelee = false;
+                transform.forward = Vector3.Lerp(transform.forward,
+                    new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
+                    Time.deltaTime);
+            }
+            else
+            {
+                bossAnimator.SetBool(animIsRunningB, true);
+                bossAnimator.SetBool(animIsCloseRangeB, false);
+                bossAnimator.SetBool(animIsMeleeB, false);
+                bossAnimator.SetBool(animIsWalkingB, false);
+                isCloseRange = false;
+                isMelee = false;
+                transform.forward = Vector3.Lerp(transform.forward,
+                    new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
+                    Time.deltaTime);
+            }
+        }
+    }
 }
