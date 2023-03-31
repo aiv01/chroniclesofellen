@@ -5,24 +5,45 @@ namespace TheChroniclesOfEllen
 {
     public class AudioMgr : MonoBehaviour
     {
-       [SerializeField]
-       private Sound[] sounds;
-       [SerializeField]
+       
+       public Sound[] sounds;
        [Range(0f,10f)]
-       private float volume;
-       [SerializeField]
+       private float generalVolume;
        [Range(0f,10f)]
-       private float pitch;
+       private float generalPitch;
 
        void Awake()
        {
+
+            DontDestroyOnLoad(gameObject);
+
             foreach(var sound in sounds)
             {
                 sound.source = gameObject.AddComponent<AudioSource>();
                 sound.source.clip = sound.clip;
                 sound.source.volume = sound.volume;
                 sound.source.pitch = sound.pitch;
+                sound.source.loop = sound.loop;
             }
        }
+
+       void Start()
+       {
+           Play("GamePlay");
+       }
+
+       private void Play(string name)
+       {
+            foreach(var s in sounds)
+            {
+                if(s == null) return;
+                
+                if(s.name == name)
+                {
+                    s.source.Play();
+                }
+            }
+       }
+
     }
 }

@@ -113,25 +113,22 @@ namespace TheChroniclesOfEllen
         }
         void Update()
         {
-
+            
             if (!playerHealth.IsAlive)
             {
                 Death();
             }
 
             Movement();
+            
             ApplyGravity();
             Jump();
+            animator.SetBool("Grounded", characterController.isGrounded);
             if (isMeleeReady) MeleeAttack();
             Aim();
             Shoot();
             CameraControl();
             TimeOutToIdle();
-
-            animator.SetBool("Grounded", characterController.isGrounded);
-
-
-
         }
 
         void LateUpdate()
@@ -186,32 +183,6 @@ namespace TheChroniclesOfEllen
 
 
         }
-        private void MovementOnAim()
-        {
-
-            movementOnAim = new Vector3(input.MovementInput.x, 0, input.MovementInput.y);
-            float targetRotation = 0;
-
-            if (movementOnAim.magnitude >= 0.1f)
-            {
-                targetRotation = Quaternion.LookRotation(movementOnAim).eulerAngles.y + cameraTransform.rotation.eulerAngles.y;
-                Quaternion rotation = Quaternion.Euler(0, targetRotation, 0);
-
-            }
-
-            Vector3 targetDirection = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
-            characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
-
-            if (!input.IsMovementPressed)
-            {
-                targetDirection = Vector3.zero;
-                movementOnAim = Vector3.zero;
-                input.MovementInput = Vector3.zero;
-                animator.SetFloat("GunForward", 0f);
-                animator.SetFloat("GunStrafe", 0f);
-            }
-        }
-
         private void TimeOutToIdle()
         {
 
@@ -245,7 +216,7 @@ namespace TheChroniclesOfEllen
 
         private void Jump()
         {
-            if (!isJumping && input.IsJumpPressed && characterController.isGrounded)
+            if (!isJumping && input.IsJumpPressed)
             {
                 isJumping = true;
                 jump.y = jumpVelocity;
@@ -281,6 +252,11 @@ namespace TheChroniclesOfEllen
 
                 jump.y += gravity * Time.deltaTime;
                 animator.SetFloat("AirborneVerticalSpeed", jump.y);
+            }else
+            {
+                Vector3 groundedGravity = Vector3.zero;
+                groundedGravity.y = -0.5f * Time.deltaTime;
+                characterController.Move(groundedGravity);
             }
 
 
