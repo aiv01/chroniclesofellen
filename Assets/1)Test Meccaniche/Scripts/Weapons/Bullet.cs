@@ -21,23 +21,23 @@ namespace TheChroniclesOfEllen
 
         private void Update()
         {
-            
-            if(directionTarget.parent != null)
-            {
-                transform.position = Vector3.MoveTowards(transform.position,directionTarget.position,speed * Time.deltaTime);
-            }else
-            {
-                transform.position += direction * speed * Time.deltaTime;
-            }
+
+            //if(directionTarget.parent != null)
+            //{
+            //    transform.position = Vector3.MoveTowards(transform.position,directionTarget.position,speed * Time.deltaTime);
+            //}else
+            //{
+            transform.position += direction * speed * Time.deltaTime;
+            //}
             bulletTimer += Time.deltaTime;
-            if(bulletTimer >= bulletLifeTime)
+            if (bulletTimer >= bulletLifeTime)
             {
                 gameObject.SetActive(false);
-                directionTarget = null;
+                //directionTarget = null;
                 bulletTimer = 0;
             }
 
-        } 
+        }
 
         public void SetTarget(Transform target)
         {
@@ -48,13 +48,15 @@ namespace TheChroniclesOfEllen
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("Sono morto");
-            if (collision.gameObject.tag == "Player")
+            bulletTimer = bulletLifeTime;
+            if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Player" || collision.gameObject.tag == "Boss")
             {
-                bulletTimer = bulletLifeTime;
-                directionTarget = null;
-                gameObject.SetActive(false);
+
+                collision.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);
+                //directionTarget = null; 
             }
+            gameObject.SetActive(false);
+
         }
     }
 }

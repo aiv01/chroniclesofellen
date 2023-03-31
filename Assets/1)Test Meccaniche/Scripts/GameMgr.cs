@@ -75,7 +75,6 @@ namespace TheChroniclesOfEllen
         {
             currentFile.SavePointNumber = savePoint;
             string saveData = JsonUtility.ToJson(currentFile);
-            textAsset = new TextAsset(saveData);
             File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
             Debug.Log("Save: " + currentFile.ToString());
             load.text = "save";
@@ -83,7 +82,7 @@ namespace TheChroniclesOfEllen
 
         public void Load()
         {
-            currentFile = JsonUtility.FromJson<SafeFile>(textAsset.text);
+            currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             Debug.Log("Load: " + currentFile.ToString());
             load.text = "load";
 

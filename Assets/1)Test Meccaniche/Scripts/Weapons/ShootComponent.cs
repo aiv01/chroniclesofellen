@@ -12,8 +12,6 @@ namespace TheChroniclesOfEllen
         private Bullet bullet;
         public float shootCD = 0.5f;
         private float currentTimer;
-        private float bulletTimer;
-        private float bulletLifeTime = 3.5f;
         private float overheat = 10;
         private float currentOverheat;
         private float overheatPerBullet = 1.5f;
@@ -37,11 +35,15 @@ namespace TheChroniclesOfEllen
             currentOverheat = Mathf.Max(currentOverheat - Time.deltaTime, 0);
         }
 
-        public void Shoot(Transform target)
+        public void OnShoot(Transform target)
         {
             if (currentTimer > shootCD && currentOverheat <= overheat)
             {
-                if (!isSpitter && powerUpSystem.HaveSpecialLeft()) 
+                if (isSpitter)
+                {
+                    bullet = BulletPool.GetBulletEnemy();
+                }
+                else if (!isSpitter && powerUpSystem.HaveSpecialLeft()) 
                 {
                     bullet = BulletPool.GetBulletSpecial();
                 }
@@ -49,6 +51,7 @@ namespace TheChroniclesOfEllen
                 {
                     bullet = BulletPool.GetBullet();
                 }
+                
                 if (target != null)
                 {
                     bullet.SetTarget(target);
@@ -59,13 +62,35 @@ namespace TheChroniclesOfEllen
                 bullet.damage = damage;
                 bullet.speed = 10;
                 bullet.direction = mouthOfFire.forward;
-                
-                
-
             }
             
         }
 
+        public void OnShoot(Vector3 direction)
+        {
+            if (currentTimer > shootCD && currentOverheat <= overheat)
+            {
+                if (isSpitter)
+                {
+                    bullet = BulletPool.GetBulletEnemy();
+                }
+                else if (!isSpitter && powerUpSystem.HaveSpecialLeft())
+                {
+                    bullet = BulletPool.GetBulletSpecial();
+                }
+                else
+                {
+                    bullet = BulletPool.GetBullet();
+                }
 
+                bullet.direction = direction;
+                currentOverheat += overheatPerBullet;
+                currentTimer = 0;
+                bullet.transform.position = mouthOfFire.position;
+                bullet.damage = damage;
+                bullet.speed = 10;
+            }
+
+        }
     }
 }  

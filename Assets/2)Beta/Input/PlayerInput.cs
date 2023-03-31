@@ -34,7 +34,7 @@ namespace TheChroniclesOfEllen
                     ""type"": ""Value"",
                     ""id"": ""1ab7c18b-5975-456d-888a-50feac3b35f4"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },

@@ -9,16 +9,26 @@ namespace TheChroniclesOfEllen
 {
     public class HealthComponent : MonoBehaviour
     {
+        [SerializeField]
+        private UnityEvent OnPoiseBreak;
         public TextMeshProUGUI text;
         private float maxHealth;
-        private float currentHealth;
+        public float currentHealth;
         private bool shieldActive;
+        private float maxPoise;
+        private float currPoise;
+        private float regenPoisePerSec;
         private PlayerPowerUp powerUpSystem;
         public Transform shield;
         private bool isAlive;
         public bool IsAlive
         {
             get { return isAlive; }
+        }
+
+        public float HealthPerc
+        {
+            get { return currentHealth / maxHealth; }
         }
 
         // Start is called before the first frame update
@@ -31,38 +41,55 @@ namespace TheChroniclesOfEllen
             maxHealth = 10;
             currentHealth = maxHealth;
             powerUpSystem = GetComponent<PlayerPowerUp>();
+
+            currPoise = maxPoise;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if(this.tag == "Player")
+            currPoise = MathF.Min(currPoise + regenPoisePerSec * Time.deltaTime, maxPoise);
+
+            if(tag == "Player")
             {
                 text.text = currentHealth + " / " + maxHealth;
+                shield.gameObject.SetActive(powerUpSystem.IsShieldActive());
             }
-            shield.gameObject.SetActive(shieldActive);
             if (currentHealth <= 0)
             {
                 isAlive = false;
-                Debug.Log("Uaglio Ociuccio � morto");
                 currentHealth = 0;
             }
         }
 
+        public void SetMaxHealth(float maxHealth)
+        {
+            this.maxHealth = maxHealth;
+            currentHealth = maxHealth;
+        }
+
         public void HealMe(float healAmount)
         {
-            Debug.Log("Ociuccio � curato di " + healAmount);
             currentHealth = MathF.Min(healAmount + currentHealth, maxHealth);
         }
 
         public void TakeDamage(float damageAmount)
         {
-            Debug.Log("Colpito");
-            shieldActive = powerUpSystem.IsShieldActive();
-            if (!shieldActive)
+            if (tag == "Player")
             {
-                
+                if (powerUpSystem.OnHit())
+                {
+                    return;
+                }
             }
+            currPoise -= damageAmount;
+
+            if (currPoise <= 0)
+            {
+                OnPoiseBreak.Invoke();
+                currPoise = maxPoise;
+            }
+
             currentHealth -= damageAmount;
         }
 
@@ -73,6 +100,11 @@ namespace TheChroniclesOfEllen
                 maxHealth += healthIncreaseValue;
                 currentHealth = maxHealth;
             }
+        }
+
+        public void Shield(bool shieldStatus)
+        {
+            shield.gameObject.SetActive(shieldStatus);
         }
     }
 }

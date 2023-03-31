@@ -118,8 +118,16 @@ namespace TheChroniclesOfEllen
         }
         void onJump(InputAction.CallbackContext context)
         {
-            isJumpPressed = context.ReadValueAsButton();
-            if (context.started) inputJumpCounter++;
+            
+            if (context.started)
+            {
+                isJumpPressed = true;
+                inputJumpCounter++;
+
+            }else if(context.canceled)
+            {
+                isJumpPressed = false;
+            } 
 
         }
         private void onMeleeAttack(InputAction.CallbackContext context)
