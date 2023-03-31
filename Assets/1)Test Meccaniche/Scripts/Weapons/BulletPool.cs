@@ -36,18 +36,22 @@ namespace TheChroniclesOfEllen
             {
                 go = Instantiate<Bullet>(bulletPrefab);
                 go.gameObject.SetActive(false);
+                go.transform.SetParent(this.transform, false);
                 bullets[i] = go;
+                
             }
             for(int i = 0; i < poolSpecialSize; i++)
             {
                 go = Instantiate<Bullet>(bulletSpecialPrefab);
                 go.gameObject.SetActive(false);
+                go.transform.SetParent(this.transform, false);
                 bulletsSpecial[i] = go;
             }
             for(int i = 0; i < poolSizeEnemy; i++)
             {
                 go = Instantiate<Bullet>(bulletEnemyPrefab);
                 go.gameObject.SetActive(false);
+                go.transform.SetParent(this.transform, false);
                 bulletsEnemy[i] = go;
             }
         }

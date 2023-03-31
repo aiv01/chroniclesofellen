@@ -19,7 +19,7 @@ MonoBehaviour:
   stayTime: 2
   attackCD: 5
   pursuitTime: 0.5
-  stopDistance: 1
+  stopDistance: 4
   attackStopDistance: 3
   attackDistance: 4
   pursuitDistance: 10

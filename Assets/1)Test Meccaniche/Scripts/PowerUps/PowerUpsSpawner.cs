@@ -35,6 +35,7 @@ namespace TheChroniclesOfEllen
                 {
                     PowerUp pu = Instantiate<PowerUp>(prefabPowerUp[i]);
                     pu.gameObject.SetActive(false);
+                    pu.transform.SetParent(transform, false);
                     pu.OnStart();
                     powerups[i, y] = pu;
                 }
