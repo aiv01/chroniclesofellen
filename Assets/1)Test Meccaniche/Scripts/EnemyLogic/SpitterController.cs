@@ -94,7 +94,7 @@ namespace TheChroniclesOfEllen
         private bool IsFleeing()
         {
             float distance = (transform.position - playerPosition.position).sqrMagnitude;
-            isFleeing = distance < fleeingDistance;
+            isFleeing = distance > fleeingDistance;
             enemyAnimator.SetBool("IsFleeing", isFleeing);
             return isFleeing;
         }

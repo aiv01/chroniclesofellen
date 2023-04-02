@@ -12,6 +12,7 @@ namespace TheChroniclesOfEllen
         protected Animator bossAnimator;
         public Transform playerTransform;
         protected HealthComponent bossHealth;
+        protected PowerUp pu;
 
         protected float minAttackCD = 0.5f;
         protected float maxAttackCD = 5f;
@@ -28,12 +29,7 @@ namespace TheChroniclesOfEllen
             bossHealth = GetComponent<HealthComponent>();
             currentAttackCD = 0;
             currentPlayerPositionCheckCD = 0;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            pu = PowerUpsSpawner.SpawnPowerUp(PowerUpType.Permanent);
         }
 
         public void OnPoiseBreak()

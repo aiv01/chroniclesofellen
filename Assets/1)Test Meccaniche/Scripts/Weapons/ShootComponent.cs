@@ -13,7 +13,7 @@ namespace TheChroniclesOfEllen
         public float shootCD = 0.5f;
         private float currentTimer;
         private float overheat = 10;
-        private float currentOverheat;
+        public float currentOverheat;
         private float overheatPerBullet = 1.5f;
         private PlayerPowerUp powerUpSystem;
         public bool isSpitter;
@@ -88,7 +88,6 @@ namespace TheChroniclesOfEllen
                 currentTimer = 0;
                 bullet.transform.position = mouthOfFire.position;
                 bullet.damage = damage;
-                bullet.speed = 10;
             }
 
         }

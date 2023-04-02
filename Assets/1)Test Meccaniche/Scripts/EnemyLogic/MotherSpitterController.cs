@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace TheChroniclesOfEllen
 {
-
+    [RequireComponent(typeof(ShootComponent))]
+    [RequireComponent(typeof(NavMeshAgent))]
     public class MotherSpitterController : BaseBossController
     {
         private ShootComponent spitterShootComponent;
         [SerializeField]
         private EnemyHitBox biteHitBox;
         public Transform[] fleePoints;
+        private NavMeshAgent agent;
         private int currFleePoint;
 
         public float shootDistance;
@@ -33,6 +36,7 @@ namespace TheChroniclesOfEllen
             fleeDistance *= fleeDistance;
             meleeDistance *= meleeDistance;
             spitterShootComponent = GetComponent<ShootComponent>();
+            agent = GetComponent<NavMeshAgent>();
 
             animIsAttackingB = Animator.StringToHash("IsAttacking");
             animIsShootingB = Animator.StringToHash("IsShooting");
@@ -43,13 +47,20 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
+            if (!bossHealth.IsAlive)
+            {
+                bossAnimator.SetTrigger("Dead");
+                pu.gameObject.SetActive(true);
+                pu.transform.position = transform.position + Vector3.up;
+                gameObject.SetActive(false);
+            }
             currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;
 
 
             if (isFleeing)
             {
-                isFleeing = (transform.position - fleePoints[currFleePoint].position).sqrMagnitude <= fleeStopDistance;
+                isFleeing = (transform.position - fleePoints[currFleePoint].position).sqrMagnitude >= fleeStopDistance;
             }
 
             if (!isFleeing && currentPlayerPositionCheckCD >= playerPositionCheckCD)
@@ -77,7 +88,10 @@ namespace TheChroniclesOfEllen
                     {
                         bossAnimator.SetBool(animIsAttackingB, true);
                         bossAnimator.SetBool(animIsFleeingB, false);
+                        agent.SetDestination(playerTransform.position);
+                        agent.stoppingDistance = meleeStopDistance;
                         biteHitBox.isAttacking = true;
+                        isFleeing = false;
                         return;
                     }
 
@@ -88,6 +102,7 @@ namespace TheChroniclesOfEllen
             }
             else if (distance <= shootDistance)
             {
+                isFleeing = false;
                 if(currentAttackCD>= attackCD)
                 {
                     bossAnimator.SetBool(animIsShootingB, true);
@@ -99,8 +114,14 @@ namespace TheChroniclesOfEllen
 
         private void Flee()
         {
+            if (isFleeing == false)
+            {
+                currFleePoint = Random.Range(0, fleePoints.Length);
+                agent.SetDestination(fleePoints[currFleePoint].position);
+                agent.stoppingDistance = fleeStopDistance;
+            }
             isFleeing = true;
-            currFleePoint = Random.Range(0, fleePoints.Length);
+
         }
 
         public void Shoot()

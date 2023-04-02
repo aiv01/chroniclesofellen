@@ -112,8 +112,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  speed: 10
+  speed: 30
   direction: {x: 0, y: 0, z: 0}
+  bulletLifeTime: 7
 --- !u!54 &1972969269093361610
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private UnityEvent OnPoiseBreak;
         public TextMeshProUGUI text;
-        private float maxHealth;
+        public float maxHealth;
         public float currentHealth;
         private bool shieldActive;
         private float maxPoise;
@@ -35,8 +35,11 @@ namespace TheChroniclesOfEllen
         void Start()
         {
             //controllo se ho lo scudo
+            if (tag == "Player")
+            {
+                shield.gameObject.SetActive(false);
+            }
             isAlive = true; 
-            shield.gameObject.SetActive(false);
             //prendo da file la vita massima
             maxHealth = 10;
             currentHealth = maxHealth;
