@@ -11,6 +11,7 @@ TagManager:
   - EnemyBullet
   - PlayerBullet
   - DeathZone
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

@@ -28,6 +28,7 @@ namespace TheChroniclesOfEllen
         private HealthComponent playerHealth;
         [SerializeField]
         private Image crossHair;
+        private AudioPlayer audioPlayer;
         #endregion
 
         #region Movement variables
@@ -37,9 +38,6 @@ namespace TheChroniclesOfEllen
         private Vector3 targetDirection;
         [SerializeField]
         private float movementSpeed;
-        private float rotationTime = 0.1f;
-        private float currentAngle;
-        private float currentAngleVelocity;
         private bool rotateOnMove = true;
         #endregion
 
@@ -54,15 +52,10 @@ namespace TheChroniclesOfEllen
         private float inputSensitivity;
         [SerializeField]
         private CinemachineVirtualCamera aimCamera;
-        [SerializeField]
-        private CinemachineVirtualCamera playerCamera;
-        private Vector3 aimingDirection;
         #endregion
 
         #region gravity variables
         private float gravity = -9.81f;
-        [SerializeField]
-        private float groundOffsetY;
         #endregion
 
         #region Jump variables
@@ -82,14 +75,11 @@ namespace TheChroniclesOfEllen
         private int actualUse = 0;
         [SerializeField]
         private Transform shootTarget;
-        private Ray ray;
         #endregion
 
         #region other
         float timer = 0;
         int randomIdle;
-        private bool hasKey;
-        public bool HasKey { get { return hasKey; } set { hasKey = value; } }
         #endregion
 
 
@@ -100,10 +90,12 @@ namespace TheChroniclesOfEllen
             characterController = GetComponent<CharacterController>();
             gun = GetComponentInChildren<ShootComponent>();
             input = GetComponent<InputMgr>();
+            audioPlayer = GetComponent<AudioPlayer>();
             cameraTransform = Camera.main.transform;
             aimCamera.gameObject.SetActive(false);
             staff.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = false;
 
         }
         void OnGUI()
@@ -113,32 +105,26 @@ namespace TheChroniclesOfEllen
         }
         void Update()
         {
-            
+            Movement();
+            ApplyGravity();
+            Jump();
+            if (isMeleeReady) MeleeAttack();
+            Aim();
+            Shoot();
+            TimeOutToIdle();
+            animator.SetBool("Grounded", characterController.isGrounded);
             if (!playerHealth.IsAlive)
             {
                 Death();
             }
-
-            Movement();
-            
-            ApplyGravity();
-            Jump();
-            animator.SetBool("Grounded", characterController.isGrounded);
-            if (isMeleeReady) MeleeAttack();
-            Aim();
-            Shoot();
-            CameraControl();
-            TimeOutToIdle();
         }
 
         void LateUpdate()
         {
             CameraControl();
-
         }
+
         #region Movement Mechanics
-
-
         private void Movement()
         {
 
@@ -213,23 +199,25 @@ namespace TheChroniclesOfEllen
         }
         #endregion
         #region Jump Mechanics
-
         private void Jump()
         {
+
             if (!isJumping && input.IsJumpPressed)
             {
                 isJumping = true;
+                audioPlayer.PlayJumpAudio();
                 jump.y = jumpVelocity;
-
 
             }
             else if (isJumping && input.IsJumpPressed && input.InputJumpCounter == 2)
             {
-                jump.y = jumpVelocity * 2;
-                animator.SetFloat("AirborneVerticalSpeed", jump.y);
+
+                jump.y = jumpVelocity + (jumpVelocity / 2);
                 counter += Time.deltaTime;
-                if (input.IsJumpPressed && counter >= 0.2f)
+
+                if (input.IsJumpPressed && counter >= 0.1f)
                 {
+                    audioPlayer.PlayJumpAudio();
                     counter = 0;
                     input.IsJumpPressed = false;
                 }
@@ -241,6 +229,7 @@ namespace TheChroniclesOfEllen
             }
 
             characterController.Move(jump * Time.deltaTime);
+            animator.SetFloat("AirborneVerticalSpeed", jump.y);
 
 
         }
@@ -251,12 +240,6 @@ namespace TheChroniclesOfEllen
             {
 
                 jump.y += gravity * Time.deltaTime;
-                animator.SetFloat("AirborneVerticalSpeed", jump.y);
-            }else
-            {
-                Vector3 groundedGravity = Vector3.zero;
-                groundedGravity.y = -0.5f * Time.deltaTime;
-                characterController.Move(groundedGravity);
             }
 
 
@@ -271,8 +254,8 @@ namespace TheChroniclesOfEllen
                 movement = Vector3.zero;
                 animator.SetBool("IsAttacking", true);
                 comboCounter++;
-
                 animator.SetInteger("ComboCounter", comboCounter);
+
                 if (comboCounter >= 4)
                 {
                     actualUse++;
@@ -353,15 +336,12 @@ namespace TheChroniclesOfEllen
         {
             if (input.IsAiming && input.IsShootPressed && gun.gameObject.activeInHierarchy)
             {
-
                 gun.OnShoot(shootTarget);
+
             }
         }
         #endregion
-
         #region Camera Mechanics
-
-
         void CameraControl()
         {
             xRotation += input.LookInput.y * Time.deltaTime * inputSensitivity;
@@ -370,6 +350,7 @@ namespace TheChroniclesOfEllen
             Quaternion rotation = Quaternion.Euler(xRotation, yRotation, 0);
             cameraFollowTarget.rotation = rotation;
         }
+
         #endregion
 
         void Death()
@@ -378,7 +359,7 @@ namespace TheChroniclesOfEllen
             playerHealth.currentHealth = 0;
             cameraFollowTarget.parent = null;
             movement = Vector3.zero;
-            
+
         }
         void MakeWeaponDisappearInIdle()
         {
@@ -391,7 +372,6 @@ namespace TheChroniclesOfEllen
             if (staff.gameObject.activeInHierarchy == false) return;
             staff.transform.GetComponentInChildren<Renderer>().enabled = true;
         }
-
         public void SetStaffStatus(bool status)
         {
             if (isMeleeReady) return;
@@ -406,9 +386,45 @@ namespace TheChroniclesOfEllen
             {
                 Death();
             }
+
+            switch (other.tag)
+            {
+                case "DeathZone":
+                    Death();
+                    break;
+
+                case "MovingPlatform":
+                    transform.SetParent(other.transform);
+
+                    break;
+
+                default:
+                    return;
+
+            }
         }
-
-
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.tag == "MovingPlatform")
+            {
+                transform.localPosition = other.transform.position;
+            }
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "MovingPlatform")
+            {
+                transform.parent = null;
+            }
+        }
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "EnemyBullet")
+            {
+                animator.SetTrigger("Hurt");
+                playerHealth.TakeDamage(2f);
+            }
+        }
 
     }
 }

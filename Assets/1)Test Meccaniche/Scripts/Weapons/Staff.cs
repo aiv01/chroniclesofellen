@@ -11,7 +11,7 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private WeaponType type;
         public WeaponType Type { get { return type; } }
-        private int maxUsesSeries = 4;
+        private int maxUsesSeries = 6;
         public int MaxUsesSeries { get { return maxUsesSeries; } }
 
         void Awake()
@@ -22,6 +22,7 @@ namespace TheChroniclesOfEllen
         private void OnTriggerEnter(Collider other)
         {
             Debug.Log("Colpito");
+            
             if (other.tag == "Enemy")
             {
                 Debug.Log("Colpito");

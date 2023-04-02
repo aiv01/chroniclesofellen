@@ -3850,7 +3850,6 @@ GameObject:
   - component: {fileID: 2715189597774698229}
   - component: {fileID: -549543452688485502}
   - component: {fileID: 8984086558808725453}
-  - component: {fileID: 6969618269659877979}
   - component: {fileID: 3234902048298806966}
   m_Layer: 0
   m_Name: Ellen
@@ -3971,24 +3970,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e513918deca984e85bcccaa545091e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnPoiseBreak:
+    m_PersistentCalls:
+      m_Calls: []
   text: {fileID: 0}
+  currentHealth: 0
   shield: {fileID: 0}
---- !u!114 &6969618269659877979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4223184744576370778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b35716417364b4e93f87eec90e70e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouthOfFire: {fileID: 4223184744051409448}
-  damage: 0
-  shootCD: 0.5
-  isSpitter: 0
 --- !u!114 &3234902048298806966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4003,7 +3990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staff: {fileID: 4223184744865183994}
   cameraTransform: {fileID: 0}
-  shootComponent: {fileID: 4223184743964674952}
+  gun: {fileID: 0}
   crossHair: {fileID: 0}
   movementSpeed: 10
   cameraFollowTarget: {fileID: 6542332084630674536}

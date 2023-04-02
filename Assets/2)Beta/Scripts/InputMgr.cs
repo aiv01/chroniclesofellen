@@ -148,8 +148,6 @@ namespace TheChroniclesOfEllen
             if (context.started)
             {
                 isShootPressed = true;
-
-
             }
             else if (context.canceled)
             {

@@ -15,11 +15,14 @@ namespace TheChroniclesOfEllen
         private AudioClip[] jumpAudioClips;
         [SerializeField]
         private AudioClip[] meleeAttackAudioClips;
+        [SerializeField]
         private AudioSource source;
+        private InputMgr input;
 
         void Awake()
         {
             source = GetComponent<AudioSource>();
+            input = GetComponent<InputMgr>();
         }
 
         private void PlayMovementAudio()
@@ -31,19 +34,22 @@ namespace TheChroniclesOfEllen
 
         public void PlayDeathAudio()
         {
-            int random = Random.Range(0,deathAudioClips.Length);
+            int random = Random.Range(0, deathAudioClips.Length);
             source.PlayOneShot(deathAudioClips[random]);
+
+
         }
 
         public void PlayJumpAudio()
         {
-            int random = Random.Range(0,jumpAudioClips.Length);
-            if(gameObject.GetComponent<InputMgr>().IsJumpPressed)
-            {
-                 source.PlayOneShot(jumpAudioClips[random]);
-            }
-           
-            
+            int random = Random.Range(0, jumpAudioClips.Length);
+            source.PlayOneShot(jumpAudioClips[random]);
+        }
+        public void PlayMeleeAttackAudio()
+        {
+            int random = Random.Range(0, meleeAttackAudioClips.Length);
+
+            source.PlayOneShot(meleeAttackAudioClips[random]);
         }
     }
 }
