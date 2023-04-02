@@ -258,7 +258,7 @@ namespace TheChroniclesOfEllen
                 animator.SetBool("IsAttacking", true);
                 comboCounter++;
                 animator.SetInteger("ComboCounter", comboCounter);
-                
+
 
                 if (comboCounter >= 4)
                 {
@@ -293,10 +293,11 @@ namespace TheChroniclesOfEllen
                 animator.SetBool("IsAttacking", false);
             }
 
-            if(isAttacking)
+            if (isAttacking)
             {
                 staff.gameObject.GetComponent<BoxCollider>().isTrigger = true;
-            }else
+            }
+            else
             {
                 staff.gameObject.GetComponent<BoxCollider>().isTrigger = false;
             }
@@ -320,7 +321,7 @@ namespace TheChroniclesOfEllen
             {
                 animator.SetBool("IsShootReady", true);
                 animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
-                aimRig.weight = Mathf.Lerp(1f,0f,Time.deltaTime);
+                aimRig.weight = Mathf.Lerp(1f, 0f, Time.deltaTime);
                 aimCamera.gameObject.SetActive(true);
                 crossHair.enabled = true;
                 rotateOnMove = false;
@@ -336,7 +337,7 @@ namespace TheChroniclesOfEllen
             {
                 animator.SetBool("IsShootReady", false);
                 animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
-                aimRig.weight = Mathf.Lerp(0f,1f,Time.deltaTime * 10f);
+                aimRig.weight = Mathf.Lerp(0f, 1f, Time.deltaTime * 10f);
                 aimCamera.gameObject.SetActive(false);
                 crossHair.enabled = false;
                 rotateOnMove = true;
@@ -350,11 +351,12 @@ namespace TheChroniclesOfEllen
         {
             if (input.IsAiming && input.IsShootPressed && gun.gameObject.activeInHierarchy)
             {
-                if(shootTarget!=null)
-            {
-                gun.OnShoot(shootTarget);
-            }
-                
+                if (shootTarget != null)
+                {
+                    gun.OnShoot(shootTarget);
+                    
+                }else return;
+
 
             }
         }
@@ -435,6 +437,6 @@ namespace TheChroniclesOfEllen
                 transform.parent = null;
             }
         }
-        
+
     }
 }

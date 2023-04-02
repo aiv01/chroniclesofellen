@@ -4095,6 +4095,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 0}
   gun: {fileID: 4223184743964674952}
   crossHair: {fileID: 0}
+  aimRig: {fileID: 0}
   movementSpeed: 10
   cameraFollowTarget: {fileID: 6542332084630674536}
   inputSensitivity: 50
@@ -4674,6 +4675,7 @@ GameObject:
   - component: {fileID: 4223184744857783092}
   - component: {fileID: 4223184744112009600}
   - component: {fileID: 4223184744865183994}
+  - component: {fileID: 7792233775064753416}
   m_Layer: 0
   m_Name: Staff
   m_TagString: Weapon
@@ -4745,6 +4747,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 3
   type: 2
+--- !u!65 &7792233775064753416
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4223184744865183988}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.20825745, y: 0.09061163, z: 1.4141829}
+  m_Center: {x: -0.00073509075, y: 0.011841803, z: 0.29493093}
 --- !u!1 &6542332084630674537
 GameObject:
   m_ObjectHideFlags: 0
