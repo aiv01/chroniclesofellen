@@ -16,6 +16,7 @@ namespace TheChroniclesOfEllen
         public Transform[] patrolPoints;
         [SerializeField]
         private EnemyHitBox biteHitBox;
+        private ChomperAudio chomperAudio;
 
         private bool isPursuing;
         private bool isPatroling;
@@ -34,6 +35,10 @@ namespace TheChroniclesOfEllen
 
         private float enemyDamage;
 
+        void Awake()
+        {
+            chomperAudio = GetComponent<ChomperAudio>();
+        }
         // Start is called before the first frame update
         void Start()
         {
@@ -94,11 +99,12 @@ namespace TheChroniclesOfEllen
             {
                 OnPlayerHit.Invoke(enemyDamage);
             }
-            if (other.tag == "Weapon")
+            if (other.tag == "Weapon" || other.tag == "PlayerBullet")
             {
                 Debug.Log("Colpito");
                 enemyAnimator.SetTrigger("Hit");
                 enemyHealth.TakeDamage(5);
+                chomperAudio.PlayDamageAudio();
 
             }
         }
@@ -198,5 +204,6 @@ namespace TheChroniclesOfEllen
                 return PowerUpType.None;
             }
         }
+
     }
 }
