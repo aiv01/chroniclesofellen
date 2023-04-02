@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.Animations.Rigging;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 
@@ -29,6 +30,8 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private Image crossHair;
         private AudioPlayer audioPlayer;
+        [SerializeField]
+        private Rig aimRig;
         #endregion
 
         #region Movement variables
@@ -317,6 +320,7 @@ namespace TheChroniclesOfEllen
             {
                 animator.SetBool("IsShootReady", true);
                 animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
+                aimRig.weight = Mathf.Lerp(1f,0f,Time.deltaTime);
                 aimCamera.gameObject.SetActive(true);
                 crossHair.enabled = true;
                 rotateOnMove = false;
@@ -332,6 +336,7 @@ namespace TheChroniclesOfEllen
             {
                 animator.SetBool("IsShootReady", false);
                 animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
+                aimRig.weight = Mathf.Lerp(0f,1f,Time.deltaTime * 10f);
                 aimCamera.gameObject.SetActive(false);
                 crossHair.enabled = false;
                 rotateOnMove = true;
@@ -345,7 +350,11 @@ namespace TheChroniclesOfEllen
         {
             if (input.IsAiming && input.IsShootPressed && gun.gameObject.activeInHierarchy)
             {
+                if(shootTarget!=null)
+            {
                 gun.OnShoot(shootTarget);
+            }
+                
 
             }
         }

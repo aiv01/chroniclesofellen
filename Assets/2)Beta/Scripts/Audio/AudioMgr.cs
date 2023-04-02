@@ -29,7 +29,7 @@ namespace TheChroniclesOfEllen
 
        void Start()
        {
-           Play("GamePlay");
+           Play("Gameplay");
        }
 
        private void Play(string name)

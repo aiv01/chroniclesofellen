@@ -58,10 +58,11 @@ namespace TheChroniclesOfEllen
                     audio.PlayShootAudio();
                 }
                 
-                /*if (target != null)
+                if (target != null)
                 {
                     bullet.SetTarget(target);
-                }*/
+                }
+
                 currentOverheat += overheatPerBullet;
                 currentTimer = 0;
                 bullet.transform.position = mouthOfFire.position;
