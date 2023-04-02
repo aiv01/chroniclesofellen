@@ -18,7 +18,7 @@ namespace TheChroniclesOfEllen
             if (other.tag == "Palyer")
             {
                 gameObject.SetActive(false);
-                other.GetComponent<HealthComponent>().HealMe(HealthSO.healAmount);
+                other.GetComponent<HealthComponent>().HealMe((int)HealthSO.healAmount);
                 OnPickUp();
             }
         }

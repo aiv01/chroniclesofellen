@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
@@ -11,15 +12,16 @@ namespace TheChroniclesOfEllen
     {
         [SerializeField]
         private UnityEvent OnPoiseBreak;
-        public TextMeshProUGUI text;
-        public float maxHealth;
-        public float currentHealth;
+        public UIHealthBar healthBar;
+        private int maxHealth;
+        public int currentHealth;
         private bool shieldActive;
         private float maxPoise;
         private float currPoise;
         private float regenPoisePerSec;
         private PlayerPowerUp powerUpSystem;
         public Transform shield;
+        public Image shieldUI;
         private bool isAlive;
         public bool IsAlive
         {
@@ -37,12 +39,14 @@ namespace TheChroniclesOfEllen
             //controllo se ho lo scudo
             if (tag == "Player")
             {
-                shield.gameObject.SetActive(false);
+                //shield.gameObject.SetActive(false);
+                healthBar.LoadHealth((int)maxHealth);
+                healthBar.ChangeHealth((int)currentHealth);
             }
             isAlive = true; 
             //prendo da file la vita massima
-            maxHealth = 10;
-            currentHealth = maxHealth;
+            //maxHealth = 10;
+            //currentHealth = maxHealth;
             powerUpSystem = GetComponent<PlayerPowerUp>();
 
             currPoise = maxPoise;
@@ -55,8 +59,12 @@ namespace TheChroniclesOfEllen
 
             if(tag == "Player")
             {
-                text.text = currentHealth + " / " + maxHealth;
-                shield.gameObject.SetActive(powerUpSystem.IsShieldActive());
+                //bool shieldStatus = powerUpSystem.IsShieldActive();
+                //shield.gameObject.SetActive(shieldStatus);
+                //shieldUI.gameObject.SetActive(shieldStatus);
+
+                healthBar.LoadHealth((int)maxHealth);
+                healthBar.ChangeHealth((int)currentHealth);
             }
             if (currentHealth <= 0)
             {
@@ -65,18 +73,22 @@ namespace TheChroniclesOfEllen
             }
         }
 
-        public void SetMaxHealth(float maxHealth)
+        public void SetMaxHealth(int maxHealth)
         {
             this.maxHealth = maxHealth;
             currentHealth = maxHealth;
         }
-
-        public void HealMe(float healAmount)
+        public int GetMaxHealth()
         {
-            currentHealth = MathF.Min(healAmount + currentHealth, maxHealth);
+            return maxHealth;
         }
 
-        public void TakeDamage(float damageAmount)
+        public void HealMe(int healAmount)
+        {
+            currentHealth =(int)MathF.Min(healAmount + currentHealth, maxHealth);
+        }
+
+        public void TakeDamage(int damageAmount)
         {
             if (tag == "Player")
             {
@@ -96,11 +108,12 @@ namespace TheChroniclesOfEllen
             currentHealth -= damageAmount;
         }
 
-        public void IncreaseMaxHealth(float healthIncreaseValue)
+        public void IncreaseMaxHealth(int healthIncreaseValue)
         {
             if (tag == "Player")
             {
                 maxHealth += healthIncreaseValue;
+                maxHealth = Mathf.Min(maxHealth, 10);
                 currentHealth = maxHealth;
             }
         }

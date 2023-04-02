@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using TMPro;
+using UnityEngine.UI;
+using System;
 
 namespace TheChroniclesOfEllen
 {
 
     public class GameMgr : MonoBehaviour
     {
-        public TextMeshProUGUI load;
+        public Image keyUI;
+        public UIHealthBar playerHealthBar;
         private Progression gameStatus;
         private Area currentArea;
 
         private Transform lastTeleport;
+        [SerializeField]
+        private PlayerController player;
 
         public TextAsset textAsset;
         public SafeFile currentFile;
         public SafeFileSO defaultFile;
+        public int currSavepointNumber;
 
         private void Start()
         {
@@ -27,14 +33,10 @@ namespace TheChroniclesOfEllen
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                LoadNew();
-            }
         }
 
         
-        private void ChangeProgression(Progression newProgression)
+        public void ChangeProgression(Progression newProgression)
         {
             int actualProg = (int)gameStatus;
             int newProg = (int)newProgression;
@@ -43,15 +45,15 @@ namespace TheChroniclesOfEllen
                 gameStatus = newProgression;
             }
         }
-        private void ChangeArea(Area newArea)
+        public void ChangeArea(Area newArea)
         {
-            //fare dei controlli
             currentArea = newArea;
         }
 
         public void FoundKey(bool value)
         {
             currentFile.HasKey = value;
+            keyUI.enabled = value;
         }
         public void AddDoubleJump()
         {
@@ -64,28 +66,30 @@ namespace TheChroniclesOfEllen
 
         public void IncrementHealth(float value)
         {
-            currentFile.MaxHp += (int)value;
+            MathF.Min(currentFile.MaxHp += (int)value, 10);
+            
         }
         public void IncrementDamage(float value)
         {
             currentFile.DamageScale += (int)value;
         }
 
-        public void Save(int savePoint)
+        public void Save()
         {
-            currentFile.SavePointNumber = savePoint;
+            currentFile.MaxHp = player.playerHealth.GetMaxHealth();
+            currentFile.SavePointNumber = currSavepointNumber;
+            currentFile.Area = (int)currentArea;
+            currentFile.Progression = (int)gameStatus;
             string saveData = JsonUtility.ToJson(currentFile);
             File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
             Debug.Log("Save: " + currentFile.ToString());
-            load.text = "save";
         }
-
         public void Load()
         {
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             Debug.Log("Load: " + currentFile.ToString());
-            load.text = "load";
-
+            keyUI.enabled=currentFile.HasKey;
+            player.playerHealth.SetMaxHealth(currentFile.MaxHp);
         }
         public void LoadNew()
         {

@@ -25,7 +25,7 @@ namespace TheChroniclesOfEllen
         private Transform cameraTransform;
         [SerializeField]
         private ShootComponent gun;
-        private HealthComponent playerHealth;
+        public HealthComponent playerHealth;
         [SerializeField]
         private Image crossHair;
         #endregion

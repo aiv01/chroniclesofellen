@@ -20,7 +20,7 @@ namespace TheChroniclesOfEllen
             if (other.tag == "Palyer")
             {
                 gameObject.SetActive(false);
-                other.GetComponent<HealthComponent>().IncreaseMaxHealth(permanentSO.healthIncrease);
+                other.GetComponent<HealthComponent>().IncreaseMaxHealth((int)permanentSO.healthIncrease);
                 //TODO: incrementare il danno
                 OnPickUp();
             }

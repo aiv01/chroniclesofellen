@@ -62,6 +62,8 @@ namespace TheChroniclesOfEllen
             Flee();
             if (!isFleeing)
             {
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.LookRotation((playerPosition.position - transform.position).normalized), Time.deltaTime);
                 Attack();
             }
         }
@@ -94,7 +96,7 @@ namespace TheChroniclesOfEllen
         private bool IsFleeing()
         {
             float distance = (transform.position - playerPosition.position).sqrMagnitude;
-            isFleeing = distance > fleeingDistance;
+            isFleeing = distance < fleeingDistance;
             enemyAnimator.SetBool("IsFleeing", isFleeing);
             return isFleeing;
         }
@@ -120,12 +122,7 @@ namespace TheChroniclesOfEllen
 
         private void Shoot()
         {
-            //usare in qualche modo lo sparo
-            transform.rotation = Quaternion.Lerp(transform.rotation,
-                Quaternion.LookRotation((playerPosition.position - transform.position).normalized), Time.deltaTime);
-
             shootComponent.OnShoot((playerPosition.position - transform.position).normalized);
-            
         }
 
         private int SpawnPowerUp()

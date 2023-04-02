@@ -44,7 +44,7 @@ namespace TheChroniclesOfEllen
 
             attackDistance = enemySO.attackDistance * enemySO.attackDistance;
 
-            enemyHealth.SetMaxHealth(enemySO.healthPoint);
+            enemyHealth.SetMaxHealth((int)enemySO.healthPoint);
 
             type = enemySO.type;
         }

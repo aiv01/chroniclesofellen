@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheChroniclesOfEllen
 {
@@ -9,26 +8,29 @@ namespace TheChroniclesOfEllen
     public class SavePoint : MonoBehaviour
     {
         [SerializeField]
-        private UnityEvent<int> SaveTheGame;
-        [SerializeField]
-        private UnityEvent LoadTheGame;
-        [SerializeField]
         private int savePointNumber;
+        [SerializeField]
+        private Area savepointArea;
+        [SerializeField]
+        private GameMgr gameMgr;
+
+        public Transform saveUI;
+
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (other.tag == "Player")
             {
-                if (Input.GetKey(KeyCode.L))
-                {
-                    LoadTheGame.Invoke();
-                
-                }
-                if (Input.GetKey(KeyCode.K))
-                {
-                    SaveTheGame.Invoke(savePointNumber);
-                    
-                }
+                gameMgr.ChangeArea(savepointArea);
+                gameMgr.currSavepointNumber = savePointNumber;
+                saveUI.gameObject.SetActive(true);
+            }
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                saveUI.gameObject.SetActive(false);
             }
         }
     }
