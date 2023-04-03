@@ -99,6 +99,7 @@ namespace TheChroniclesOfEllen
             staff.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
+            
 
         }
         void OnGUI()
@@ -208,7 +209,7 @@ namespace TheChroniclesOfEllen
             if (!isJumping && input.IsJumpPressed)
             {
                 isJumping = true;
-                audioPlayer.PlayJumpAudio();
+                //audioPlayer.PlayJumpAudio();
                 jump.y = jumpVelocity;
 
             }
@@ -341,6 +342,7 @@ namespace TheChroniclesOfEllen
                 aimCamera.gameObject.SetActive(false);
                 crossHair.enabled = false;
                 rotateOnMove = true;
+                shootTarget.position = Vector3.zero;
             }
 
 

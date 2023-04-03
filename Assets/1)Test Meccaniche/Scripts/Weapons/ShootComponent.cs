@@ -51,6 +51,7 @@ namespace TheChroniclesOfEllen
                 else if (!isSpitter && powerUpSystem.HaveSpecialLeft()) 
                 {
                     bullet = BulletPool.GetBulletSpecial();
+                    audio.PlayShootAudio();
                 }
                 else
                 {
@@ -67,8 +68,7 @@ namespace TheChroniclesOfEllen
                 currentTimer = 0;
                 bullet.transform.position = mouthOfFire.position;
                 bullet.damage = damage;
-                bullet.speed = 10;
-                bullet.direction = mouthOfFire.forward;
+                bullet.direction = (target.position - mouthOfFire.position).normalized;
                 
             }
             
@@ -89,7 +89,7 @@ namespace TheChroniclesOfEllen
                 else
                 {
                     bullet = BulletPool.GetBullet();
-                    audio.PlayShootAudio();
+                    //audio.PlayShootAudio();
                 }
 
                 bullet.direction = direction;

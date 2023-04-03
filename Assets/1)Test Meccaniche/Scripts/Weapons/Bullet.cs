@@ -8,7 +8,8 @@ namespace TheChroniclesOfEllen
     public class Bullet : MonoBehaviour
     {
         public int damage;
-        public float speed;
+        [SerializeField]
+        public float speed = 100f;
         public Vector3 direction;
         private Transform directionTarget;
         private float bulletTimer;
@@ -27,19 +28,12 @@ namespace TheChroniclesOfEllen
         private void Update()
         {
 
-            //if(directionTarget.parent != null)
-            //{
-            //    transform.position = Vector3.MoveTowards(transform.position,directionTarget.position,speed * Time.deltaTime);
-            //}else
-            //{
             transform.position += direction * speed * Time.deltaTime;
-            audio.PlayBulletAudio();
-            //}
+            
             bulletTimer += Time.deltaTime;
             if (bulletTimer >= bulletLifeTime)
             {
                 gameObject.SetActive(false);
-                //directionTarget = null;
                 bulletTimer = 0;
             }
 
@@ -61,10 +55,6 @@ namespace TheChroniclesOfEllen
                 collision.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);
                 audio.PlayExplosionAudio();
 
-                //directionTarget = null; 
-            }else if(collision.gameObject.tag == "Ground")
-            {
-                audio.PlayExplosionAudio();
             }
             gameObject.SetActive(false);
 
