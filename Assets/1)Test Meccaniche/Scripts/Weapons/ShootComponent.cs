@@ -8,6 +8,7 @@ namespace TheChroniclesOfEllen
     public class ShootComponent : MonoBehaviour
     {
         public Transform mouthOfFire;
+        private GunAudio audio;
         public int damage;
         private Bullet bullet;
         public float shootCD = 0.5f;
@@ -18,6 +19,10 @@ namespace TheChroniclesOfEllen
         private PlayerPowerUp powerUpSystem;
         public bool isSpitter;
 
+        void Awake()
+        {
+            audio = GetComponent<GunAudio>();
+        }
         // Start is called before the first frame update
         void Start()
         {
@@ -50,18 +55,21 @@ namespace TheChroniclesOfEllen
                 else
                 {
                     bullet = BulletPool.GetBullet();
+                    audio.PlayShootAudio();
                 }
                 
                 if (target != null)
                 {
                     bullet.SetTarget(target);
                 }
+
                 currentOverheat += overheatPerBullet;
                 currentTimer = 0;
                 bullet.transform.position = mouthOfFire.position;
                 bullet.damage = damage;
                 bullet.speed = 10;
                 bullet.direction = mouthOfFire.forward;
+                
             }
             
         }
@@ -81,6 +89,7 @@ namespace TheChroniclesOfEllen
                 else
                 {
                     bullet = BulletPool.GetBullet();
+                    audio.PlayShootAudio();
                 }
 
                 bullet.direction = direction;

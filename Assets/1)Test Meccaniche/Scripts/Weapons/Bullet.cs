@@ -13,6 +13,11 @@ namespace TheChroniclesOfEllen
         private Transform directionTarget;
         private float bulletTimer;
         private float bulletLifeTime = 3.5f;
+        private BulletAudio audio;
+        void Awake()
+        {
+            audio = GetComponent<BulletAudio>();
+        }
 
         private void Start()
         {
@@ -28,6 +33,7 @@ namespace TheChroniclesOfEllen
             //}else
             //{
             transform.position += direction * speed * Time.deltaTime;
+            audio.PlayBulletAudio();
             //}
             bulletTimer += Time.deltaTime;
             if (bulletTimer >= bulletLifeTime)
@@ -53,7 +59,12 @@ namespace TheChroniclesOfEllen
             {
 
                 collision.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);
+                audio.PlayExplosionAudio();
+
                 //directionTarget = null; 
+            }else if(collision.gameObject.tag == "Ground")
+            {
+                audio.PlayExplosionAudio();
             }
             gameObject.SetActive(false);
 

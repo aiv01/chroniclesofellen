@@ -20,7 +20,7 @@ namespace TheChroniclesOfEllen
         private float fleeingTimer;
         private float currentFleeingTimer;
         private int currentFleePoint;
-
+        [SerializeField]
         private float fleeingDistance;
 
         private float distanceToFleePoint
@@ -36,7 +36,7 @@ namespace TheChroniclesOfEllen
 
             shootComponent = GetComponent<ShootComponent>();
 
-            fleeingTimer = enemySO.pursuitTime; 
+            fleeingTimer = enemySO.pursuitTime;
             shootComponent.shootCD = enemySO.attackCD;
 
             currentFleeingTimer = 0;
