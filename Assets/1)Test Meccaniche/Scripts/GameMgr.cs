@@ -30,6 +30,7 @@ namespace TheChroniclesOfEllen
 
         private void Awake()
         {
+            Debug.Log(Application.persistentDataPath);
             currentFile = new SafeFile();
             LoadMenu();
         }

@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 38489592af9fd254694970bbfa7cf59f,
+    type: 2}
   m_LightingSettings: {fileID: 624834118}
 --- !u!196 &4
 NavMeshSettings:
@@ -2301,6 +2302,59 @@ Transform:
   m_Father: {fileID: 1212895616}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1270387616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1270387618}
+  - component: {fileID: 1270387617}
+  m_Layer: 0
+  m_Name: BulletPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1270387617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270387616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0c2645d31dd9d49b3545b3edb72b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolSize: 10
+  poolSizeEnemy: 5
+  poolSpecialSize: 5
+  bulletPrefab: {fileID: 2142526837813181069, guid: e41b4493682e06a44ab3d91ad7408a20,
+    type: 3}
+  bulletEnemyPrefab: {fileID: 945231259138044562, guid: ad627ef5f26b67b45a3a57f9885e32f0,
+    type: 3}
+  bulletSpecialPrefab: {fileID: 2142526837813181069, guid: 606c278ac73eaff469bfc083963519a1,
+    type: 3}
+--- !u!4 &1270387618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270387616}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.162052, y: 597.99054, z: -6.429199}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1292592326
 GameObject:
   m_ObjectHideFlags: 0
@@ -2897,12 +2951,12 @@ PrefabInstance:
     - target: {fileID: 3007083109558223725, guid: 62047f1982e0f8f45bd0e03de31a5e04,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.55
+      value: 6.3000016
       objectReference: {fileID: 0}
     - target: {fileID: 3007083109558223725, guid: 62047f1982e0f8f45bd0e03de31a5e04,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.22
+      value: -6.780001
       objectReference: {fileID: 0}
     - target: {fileID: 4137809886339253275, guid: 62047f1982e0f8f45bd0e03de31a5e04,
         type: 3}
