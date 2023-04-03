@@ -28,9 +28,7 @@ namespace TheChroniclesOfEllen
         public SafeFileSO defaultFile;
         public int currSavepointNumber;
 
-
-
-        private void Start()
+        private void Awake()
         {
             Debug.Log(Application.persistentDataPath);
             currentFile = new SafeFile();
@@ -94,6 +92,7 @@ namespace TheChroniclesOfEllen
         {
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             Debug.Log("Load: " + currentFile.ToString());
+            Debug.Log(currentFile.SavePointNumber);
             lastTeleport = currSceneLoader.GetTeleportPosition(currentFile.SavePointNumber);
             player.transform.position = lastTeleport;
             keyUI.enabled=currentFile.HasKey;
