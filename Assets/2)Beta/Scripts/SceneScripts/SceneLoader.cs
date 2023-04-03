@@ -19,11 +19,16 @@ namespace TheChroniclesOfEllen
                 { Area.Temple2, "Level2" }
             };
 
+        [SerializeField]
+        private ChomperController[] chompers;
+        [SerializeField]
+        private SpitterController[] spitters;
+
         public Vector3 GetTeleportPosition(int teleportID) 
         {
             return teleportID < teleportPositions.Length ? 
-                teleportPositions[teleportID].transform.position : 
-                teleportPositions[0].transform.position;
+                teleportPositions[teleportID].playerSpawn.position: 
+                teleportPositions[0].playerSpawn.position;
         }
 
         public void LoadScene(Area newArea)
@@ -33,7 +38,21 @@ namespace TheChroniclesOfEllen
 
         public void LoadNew()
         {
-            SceneManager.LoadScene(areas[Area.Ship], LoadSceneMode.Single);
+            SceneManager.LoadScene(areas[Area.Temple1], LoadSceneMode.Single);
+        }
+
+        public void ChangeEnemyLevel(int levelNumber)
+        {
+            BaseEnemySO chomperSO = Resources.Load<BaseEnemySO>("enemySO/ChomperLiv" + levelNumber);
+            BaseEnemySO spitterSO = Resources.Load<BaseEnemySO>("enemySO/SpitterLiv" + levelNumber);
+            for(int i=0;i<chompers.Length; i++)
+            {
+                chompers[i].enemySO = chomperSO;
+            }
+            for(int i = 0; i < spitters.Length; i++)
+            {
+                spitters[i].enemySO = spitterSO;
+            }
         }
     }
 

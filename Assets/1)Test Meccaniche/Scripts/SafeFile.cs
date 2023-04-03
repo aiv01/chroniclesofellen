@@ -14,8 +14,9 @@ namespace TheChroniclesOfEllen
         public bool HasDoubleJump;
         public bool HasKey;
         public bool HasDash;
-        public int Progression;
-        public int Area;
+        public BossStatus GolemStatus;
+        public BossStatus MotherSpitterStatus;
+        public Area Area;
         public int SavePointNumber;
 
         public override string ToString()
@@ -24,7 +25,8 @@ namespace TheChroniclesOfEllen
                 "\nDamageScale: " + DamageScale + "" +
                 "\nJump: " + HasDoubleJump +
                 "\nKey: " + HasKey +
-                "\nProgression: " + Progression +
+                "\nGolemStatus: " + GolemStatus +
+                "\nMotherSpitterStatus: " + MotherSpitterStatus +
                 "\nArea: " + Area +
                 "\nsavepoint: " + SavePointNumber;
             return s;

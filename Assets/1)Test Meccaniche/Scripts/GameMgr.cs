@@ -13,9 +13,11 @@ namespace TheChroniclesOfEllen
     {
         public Image keyUI;
         public UIHealthBar playerHealthBar;
-        private Progression gameStatus;
+        [SerializeField]
         private Area currentArea;
         public SceneLoader currSceneLoader;
+
+        public BaseBossController areaBoss;
 
         private Vector3 lastTeleport;
         [SerializeField]
@@ -36,17 +38,17 @@ namespace TheChroniclesOfEllen
 
         private void Update()
         {
+
         }
 
         
-        public void ChangeProgression(Progression newProgression)
+        public void ChangeGolemStatus(BossStatus newProgression)
         {
-            int actualProg = (int)gameStatus;
-            int newProg = (int)newProgression;
-            if (actualProg + 1 == newProg)
-            {
-                gameStatus = newProgression;
-            }
+            currentFile.GolemStatus = newProgression;
+        }
+        public void ChangeSpitterStatus(BossStatus newProgression)
+        {
+            currentFile.MotherSpitterStatus = newProgression;
         }
         public void ChangeArea(Area newArea)
         {
@@ -57,6 +59,7 @@ namespace TheChroniclesOfEllen
         {
             currentFile.HasKey = value;
             keyUI.enabled = value;
+            ChangeGolemStatus(BossStatus.Active);
         }
         public void AddDoubleJump()
         {
@@ -81,8 +84,7 @@ namespace TheChroniclesOfEllen
         {
             currentFile.MaxHp = player.playerHealth.GetMaxHealth();
             currentFile.SavePointNumber = currSavepointNumber;
-            currentFile.Area = (int)currentArea;
-            currentFile.Progression = (int)gameStatus;
+            currentFile.Area = currentArea;
             string saveData = JsonUtility.ToJson(currentFile);
             File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
             Debug.Log("Save: " + currentFile.ToString());
@@ -94,12 +96,22 @@ namespace TheChroniclesOfEllen
             lastTeleport = currSceneLoader.GetTeleportPosition(0);
             player.transform.position = lastTeleport;
             keyUI.enabled=currentFile.HasKey;
-            player.playerHealth.SetMaxHealth(currentFile.MaxHp);
+            player.playerHealth.SetMaxHealth(currentFile.MaxHp); 
+
+            if (currentFile.HasKey)
+            {
+                currSceneLoader.ChangeEnemyLevel(3);
+            }
         }
         public void LoadSavePoint()
         {
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             currSceneLoader.LoadScene((Area)currentFile.Area);
+
+            if (currentFile.HasKey)
+            {
+                currSceneLoader.ChangeEnemyLevel(2);
+            }
         }
         public void LoadNew()
         {
@@ -108,7 +120,8 @@ namespace TheChroniclesOfEllen
             currentFile.HasDash = defaultFile.HasDash;
             currentFile.HasDoubleJump = defaultFile.HasDoubleJump;
             currentFile.HasKey = defaultFile.HasKey;
-            currentFile.Progression = defaultFile.Progression;
+            currentFile.GolemStatus = defaultFile.GolemStatus;
+            currentFile.MotherSpitterStatus = defaultFile.MotherSpitterStatus;
             currentFile.Area = defaultFile.Area;
             currentFile.SavePointNumber = defaultFile.SavePointNumber;
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));

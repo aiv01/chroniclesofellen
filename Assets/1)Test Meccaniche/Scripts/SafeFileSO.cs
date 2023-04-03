@@ -14,8 +14,9 @@ namespace TheChroniclesOfEllen
         public bool HasDoubleJump;
         public bool HasKey;
         public bool HasDash;
-        public int Progression;
-        public int Area;
+        public BossStatus GolemStatus;
+        public BossStatus MotherSpitterStatus;
+        public Area Area;
         public int SavePointNumber;
     }
 

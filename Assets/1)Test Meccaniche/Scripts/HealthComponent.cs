@@ -59,9 +59,9 @@ namespace TheChroniclesOfEllen
 
             if(tag == "Player")
             {
-                //bool shieldStatus = powerUpSystem.IsShieldActive();
-                //shield.gameObject.SetActive(shieldStatus);
-                //shieldUI.gameObject.SetActive(shieldStatus);
+                bool shieldStatus = powerUpSystem.IsShieldActive();
+                shield.gameObject.SetActive(shieldStatus);
+                shieldUI.gameObject.SetActive(shieldStatus);
 
                 healthBar.LoadHealth((int)maxHealth);
                 healthBar.ChangeHealth((int)currentHealth);

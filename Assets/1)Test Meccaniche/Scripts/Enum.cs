@@ -12,15 +12,11 @@ namespace TheChroniclesOfEllen
         ChomperNest
     }
 
-    public enum Progression
+    public enum BossStatus
     {
-        Start,
-        TempleEntr,
-        Boss1Dead,
-        Boss2Dead,
-        KeyGet,
-        FinalBossDead,
-        End
+        Disable,
+        Active,
+        Dead
     }
 
     public enum EnemyType

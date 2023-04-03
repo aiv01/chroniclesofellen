@@ -14,6 +14,7 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private GameMgr gameMgr;
 
+        public Transform playerSpawn;
         public Transform saveUI;
 
 
