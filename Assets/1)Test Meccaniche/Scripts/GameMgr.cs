@@ -15,8 +15,9 @@ namespace TheChroniclesOfEllen
         public UIHealthBar playerHealthBar;
         private Progression gameStatus;
         private Area currentArea;
+        public SceneLoader currSceneLoader;
 
-        private Transform lastTeleport;
+        private Vector3 lastTeleport;
         [SerializeField]
         private PlayerController player;
 
@@ -25,10 +26,12 @@ namespace TheChroniclesOfEllen
         public SafeFileSO defaultFile;
         public int currSavepointNumber;
 
+
+
         private void Start()
         {
             currentFile = new SafeFile();
-            Load();
+            LoadMenu();
         }
 
         private void Update()
@@ -84,12 +87,19 @@ namespace TheChroniclesOfEllen
             File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
             Debug.Log("Save: " + currentFile.ToString());
         }
-        public void Load()
+        public void LoadMenu()
         {
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             Debug.Log("Load: " + currentFile.ToString());
+            lastTeleport = currSceneLoader.GetTeleportPosition(0);
+            player.transform.position = lastTeleport;
             keyUI.enabled=currentFile.HasKey;
             player.playerHealth.SetMaxHealth(currentFile.MaxHp);
+        }
+        public void LoadSavePoint()
+        {
+            currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
+            currSceneLoader.LoadScene((Area)currentFile.Area);
         }
         public void LoadNew()
         {
@@ -101,7 +111,9 @@ namespace TheChroniclesOfEllen
             currentFile.Progression = defaultFile.Progression;
             currentFile.Area = defaultFile.Area;
             currentFile.SavePointNumber = defaultFile.SavePointNumber;
-            Debug.Log("Load New: " + currentFile.ToString());
+            currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
+            currSceneLoader.LoadNew();
         }
+        
     }
 }

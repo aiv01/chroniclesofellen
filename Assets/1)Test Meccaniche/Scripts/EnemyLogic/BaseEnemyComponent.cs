@@ -48,5 +48,10 @@ namespace TheChroniclesOfEllen
 
             type = enemySO.type;
         }
+
+        public void Poise()
+        {
+            enemyAnimator.SetTrigger("Hit");
+        }
     }
 }

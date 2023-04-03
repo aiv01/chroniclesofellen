@@ -5,10 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/1)Test Meccaniche/Scenes/PlayTest.unity
-    guid: 2ecdcdbe5c6b0ac45b5e921572fb9efb
+    path: Assets/2)Beta/Scenes/MenuScene.unity
+    guid: 3e9ff1bb73c4b5e40a164ac65018c6dc
+  - enabled: 1
+    path: Assets/2)Beta/Scenes/Level0.unity
+    guid: 52afbf8713e3794459f577b28ceed9eb
+  - enabled: 1
+    path: Assets/2)Beta/Scenes/Level1.unity
+    guid: 84231d3008290f14ea6397244fac5c55
+  - enabled: 1
+    path: Assets/2)Beta/Scenes/Level2.unity
+    guid: fccef9ea94f70ea408685bc904743be8
   m_configObjects: {}
