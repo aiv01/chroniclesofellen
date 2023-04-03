@@ -8,7 +8,8 @@ namespace TheChroniclesOfEllen
 
     public abstract class BaseBossController : MonoBehaviour
     {
-
+        [SerializeField]
+        protected BossArenaTrigger arenaWalls;
         protected Animator bossAnimator;
         public Transform playerTransform;
         protected HealthComponent bossHealth;

@@ -3423,11 +3423,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824180149742440384}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8c33cd3e36784147a234911c6ab94db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arenaWalls: {fileID: 0}
   playerTransform: {fileID: 0}
   biteHitBox: {fileID: 1824180149354054581}
   fleePoints:
@@ -3470,7 +3471,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   healthBar: {fileID: 0}
-  currentHealth: 0
+  currentHealth: 10
   shield: {fileID: 0}
   shieldUI: {fileID: 0}
 --- !u!114 &4103387816472187706
