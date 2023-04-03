@@ -207,8 +207,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076946288}
-        m_TargetAssemblyTypeName: TheChroniclesOfEllen.SceneLoader, Assembly-CSharp
+      - m_Target: {fileID: 862658882}
+        m_TargetAssemblyTypeName: TheChroniclesOfEllen.GameMgr, Assembly-CSharp
         m_MethodName: LoadNew
         m_Mode: 1
         m_Arguments:
@@ -873,7 +873,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyUI: {fileID: 0}
   playerHealthBar: {fileID: 0}
+  currentArea: 0
   currSceneLoader: {fileID: 0}
+  areaBoss: {fileID: 0}
   player: {fileID: 0}
   textAsset: {fileID: 0}
   currentFile:
@@ -882,7 +884,8 @@ MonoBehaviour:
     HasDoubleJump: 0
     HasKey: 0
     HasDash: 0
-    Progression: 0
+    GolemStatus: 0
+    MotherSpitterStatus: 0
     Area: 0
     SavePointNumber: 0
   defaultFile: {fileID: 0}
@@ -1000,6 +1003,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportPositions: []
+  chompers: []
+  spitters: []
 --- !u!4 &1076946289
 Transform:
   m_ObjectHideFlags: 0

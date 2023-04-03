@@ -26,9 +26,7 @@ namespace TheChroniclesOfEllen
 
         public Vector3 GetTeleportPosition(int teleportID) 
         {
-            return teleportID < teleportPositions.Length ? 
-                teleportPositions[teleportID].playerSpawn.position: 
-                teleportPositions[0].playerSpawn.position;
+            return teleportPositions[teleportID].playerSpawn.position;
         }
 
         public void LoadScene(Area newArea)
@@ -38,7 +36,7 @@ namespace TheChroniclesOfEllen
 
         public void LoadNew()
         {
-            SceneManager.LoadScene(areas[Area.Temple1], LoadSceneMode.Single);
+            SceneManager.LoadScene(areas[Area.Ship], LoadSceneMode.Single);
         }
 
         public void ChangeEnemyLevel(int levelNumber)
