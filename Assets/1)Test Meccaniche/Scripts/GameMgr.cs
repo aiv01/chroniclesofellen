@@ -32,6 +32,7 @@ namespace TheChroniclesOfEllen
 
         private void Start()
         {
+            Debug.Log(Application.persistentDataPath);
             currentFile = new SafeFile();
             LoadMenu();
         }
