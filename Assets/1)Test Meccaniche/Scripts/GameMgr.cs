@@ -93,7 +93,7 @@ namespace TheChroniclesOfEllen
         {
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             Debug.Log("Load: " + currentFile.ToString());
-            lastTeleport = currSceneLoader.GetTeleportPosition(0);
+            lastTeleport = currSceneLoader.GetTeleportPosition(currentFile.SavePointNumber);
             player.transform.position = lastTeleport;
             keyUI.enabled=currentFile.HasKey;
             player.playerHealth.SetMaxHealth(currentFile.MaxHp); 
