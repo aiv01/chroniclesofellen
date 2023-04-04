@@ -93,18 +93,11 @@ namespace TheChroniclesOfEllen
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnCollisionEnter(Collision collision)
         {
-            if (isAttacking && other.tag == "Player")
+            if (collision.gameObject.tag == "Weapon" || collision.gameObject.tag == "PlayerBullet")
             {
-                OnPlayerHit.Invoke(enemyDamage);
-            }
-            if (other.tag == "Weapon" || other.tag == "PlayerBullet")
-            {
-                Debug.Log("Colpito");
                 enemyAnimator.SetTrigger("Hit");
-                enemyHealth.TakeDamage(5);
-                chomperAudio.PlayDamageAudio();
 
             }
         }
