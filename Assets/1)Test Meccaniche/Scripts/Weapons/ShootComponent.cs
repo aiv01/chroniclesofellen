@@ -7,6 +7,7 @@ namespace TheChroniclesOfEllen
 {
     public class ShootComponent : MonoBehaviour
     {
+        public WeaponType type;
         public Transform mouthOfFire;
         private GunAudio audio;
         public int damage;
@@ -22,6 +23,7 @@ namespace TheChroniclesOfEllen
         void Awake()
         {
             audio = GetComponent<GunAudio>();
+            type = WeaponType.Pistol;
         }
         // Start is called before the first frame update
         void Start()

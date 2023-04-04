@@ -16,6 +16,7 @@ namespace TheChroniclesOfEllen
         private bool isAiming = false;
         private bool isShootPressed = false;
         private float inputJumpCounter = 0;
+        private int switchWeapon = 0;
 
         #region Properties
         public Vector2 MovementInput
@@ -23,7 +24,7 @@ namespace TheChroniclesOfEllen
             get { return movementInput; }
             set { movementInput = value; }
         }
-         public Vector2 LookInput
+        public Vector2 LookInput
         {
             get { return lookInput; }
             set { lookInput = value; }
@@ -57,6 +58,10 @@ namespace TheChroniclesOfEllen
         {
             get { return inputJumpCounter; }
             set { inputJumpCounter = value; }
+        }
+        public int SwitchWeapon
+        {
+            get { return switchWeapon; }
         }
         #endregion
 
@@ -99,7 +104,7 @@ namespace TheChroniclesOfEllen
             playerInput.Player.Makeaction.started += onChangeWeapon;
             playerInput.Player.Makeaction.performed += onChangeWeapon;
             playerInput.Player.Makeaction.canceled += onChangeWeapon;
-           
+
         }
 
         private void onMovement(InputAction.CallbackContext context)
@@ -118,16 +123,17 @@ namespace TheChroniclesOfEllen
         }
         void onJump(InputAction.CallbackContext context)
         {
-            
+
             if (context.started)
             {
                 isJumpPressed = true;
                 inputJumpCounter++;
 
-            }else if(context.canceled)
+            }
+            else if (context.canceled)
             {
                 isJumpPressed = false;
-            } 
+            }
 
         }
         private void onMeleeAttack(InputAction.CallbackContext context)
@@ -160,7 +166,24 @@ namespace TheChroniclesOfEllen
         }
         void onChangeWeapon(InputAction.CallbackContext context)
         {
-           
+            if (switchWeapon < 1)
+            {
+                switchWeapon = 1;
+
+            }
+            else if (switchWeapon > 2)
+            {
+                switchWeapon = 2;
+            }
+            if (context.started && switchWeapon == 1)
+            {
+                switchWeapon += 1;
+
+            }else if (switchWeapon == 2 && context.started)
+            {
+                switchWeapon -= 1;
+            }
+
         }
     }
 

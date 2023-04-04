@@ -116,6 +116,7 @@ namespace TheChroniclesOfEllen
             Aim();
             Shoot();
             TimeOutToIdle();
+            ChangeWeapon();
             animator.SetBool("Grounded", characterController.isGrounded);
             if (!playerHealth.IsAlive)
             {
@@ -400,6 +401,25 @@ namespace TheChroniclesOfEllen
             isMeleeReady = true;
             staff.gameObject.SetActive(status);
             gun.gameObject.SetActive(false);
+        }
+
+        void ChangeWeapon()
+        {
+            if(input.SwitchWeapon == (int)WeaponType.Pistol)
+            {
+                gun.gameObject.SetActive(true);
+                isMeleeReady = false;
+                staff.gameObject.SetActive(false);
+
+            }else if(input.SwitchWeapon == (int)WeaponType.Staff)
+            {   
+                gun.gameObject.SetActive(false);
+                isMeleeReady = true;
+                staff.gameObject.SetActive(true);
+            }
+                
+                
+            
         }
 
         private void OnTriggerEnter(Collider other)
