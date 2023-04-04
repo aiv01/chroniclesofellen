@@ -72,6 +72,7 @@ namespace TheChroniclesOfEllen
 
         #region Attack variables
         [Header("Attack variables")]
+        private bool hasPickedStaff = false;
         private bool isMeleeReady = false;
         private bool isAttacking = false;
         private int comboCounter = 0;
@@ -99,13 +100,8 @@ namespace TheChroniclesOfEllen
             staff.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
-            
 
-        }
-        void OnGUI()
-        {
-            GUILayout.Box(characterController.isGrounded.ToString());
-            GUILayout.Box(input.MovementInput.ToString());
+
         }
         void Update()
         {
@@ -117,11 +113,14 @@ namespace TheChroniclesOfEllen
             Shoot();
             TimeOutToIdle();
             ChangeWeapon();
-            animator.SetBool("Grounded", characterController.isGrounded);
+
             if (!playerHealth.IsAlive)
             {
                 Death();
             }
+
+            animator.SetBool("Grounded", characterController.isGrounded);
+
         }
 
         void LateUpdate()
@@ -210,7 +209,6 @@ namespace TheChroniclesOfEllen
             if (!isJumping && input.IsJumpPressed)
             {
                 isJumping = true;
-                //audioPlayer.PlayJumpAudio();
                 jump.y = jumpVelocity;
 
             }
@@ -230,11 +228,13 @@ namespace TheChroniclesOfEllen
             else if (!input.IsJumpPressed && isJumping && characterController.isGrounded)
             {
                 isJumping = false;
+                animator.SetBool("Grounded", characterController.isGrounded);
                 input.InputJumpCounter = 0;
             }
 
             characterController.Move(jump * Time.deltaTime);
             animator.SetFloat("AirborneVerticalSpeed", jump.y);
+
 
 
         }
@@ -246,6 +246,7 @@ namespace TheChroniclesOfEllen
 
                 jump.y += gravity * Time.deltaTime;
             }
+
 
 
         }
@@ -272,6 +273,7 @@ namespace TheChroniclesOfEllen
                 {
                     isMeleeReady = false;
                     isAttacking = false;
+                    hasPickedStaff = false;
                     comboCounter = 0;
                     actualUse = 0;
                     staff.gameObject.SetActive(false);
@@ -323,7 +325,7 @@ namespace TheChroniclesOfEllen
             {
                 animator.SetBool("IsShootReady", true);
                 animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
-                aimRig.weight = Mathf.Lerp(1f, 0f, Time.deltaTime);
+                aimRig.weight = Mathf.Lerp(1f, 0f, Time.deltaTime * 20f);
                 aimCamera.gameObject.SetActive(true);
                 crossHair.enabled = true;
                 rotateOnMove = false;
@@ -339,7 +341,7 @@ namespace TheChroniclesOfEllen
             {
                 animator.SetBool("IsShootReady", false);
                 animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
-                aimRig.weight = Mathf.Lerp(0f, 1f, Time.deltaTime * 10f);
+                aimRig.weight = Mathf.Lerp(0f, 1f, Time.deltaTime * 20f);
                 aimCamera.gameObject.SetActive(false);
                 crossHair.enabled = false;
                 rotateOnMove = true;
@@ -357,8 +359,9 @@ namespace TheChroniclesOfEllen
                 if (shootTarget != null)
                 {
                     gun.OnShoot(shootTarget);
-                    
-                }else return;
+
+                }
+                else return;
 
 
             }
@@ -398,6 +401,7 @@ namespace TheChroniclesOfEllen
         public void SetStaffStatus(bool status)
         {
             if (isMeleeReady) return;
+            hasPickedStaff = true;
             isMeleeReady = true;
             staff.gameObject.SetActive(status);
             gun.gameObject.SetActive(false);
@@ -405,21 +409,27 @@ namespace TheChroniclesOfEllen
 
         void ChangeWeapon()
         {
-            if(input.SwitchWeapon == (int)WeaponType.Pistol)
+            if (hasPickedStaff)
             {
-                gun.gameObject.SetActive(true);
-                isMeleeReady = false;
-                staff.gameObject.SetActive(false);
+                if (input.SwitchWeapon == (int)WeaponType.Pistol)
+                {
+                    gun.gameObject.SetActive(true);
+                    isMeleeReady = false;
+                    staff.gameObject.SetActive(false);
 
-            }else if(input.SwitchWeapon == (int)WeaponType.Staff)
-            {   
-                gun.gameObject.SetActive(false);
-                isMeleeReady = true;
-                staff.gameObject.SetActive(true);
+                }
+                else if (input.SwitchWeapon == (int)WeaponType.Staff)
+                {
+                    gun.gameObject.SetActive(false);
+                    isMeleeReady = true;
+                    staff.gameObject.SetActive(true);
+                }
             }
-                
-                
-            
+            else
+            {
+                return;
+            }
+
         }
 
         private void OnTriggerEnter(Collider other)
@@ -436,7 +446,7 @@ namespace TheChroniclesOfEllen
                     break;
 
                 case "MovingPlatform":
-                    transform.SetParent(other.transform);
+                    other.transform.SetParent(transform);
 
                     break;
 

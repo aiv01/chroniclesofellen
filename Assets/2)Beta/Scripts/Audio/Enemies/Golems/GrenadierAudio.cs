@@ -9,7 +9,9 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private AudioClip[] movementClips;
         [SerializeField]
-        private AudioClip[] attackClips;
+        private AudioClip[] closeRangeAttackClips;
+        [SerializeField]
+        private AudioClip[] meleeAttackClips;
         [SerializeField]
         private AudioClip[] deathClips;
 
@@ -22,6 +24,16 @@ namespace TheChroniclesOfEllen
         {
             int random = Random.Range(0,movementClips.Length);
             source.PlayOneShot(movementClips[random]);
+        }
+        private void PlayCloseRangeAttackAudio()
+        {
+            int random = Random.Range(0,closeRangeAttackClips.Length);
+            source.PlayOneShot(closeRangeAttackClips[random]);
+        }
+        private void PlayMeleeAttackAudio()
+        {
+            int random = Random.Range(0,meleeAttackClips.Length);
+            source.PlayOneShot(meleeAttackClips[random]);
         }
         private void PlayDeathAudio()
         {

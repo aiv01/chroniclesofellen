@@ -127,7 +127,7 @@ namespace TheChroniclesOfEllen
 
         private int SpawnPowerUp()
         {
-            int powerup = Random.RandomRange(0, 100);
+            int powerup = Random.Range(0, 100);
 
             if (powerup <= 30)
             {

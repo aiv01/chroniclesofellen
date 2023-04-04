@@ -10,7 +10,6 @@ namespace TheChroniclesOfEllen
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.gameObject.GetComponent<AudioPlayer>().PlayDeathAudio();
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -22,7 +21,9 @@ namespace TheChroniclesOfEllen
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+
             animator.gameObject.SetActive(false);
+
         }
 
         // OnStateMove is called right after Animator.OnAnimatorMove()
@@ -36,6 +37,8 @@ namespace TheChroniclesOfEllen
         //{
         //    // Implement code that sets up animation IK (inverse kinematics)
         //}
+
+
     }
 
 }

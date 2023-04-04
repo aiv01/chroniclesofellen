@@ -8,7 +8,9 @@ namespace TheChroniclesOfEllen
     public class AudioPlayer : MonoBehaviour
     {
         [SerializeField]
-        private AudioClip[] movementAudioClips;
+        private AudioClip[] walkMovementAudioClips;
+        [SerializeField]
+        private AudioClip[] runMovementAudioClips;
         [SerializeField]
         private AudioClip[] deathAudioClips;
         [SerializeField]
@@ -21,10 +23,16 @@ namespace TheChroniclesOfEllen
         {
             source = GetComponent<AudioSource>();
         }
-        private void PlayMovementAudio()
+
+        private void PlayWalkMovementAudio()
         {
-            int random = Random.Range(0, movementAudioClips.Length);
-            source.PlayOneShot(movementAudioClips[random]);
+            int random = Random.Range(0,walkMovementAudioClips.Length);
+            source.PlayOneShot(walkMovementAudioClips[random]);
+        }
+        private void PlayRunMovementAudio()
+        {
+            int random = Random.Range(0, runMovementAudioClips.Length);
+            source.PlayOneShot(runMovementAudioClips[random]);
 
         }
         public void PlayDeathAudio()

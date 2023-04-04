@@ -14,11 +14,6 @@ namespace TheChroniclesOfEllen
         private Transform directionTarget;
         private float bulletTimer;
         private float bulletLifeTime = 3.5f;
-        private BulletAudio audio;
-        void Awake()
-        {
-            audio = GetComponent<BulletAudio>();
-        }
 
         private void Start()
         {
@@ -51,11 +46,10 @@ namespace TheChroniclesOfEllen
             bulletTimer = 0;
             if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Player" || collision.gameObject.tag == "Boss")
             {
-
                 collision.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);
-                audio.PlayExplosionAudio();
-
+                
             }
+            
             gameObject.SetActive(false);
 
         }

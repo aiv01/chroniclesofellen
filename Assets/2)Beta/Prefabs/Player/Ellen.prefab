@@ -30,7 +30,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 618697007002720217}
-  - {fileID: 618697006379400724}
   - {fileID: 618697006898873066}
   - {fileID: 618697006898406568}
   m_Father: {fileID: 3606760429828117139}
@@ -50,92 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Effectors: []
---- !u!1 &618697006379400725
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 618697006379400724}
-  - component: {fileID: 618697006379400727}
-  m_Layer: 7
-  m_Name: UpperChestAim
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &618697006379400724
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618697006379400725}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 618697006244048320}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &618697006379400727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618697006379400725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Data:
-    m_ConstrainedObject: {fileID: 3606760429828117641}
-    m_SourceObjects:
-      m_Length: 1
-      m_Item0:
-        transform: {fileID: 0}
-        weight: 1
-      m_Item1:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item2:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item3:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item4:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item5:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item6:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item7:
-        transform: {fileID: 0}
-        weight: 0
-    m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -180
-    m_MaxLimit: 180
-    m_AimAxis: 4
-    m_UpAxis: 3
-    m_WorldUpType: 0
-    m_WorldUpObject: {fileID: 0}
-    m_WorldUpAxis: 2
-    m_MaintainOffset: 0
-    m_ConstrainedAxes:
-      x: 1
-      y: 1
-      z: 1
 --- !u!1 &618697006889002709
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +110,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 618697006244048320}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &618697006898406571
 MonoBehaviour:
@@ -284,7 +197,7 @@ Transform:
   m_Children:
   - {fileID: 618697006889002708}
   m_Father: {fileID: 618697006244048320}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &618697006898873045
 MonoBehaviour:
@@ -559,6 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b35716417364b4e93f87eec90e70e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   mouthOfFire: {fileID: 3606760428229280897}
   damage: 10
   shootCD: 0.5
@@ -4920,10 +4834,11 @@ MonoBehaviour:
   OnPoiseBreak:
     m_PersistentCalls:
       m_Calls: []
-  text: {fileID: 0}
+  healthBar: {fileID: 0}
   maxHealth: 10
   currentHealth: 10
   shield: {fileID: 3606760428792205277}
+  shieldUI: {fileID: 0}
 --- !u!114 &2626341715858614303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4939,6 +4854,7 @@ MonoBehaviour:
   staff: {fileID: 3606760429563149907}
   cameraTransform: {fileID: 0}
   gun: {fileID: 3606760428394204449}
+  playerHealth: {fileID: 0}
   crossHair: {fileID: 0}
   aimRig: {fileID: 618697006244048323}
   movementSpeed: 10
@@ -4972,26 +4888,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2ef7f654d67994892f8e5738f78dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementAudioClips:
+  walkMovementAudioClips:
+  - {fileID: 8300000, guid: 5c21a725528384d9789281114c679dc7, type: 3}
+  - {fileID: 8300000, guid: bfad78fb1b0ec4708b957363d288432b, type: 3}
+  - {fileID: 8300000, guid: 48356423175184db2ac332ff4f94cecc, type: 3}
+  - {fileID: 8300000, guid: 0c6ccb426d5ed4e1796ec82540aef54d, type: 3}
+  - {fileID: 8300000, guid: 08d3633ee637540358a0ca0ec7e507d1, type: 3}
+  - {fileID: 8300000, guid: a4b7d3230185e43acb71d68c0469b2f3, type: 3}
+  runMovementAudioClips:
   - {fileID: 8300000, guid: 1ac85a925071d4c7285744f353deb576, type: 3}
   - {fileID: 8300000, guid: ec403119ca3fa439fb7ecae6ac612f99, type: 3}
   - {fileID: 8300000, guid: 31bcc48bd1b664c4ca591bd8fa4c664b, type: 3}
   - {fileID: 8300000, guid: 401ad8dbf6e0e496e962da54b156b991, type: 3}
   - {fileID: 8300000, guid: 659c8600eb7f64875ab96aed81086960, type: 3}
   - {fileID: 8300000, guid: a1d917a6f5a0641bd8931bfbeabac8dc, type: 3}
-  - {fileID: 8300000, guid: 0882277b4e1fd4e088c0518e308a3edf, type: 3}
-  - {fileID: 8300000, guid: 8767b16c21bc9441ba428f01c1f37dc9, type: 3}
-  - {fileID: 8300000, guid: b018bd998a6e84dd68da71cf3af5e45e, type: 3}
-  - {fileID: 8300000, guid: 287fe555807df4489b07d5680b9fe08f, type: 3}
-  - {fileID: 8300000, guid: 5da1f55f9b65849b5a8c29140b284d18, type: 3}
-  - {fileID: 8300000, guid: bf4df22e158164a35b46f6e47c30460b, type: 3}
-  - {fileID: 8300000, guid: 3326ce45933594a91990d420a3452fa5, type: 3}
-  - {fileID: 8300000, guid: 0fa92ddacc2a14411bd28a3483d0fc3b, type: 3}
-  - {fileID: 8300000, guid: 23b81581c651e457ba3bf96c7f913942, type: 3}
-  - {fileID: 8300000, guid: c44d34dfba0e949e4aa3e3835a4d77e4, type: 3}
-  - {fileID: 8300000, guid: acf9cafb18ec34862b69cb04fab904cf, type: 3}
-  - {fileID: 8300000, guid: 024a9cce319bb453cb7480354b1095b0, type: 3}
-  - {fileID: 8300000, guid: fce2a8e9e42cd4636b32cfdc06210252, type: 3}
   deathAudioClips:
   - {fileID: 8300000, guid: d71c9c70aa5578e41a0c7188539953c5, type: 3}
   - {fileID: 8300000, guid: ea996d57b5a024ea8bc20461e2bd84b1, type: 3}

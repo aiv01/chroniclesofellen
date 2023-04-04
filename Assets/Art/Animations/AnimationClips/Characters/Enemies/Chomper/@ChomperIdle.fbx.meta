@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: ab5bda48f8799bb4f84ab060e69f60a7
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 21300
   internalIDToNameTable:
   - first:
       1: 100000
@@ -635,6 +635,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -678,25 +679,32 @@ ModelImporter:
       curves: []
       events:
       - time: 0.31155777
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
       - time: 0.32160804
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.40837538
-        functionName: PlayStep
+      - time: 0.39444745
+        functionName: PlayIdleAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.40837538
+        functionName: PlayWalkMovementAudio
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       - time: 0.41792297
         functionName: PlayStep
@@ -706,95 +714,88 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.41825855
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 0
         messageOptions: 0
       - time: 0.49664953
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.52847606
-        functionName: PlayStep
+      - time: 0.52162075
+        functionName: PlayIdleAudio
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5335522
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.54053617
-        functionName: PlayStep
+      - time: 0.5439667
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.6319937
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
       - time: 0.66432166
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
       - time: 0.68676746
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
       - time: 0.7020103
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
       - time: 0.95293176
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
       - time: 0.97688437
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.9944722
-        functionName: PlayStep
+        functionName: PlayWalkMovementAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
-        messageOptions: 0
-      - time: 0.397878
-        functionName: Grunt
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.530504
-        functionName: Grunt
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3
@@ -841,6 +842,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -852,6 +854,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -894,6 +897,8 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 2
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

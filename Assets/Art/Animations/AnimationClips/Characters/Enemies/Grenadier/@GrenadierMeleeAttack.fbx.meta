@@ -558,15 +558,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.4893048
-        functionName: StartAttack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.60026735
-        functionName: EndAttack
+      - time: 0
+        functionName: PlayMeleeAttackAudio
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -575,7 +568,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

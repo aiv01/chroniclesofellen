@@ -1,6 +1,3 @@
-using Cinemachine.Utility;
-using System.Collections;
-using System.Collections;
 
 namespace TheChroniclesOfEllen
 {
