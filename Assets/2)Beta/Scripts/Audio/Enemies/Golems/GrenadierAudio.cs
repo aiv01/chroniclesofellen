@@ -7,6 +7,8 @@ namespace TheChroniclesOfEllen
     {
         private AudioSource source;
         [SerializeField]
+        private AudioClip[] idleClips;
+        [SerializeField]
         private AudioClip[] movementClips;
         [SerializeField]
         private AudioClip[] closeRangeAttackClips;
@@ -20,6 +22,11 @@ namespace TheChroniclesOfEllen
             source  = GetComponent<AudioSource>();
         }
 
+        private void PlayIdleAudio()
+        {
+            int random = Random.Range(0,idleClips.Length);
+            source.PlayOneShot(idleClips[random]);
+        }
         private void PlayMovementAudio()
         {
             int random = Random.Range(0,movementClips.Length);

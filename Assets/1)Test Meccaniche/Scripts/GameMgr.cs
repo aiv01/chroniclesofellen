@@ -35,6 +35,28 @@ namespace TheChroniclesOfEllen
             LoadMenu();
         }
 
+        private void Start()
+        {
+            switch(currentArea)
+            {
+                case Area.Ship:
+                AudioMgr.instance.Play("Level0");
+                AudioMgr.instance.Stop("Battle");
+                AudioMgr.instance.Stop("Level1");
+                break;
+                case Area.Temple1:
+                AudioMgr.instance.Play("Level1");
+                AudioMgr.instance.Stop("Level0");
+                AudioMgr.instance.Stop("Battle");
+                break;
+                case Area.Temple2:
+                AudioMgr.instance.Play("Battle");
+                AudioMgr.instance.Stop("Level1");
+                AudioMgr.instance.Stop("Level0");
+                break;
+            }
+        }
+
         private void Update()
         {
 

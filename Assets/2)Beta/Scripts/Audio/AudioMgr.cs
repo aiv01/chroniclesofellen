@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
+
 
 namespace TheChroniclesOfEllen
 {
@@ -13,7 +13,6 @@ namespace TheChroniclesOfEllen
         [Range(0f, 10f)]
         private float generalPitch;
         public static AudioMgr instance;
-        private Scene actualScene;
 
         void Awake()
         {
@@ -38,42 +37,7 @@ namespace TheChroniclesOfEllen
             }
         }
 
-        void Start()
-        {
-            actualScene = SceneManager.GetActiveScene();
-            switch (actualScene.name)
-            {
-                case "Level0":
-                    Play("Level0");
-                    break;
-                case "Level1":
-                    Play("Level1");
-                    break;
-                case "Level2":
-                    Play("Battle");
-                    break;
-
-            }
-        }
-        void Update()
-        {
-            actualScene = SceneManager.GetActiveScene();
-            switch (actualScene.name)
-            {
-                case "Level0":
-                    Play("Level0");
-                    break;
-                case "Level1":
-                    Play("Level1");
-                    break;
-                case "Level2":
-                    Play("Battle");
-                    break;
-
-            }
-        }
-
-        private void Play(string name)
+        public void Play(string name)
         {
             foreach (var s in sounds)
             {
@@ -82,6 +46,18 @@ namespace TheChroniclesOfEllen
                 if (s.name == name)
                 {
                     s.source.Play();
+                }
+            }
+        }
+        public void Stop(string name)
+        {
+            foreach (var s in sounds)
+            {
+                if (s == null) return;
+
+                if (s.name == name)
+                {
+                    s.source.Stop();
                 }
             }
         }
