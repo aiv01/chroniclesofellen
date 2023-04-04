@@ -146,6 +146,10 @@ namespace TheChroniclesOfEllen
                 return (int)PowerUpType.None;
             }
         }
-
+        public void ReloadSpitter()
+        {
+            enemyHealth.SetMaxHealth((int)enemySO.healthPoint);
+            //enemyDamage = enemySO.damage;
+        }
     }
 }

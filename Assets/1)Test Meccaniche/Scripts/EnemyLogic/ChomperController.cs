@@ -205,5 +205,10 @@ namespace TheChroniclesOfEllen
             }
         }
 
+        public void ReloadChomper()
+        {
+            enemyHealth.SetMaxHealth((int)enemySO.healthPoint);
+            enemyDamage = enemySO.damage;
+        }
     }
 }

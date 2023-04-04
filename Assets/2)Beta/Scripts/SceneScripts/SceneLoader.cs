@@ -46,10 +46,14 @@ namespace TheChroniclesOfEllen
             for(int i=0;i<chompers.Length; i++)
             {
                 chompers[i].enemySO = chomperSO;
+                chompers[i].ReloadChomper();
+                chompers[i].gameObject.SetActive(true);
             }
             for(int i = 0; i < spitters.Length; i++)
             {
                 spitters[i].enemySO = spitterSO;
+                spitters[i].ReloadSpitter();
+                spitters[i].gameObject.SetActive(true);
             }
         }
     }
