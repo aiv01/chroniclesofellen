@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604ebaa74611fa44a8b73bb02d1fbbcd, type: 3}
   m_Name: SpitterLiv2
   m_EditorClassIdentifier: 
-  healthPoint: 0
-  type: 0
+  healthPoint: 4
+  damage: 1
+  speed: 0
+  type: 2
   stayTime: 0
-  attackCD: 0
-  pursuitTime: 0
-  stopDistance: 0
-  attackStopDistance: 0
-  attackDistance: 0
-  pursuitDistance: 0
+  attackCD: 3
+  pursuitTime: 0.5
+  stopDistance: 4
+  attackStopDistance: 14
+  attackDistance: 15
+  pursuitDistance: 3

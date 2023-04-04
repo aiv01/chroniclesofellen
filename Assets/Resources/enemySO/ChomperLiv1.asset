@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604ebaa74611fa44a8b73bb02d1fbbcd, type: 3}
   m_Name: ChomperLiv1
   m_EditorClassIdentifier: 
-  healthPoint: 20
-  damage: 2
+  healthPoint: 3
+  damage: 1
   speed: 1
   type: 0
   stayTime: 2

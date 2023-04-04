@@ -54,7 +54,7 @@ namespace TheChroniclesOfEllen
 
             pursuingTimer = enemySO.pursuitTime;
 
-            enemyDamage = enemySO.damage;
+            biteHitBox.damage = (int)enemySO.damage;
             
             //currentAttackCD = 0;
             //attackCD = enemySO.attackCD;
@@ -205,5 +205,10 @@ namespace TheChroniclesOfEllen
             }
         }
 
+        public void ReloadChomper()
+        {
+            enemyHealth.SetMaxHealth((int)enemySO.healthPoint);
+            biteHitBox.damage = (int)enemySO.damage;
+        }
     }
 }

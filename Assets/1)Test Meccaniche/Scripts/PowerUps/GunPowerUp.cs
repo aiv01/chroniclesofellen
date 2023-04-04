@@ -7,6 +7,7 @@ namespace TheChroniclesOfEllen
 
     public class GunPowerUp : PowerUp
     {
+        [SerializeField]
         private GunPUSO gunSO;
         public int bulletLeft;
 

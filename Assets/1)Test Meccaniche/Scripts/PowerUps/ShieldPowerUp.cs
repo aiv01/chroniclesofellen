@@ -6,6 +6,7 @@ namespace TheChroniclesOfEllen
 {
     public class ShieldPowerUp : PowerUp
     {
+        [SerializeField]
         private ShieldPUSO shieldSO;
         private int hitLeft;
         public bool ShieldStatus
@@ -41,7 +42,7 @@ namespace TheChroniclesOfEllen
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Palyer")
+            if (other.tag == "Player")
             {
                 gameObject.SetActive(false);
                 other.GetComponent<PlayerPowerUp>().ChangePowerUp(this);
