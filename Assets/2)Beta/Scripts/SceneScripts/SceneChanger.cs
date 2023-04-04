@@ -19,6 +19,7 @@ namespace TheChroniclesOfEllen
         {
             var v = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             v.SavePointNumber = nextTeleportId;
+            v.Area = nextArea;
             var t = JsonUtility.ToJson(v);
             File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", t);
             currSceneLoader.LoadScene(nextArea);
