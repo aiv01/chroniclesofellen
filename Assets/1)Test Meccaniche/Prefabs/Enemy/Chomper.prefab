@@ -2817,6 +2817,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7873714603531075907}
+  - component: {fileID: 3694104242038503566}
+  - component: {fileID: 5830299866706789142}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -2846,6 +2848,33 @@ Transform:
   m_Father: {fileID: 7873714603531075905}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3694104242038503566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7873714603530722659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttacking: 0
+  damage: 0
+--- !u!65 &5830299866706789142
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7873714603530722659}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7316241, y: 0.54631674, z: 0.5750715}
+  m_Center: {x: 0.009584844, y: 0.25879127, z: -0.1613452}
 --- !u!1 &7873714603530722661
 GameObject:
   m_ObjectHideFlags: 0
@@ -2923,6 +2952,7 @@ GameObject:
   - component: {fileID: 7873714603489500588}
   - component: {fileID: 9099244847880887656}
   - component: {fileID: 5384304628397147947}
+  - component: {fileID: 1192862786617058226}
   m_Layer: 0
   m_Name: Chomper
   m_TagString: Untagged
@@ -3003,10 +3033,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 8aafec5c07779a64693bdeda900c645d, type: 2}
   playerPosition: {fileID: 0}
+  powerUp: {fileID: 0}
   OnPlayerHit:
     m_PersistentCalls:
       m_Calls: []
   patrolPoints: []
+  biteHitBox: {fileID: 0}
 --- !u!65 &5384304628397147947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3020,6 +3052,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1192862786617058226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7873714603530722669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e513918deca984e85bcccaa545091e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPoiseBreak:
+    m_PersistentCalls:
+      m_Calls: []
+  healthBar: {fileID: 0}
+  maxHealth: 0
+  currentHealth: 0
+  shield: {fileID: 0}
+  shieldUI: {fileID: 0}
 --- !u!1 &7873714603530722671
 GameObject:
   m_ObjectHideFlags: 0

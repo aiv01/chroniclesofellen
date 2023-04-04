@@ -8,7 +8,7 @@ namespace TheChroniclesOfEllen
 
     public class PermanentPowerUp : PowerUp
     {
-        [SerializeField]
+        [SerializeField]    
         private PermanentPUSO permanentSO;
 
         public override void OnStart()

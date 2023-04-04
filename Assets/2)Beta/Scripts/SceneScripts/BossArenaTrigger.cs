@@ -18,6 +18,7 @@ namespace TheChroniclesOfEllen
             if (boss.gameObject.activeInHierarchy)
             {
                 boss.enabled = true;
+                boss.GetComponent<HealthComponent>().enabled = true;
                 for (int i = 0; i < arenaWalls.Length; i++)
                 {
                     arenaWalls[i].gameObject.SetActive(true);

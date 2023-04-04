@@ -2803,7 +2803,7 @@ PrefabInstance:
     - target: {fileID: 4137809886339253275, guid: 62047f1982e0f8f45bd0e03de31a5e04,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4137809886339253275, guid: 62047f1982e0f8f45bd0e03de31a5e04,
         type: 3}
@@ -2902,7 +2902,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -2982,9 +2982,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 149625249}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -3030,6 +3035,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &149625249 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 149625246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &151229191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,7 +3084,6 @@ Transform:
   - {fileID: 491016998}
   - {fileID: 1189697165}
   - {fileID: 2108816313}
-  - {fileID: 627447994}
   m_Father: {fileID: 908773664}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 10.028, z: 0}
@@ -3314,9 +3330,14 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 82d077d3e270e894b8062247b1fd88b7, type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 170278124}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -3350,6 +3371,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 170278122}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &170278124 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 170278122}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &177615558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3793,7 +3826,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -3873,9 +3906,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 207482121}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -3919,6 +3957,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &207482121 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 207482118}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &208926366
@@ -4011,7 +4061,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -4091,9 +4141,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 211196841}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -4137,6 +4192,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &211196841 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 211196838}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &213303495
@@ -4569,7 +4636,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -4649,9 +4716,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 265289651}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -4695,6 +4767,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &265289651 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 265289648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &266235924 stripped
@@ -5458,7 +5542,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -5538,9 +5622,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 351431218}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -5584,6 +5673,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &351431218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 351431215}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &354802417 stripped
@@ -5864,7 +5965,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
         type: 3}
       propertyPath: fleePoints.Array.size
@@ -6052,7 +6153,7 @@ PrefabInstance:
     - target: {fileID: 940644449101559910, guid: ee28a3066c8da2348928d03ed60454a6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 940644449101559910, guid: ee28a3066c8da2348928d03ed60454a6,
         type: 3}
@@ -6475,9 +6576,14 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 82d077d3e270e894b8062247b1fd88b7, type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 416173779}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -6511,6 +6617,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 416173777}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &416173779 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 416173777}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &419337373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7999,6 +8117,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
         type: 3}
+      propertyPath: playerPosition
+      value: 
+      objectReference: {fileID: 897481003}
+    - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
+        type: 3}
       propertyPath: fleePoints.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -9100,13 +9223,18 @@ PrefabInstance:
         type: 3}
       propertyPath: enemySO
       value: 
-      objectReference: {fileID: 11400000, guid: b61bef12c54802d4fb418caa1e982909,
+      objectReference: {fileID: 11400000, guid: 8aafec5c07779a64693bdeda900c645d,
         type: 2}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 681691755}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -9134,6 +9262,18 @@ PrefabInstance:
       objectReference: {fileID: 1998275268}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca53ef3cea8c4944fb83729b4e0656a8, type: 3}
+--- !u!114 &681691755 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 681691754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &682007383 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4137809886339553339, guid: 62047f1982e0f8f45bd0e03de31a5e04,
@@ -9842,7 +9982,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -9922,9 +10062,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 746686655}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -9968,6 +10113,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &746686655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 746686652}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &755564719
@@ -10664,9 +10821,14 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 82d077d3e270e894b8062247b1fd88b7, type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 789815919}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -10700,6 +10862,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 789815917}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &789815919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 789815917}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &791974895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11020,7 +11194,7 @@ PrefabInstance:
     - target: {fileID: 3606760429828117139, guid: 3aceb48c149a4204e83f642618af5aa0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3606760429828117139, guid: 3aceb48c149a4204e83f642618af5aa0,
         type: 3}
@@ -11915,7 +12089,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
         type: 3}
       propertyPath: fleePoints.Array.size
@@ -12023,7 +12197,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 627447994}
   m_Father: {fileID: 44875720}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13140,6 +13315,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
+        type: 3}
+      propertyPath: playerPosition
+      value: 
+      objectReference: {fileID: 897481003}
     - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
         type: 3}
       propertyPath: fleePoints.Array.size
@@ -14380,7 +14560,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -14460,9 +14640,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 1001652807}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -14506,6 +14691,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1001652807 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1001652804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1007403552
@@ -15431,7 +15628,7 @@ PrefabInstance:
     - target: {fileID: 4137809886339253275, guid: 62047f1982e0f8f45bd0e03de31a5e04,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4137809886339253275, guid: 62047f1982e0f8f45bd0e03de31a5e04,
         type: 3}
@@ -16233,6 +16430,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
         type: 3}
+      propertyPath: playerPosition
+      value: 
+      objectReference: {fileID: 897481003}
+    - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
+        type: 3}
       propertyPath: fleePoints.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -16999,7 +17201,7 @@ PrefabInstance:
     - target: {fileID: 545030219039513061, guid: 190e2b2c90bdffb4e93c9ae08a3a3a18,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 545030219039513061, guid: 190e2b2c90bdffb4e93c9ae08a3a3a18,
         type: 3}
@@ -17769,7 +17971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f99c71abeef31b64cbd291f2a2312a33, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f99c71abeef31b64cbd291f2a2312a33, type: 3}
       propertyPath: m_LocalScale.x
@@ -18434,7 +18636,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
         type: 3}
       propertyPath: fleePoints.Array.size
@@ -19003,9 +19205,14 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 82d077d3e270e894b8062247b1fd88b7, type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 1318326766}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -19039,6 +19246,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1318326762}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1318326764 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7873714603530722659, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1318326762}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1318326765
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318326764}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7316241, y: 0.54631674, z: 0.5750715}
+  m_Center: {x: 0.009584844, y: 0.25879127, z: -0.1613452}
+--- !u!114 &1318326766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318326764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttacking: 0
+  damage: 1
 --- !u!1001 &1322243871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21338,9 +21578,14 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 82d077d3e270e894b8062247b1fd88b7, type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 1457797442}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -21374,6 +21619,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1457797440}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1457797442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1457797440}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1457797444 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
@@ -21446,7 +21703,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -21526,9 +21783,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 1465313062}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -21572,6 +21834,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1465313062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1465313059}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1468608533
@@ -22489,7 +22763,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
         type: 3}
       propertyPath: fleePoints.Array.size
@@ -22764,7 +23038,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
         type: 3}
       propertyPath: fleePoints.Array.size
@@ -23408,9 +23682,14 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 82d077d3e270e894b8062247b1fd88b7, type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 1602965675}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -23444,6 +23723,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1602965672}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1602965674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7873714603530722659, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1602965672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1602965675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602965674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttacking: 0
+  damage: 1
+--- !u!65 &1602965676
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602965674}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7316241, y: 0.54631674, z: 0.5750715}
+  m_Center: {x: 0.009584844, y: 0.25879127, z: -0.1613452}
 --- !u!1 &1605126414
 GameObject:
   m_ObjectHideFlags: 0
@@ -24109,6 +24421,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
         type: 3}
+      propertyPath: playerPosition
+      value: 
+      objectReference: {fileID: 897481003}
+    - target: {fileID: 7164548002878838391, guid: 6428f05f12f193c4c90bfc8ff8f84d4f,
+        type: 3}
       propertyPath: fleePoints.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -24261,8 +24578,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651792486}
-  m_LocalRotation: {x: 0.00000033236196, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -216.83, y: 38.3, z: -573.15497}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -217.33, y: 38.46, z: -575.125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25576,9 +25893,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 1736954250}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -25606,6 +25928,18 @@ PrefabInstance:
       objectReference: {fileID: 1998275268}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca53ef3cea8c4944fb83729b4e0656a8, type: 3}
+--- !u!114 &1736954250 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1736954249}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1740321648
 GameObject:
   m_ObjectHideFlags: 0
@@ -25802,7 +26136,7 @@ PrefabInstance:
     - target: {fileID: 1624181223715543861, guid: ea9abc785ec66ab42899323554bb73d6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1624181223715543861, guid: ea9abc785ec66ab42899323554bb73d6,
         type: 3}
@@ -25961,9 +26295,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 1759821834}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -25997,6 +26336,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1759821832}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1759821834 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1759821832}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1759821836 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
@@ -26431,7 +26782,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -26511,9 +26862,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 1813584619}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -26557,6 +26913,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1813584619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1813584616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1820266370
@@ -28479,32 +28847,32 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 151229192}
+    m_TransformParent: {fileID: 879946621}
     m_Modifications:
     - target: {fileID: 1824180149741949920, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1824180149741949920, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.84465
+      value: 4.0999985
       objectReference: {fileID: 0}
     - target: {fileID: 1824180149741949920, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.6999989
+      value: 30.3
       objectReference: {fileID: 0}
     - target: {fileID: 1824180149741949920, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 34.65494
+      value: -119.2
       objectReference: {fileID: 0}
     - target: {fileID: 1824180149741949920, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9961733
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1824180149741949920, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
         type: 3}
@@ -28514,7 +28882,7 @@ PrefabInstance:
     - target: {fileID: 1824180149741949920, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.08740034
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1824180149741949920, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
         type: 3}
@@ -28605,6 +28973,11 @@ PrefabInstance:
         type: 3}
       propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814727397600148661, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6eacfca1e979ff46aa63bb6d9b6836e, type: 3}
@@ -28772,9 +29145,14 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 82d077d3e270e894b8062247b1fd88b7, type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 1957843841}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -28808,6 +29186,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1957843838}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1957843840 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7873714603530722659, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1957843838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1957843841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957843840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttacking: 0
+  damage: 1
 --- !u!114 &1957843842 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
@@ -28820,6 +29218,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1957843843
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957843840}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7316241, y: 0.54631674, z: 0.5750715}
+  m_Center: {x: 0.009584844, y: 0.25879127, z: -0.1613452}
 --- !u!1 &1963083940
 GameObject:
   m_ObjectHideFlags: 0
@@ -29952,7 +30363,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -30032,9 +30443,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 2013918114}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -30080,6 +30496,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2013918114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2013918111}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2014968057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30095,7 +30523,7 @@ PrefabInstance:
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 7873714603531075917, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
@@ -30175,9 +30603,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 2014968060}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -30221,6 +30654,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2014968060 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2014968057}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2015970636
@@ -30318,9 +30763,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 2015970639}
+    - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 9099244847880887656, guid: ca53ef3cea8c4944fb83729b4e0656a8,
         type: 3}
       propertyPath: patrolPoints.Array.size
@@ -30364,6 +30814,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b269d21e844a11848856d8a54a6998c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2015970639 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3694104242038503566, guid: ca53ef3cea8c4944fb83729b4e0656a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2015970636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2031420690
@@ -32219,9 +32681,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8767759151045209147, guid: e0e6be0b062492a4a84b29e992692b14,
         type: 3}
+      propertyPath: biteHitBox
+      value: 
+      objectReference: {fileID: 570361228893990637}
+    - target: {fileID: 8767759151045209147, guid: e0e6be0b062492a4a84b29e992692b14,
+        type: 3}
       propertyPath: playerPosition
       value: 
-      objectReference: {fileID: 2004048570}
+      objectReference: {fileID: 897481003}
     - target: {fileID: 8767759151045209147, guid: e0e6be0b062492a4a84b29e992692b14,
         type: 3}
       propertyPath: patrolPoints.Array.data[0]
@@ -32244,6 +32711,18 @@ PrefabInstance:
       objectReference: {fileID: 1998275268}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0e6be0b062492a4a84b29e992692b14, type: 3}
+--- !u!114 &570361228893990637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1120922543079967799, guid: e0e6be0b062492a4a84b29e992692b14,
+    type: 3}
+  m_PrefabInstance: {fileID: 570361228893990636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1492ec95dde7e48489a2fc9f5276b350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1676874224262282907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32662,6 +33141,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 68057458}
     m_Modifications:
+    - target: {fileID: 5963308435150251346, guid: 882f461a33201f44a90037dbb47150c3,
+        type: 3}
+      propertyPath: playerPosition
+      value: 
+      objectReference: {fileID: 897481003}
     - target: {fileID: 5963308435150251346, guid: 882f461a33201f44a90037dbb47150c3,
         type: 3}
       propertyPath: fleePoints.Array.data[0]
