@@ -17,6 +17,7 @@ MonoBehaviour:
   HasDoubleJump: 0
   HasKey: 0
   HasDash: 0
-  Progression: 0
+  GolemStatus: 0
+  MotherSpitterStatus: 1
   Area: 0
   SavePointNumber: 0

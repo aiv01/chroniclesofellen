@@ -102,6 +102,14 @@ namespace TheChroniclesOfEllen
             {
                 currSceneLoader.ChangeEnemyLevel(3);
             }
+            if (currentArea == Area.Temple1 && currentFile.GolemStatus == BossStatus.Active) 
+            {
+                areaBoss.gameObject.SetActive(true);
+            }
+            if (currentArea == Area.Temple2 && currentFile.MotherSpitterStatus == BossStatus.Active) 
+            {
+                areaBoss.gameObject.SetActive(true);
+            }
         }
         public void LoadSavePoint()
         {
@@ -124,7 +132,8 @@ namespace TheChroniclesOfEllen
             currentFile.MotherSpitterStatus = defaultFile.MotherSpitterStatus;
             currentFile.Area = defaultFile.Area;
             currentFile.SavePointNumber = defaultFile.SavePointNumber;
-            currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
+            string saveData = JsonUtility.ToJson(currentFile);
+            File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
             currSceneLoader.LoadNew();
         }
         

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 namespace TheChroniclesOfEllen
@@ -10,8 +11,6 @@ namespace TheChroniclesOfEllen
 
     public class GolemController : BaseBossController
     {
-        [SerializeField]
-        private UnityEvent OnDie;
         [SerializeField]
         private EnemyHitBox rightArm;
         [SerializeField]
@@ -36,6 +35,7 @@ namespace TheChroniclesOfEllen
         // Start is called before the first frame update
         void Start()
         {
+            
             base.Start();
             closeRangeDistance *= closeRangeDistance;
             meleeDistance *= meleeDistance;
@@ -52,6 +52,14 @@ namespace TheChroniclesOfEllen
         // Update is called once per frame
         void Update()
         {
+            if (!bossHealth.IsAlive)
+            {
+                bossAnimator.SetTrigger("Die");
+                pu.gameObject.SetActive(true);
+                pu.transform.position = transform.position + Vector3.up;
+                arenaWalls.gameObject.SetActive(false);
+                return;
+            }
             currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;
 
@@ -116,8 +124,6 @@ namespace TheChroniclesOfEllen
                 bossAnimator.SetBool(animIsMeleeB, false);
                 bossAnimator.SetBool(animIsWalkingB, false);
                 bossAnimator.SetBool(animIsWaitingB, false);
-                isCloseRange = false;
-                isMelee = true;
             }
             else if (distance <= meleeDistance)
             {
@@ -131,8 +137,6 @@ namespace TheChroniclesOfEllen
                 bossAnimator.SetBool(animIsRunningB, false);
                 bossAnimator.SetBool(animIsWalkingB, false);
                 bossAnimator.SetBool(animIsWaitingB, false);
-                isCloseRange = true;
-                isMelee = false;
             }
             else if (distance <= walkDistance)
             {

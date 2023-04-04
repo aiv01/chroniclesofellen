@@ -874,7 +874,7 @@ MonoBehaviour:
   keyUI: {fileID: 0}
   playerHealthBar: {fileID: 0}
   currentArea: 0
-  currSceneLoader: {fileID: 0}
+  currSceneLoader: {fileID: 1076946288}
   areaBoss: {fileID: 0}
   player: {fileID: 0}
   textAsset: {fileID: 0}
@@ -888,7 +888,7 @@ MonoBehaviour:
     MotherSpitterStatus: 0
     Area: 0
     SavePointNumber: 0
-  defaultFile: {fileID: 0}
+  defaultFile: {fileID: 11400000, guid: 85ddababdb696d347975fbe3966ba1ff, type: 2}
   currSavepointNumber: 0
 --- !u!4 &862658883
 Transform:

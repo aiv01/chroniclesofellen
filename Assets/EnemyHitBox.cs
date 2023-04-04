@@ -8,16 +8,16 @@ namespace TheChroniclesOfEllen
     public class EnemyHitBox : MonoBehaviour
     {
         public bool isAttacking;
-        public float damage;
+        public int damage;
 
         private void OnTriggerEnter(Collider other)
         {
             if (isAttacking)
             {
-                other.gameObject.GetComponent<HealthComponent>().TakeDamage((int)damage);
                 Debug.Log("Colpito");
+                other.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);
             }
-        }
+        } 
     }
 
 }

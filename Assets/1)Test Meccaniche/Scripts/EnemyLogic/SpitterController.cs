@@ -70,7 +70,7 @@ namespace TheChroniclesOfEllen
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag == "PlayerWeaponHitBox")
+            if (collision.gameObject.tag == "Weapon")
             {
                 enemyAnimator.SetTrigger("Hit");
 

@@ -9,6 +9,8 @@ namespace TheChroniclesOfEllen
     [RequireComponent(typeof(NavMeshAgent))]
     public class MotherSpitterController : BaseBossController
     {
+        [SerializeField]
+        private Key key;
         private ShootComponent spitterShootComponent;
         [SerializeField]
         private EnemyHitBox biteHitBox;
@@ -42,6 +44,7 @@ namespace TheChroniclesOfEllen
             animIsShootingB = Animator.StringToHash("IsShooting");
             animIsFleeingB = Animator.StringToHash("IsFleeing");
             isFleeing = false;
+            key.gameObject.SetActive(false);
         }
 
         // Update is called once per frame
@@ -52,8 +55,9 @@ namespace TheChroniclesOfEllen
                 bossAnimator.SetTrigger("Die");
                 pu.gameObject.SetActive(true);
                 pu.transform.position = transform.position + Vector3.up;
-                gameObject.SetActive(false);
+                key.gameObject.SetActive(true);
                 arenaWalls.gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
             currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;

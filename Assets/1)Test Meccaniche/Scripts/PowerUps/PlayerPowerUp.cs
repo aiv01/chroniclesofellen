@@ -67,7 +67,11 @@ namespace TheChroniclesOfEllen
         /// <returns>returns if the hit is blocked</returns>
         public bool OnHit ()
         {
-            return power.OnHit();
+            if (power != null)
+            {
+                return power.OnHit();
+            }
+            return false;
         }
     }
 }

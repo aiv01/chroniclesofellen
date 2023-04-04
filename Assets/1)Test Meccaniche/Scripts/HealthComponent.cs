@@ -13,6 +13,7 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private UnityEvent OnPoiseBreak;
         public UIHealthBar healthBar;
+        [SerializeField]
         private int maxHealth;
         public int currentHealth;
         private bool shieldActive;
@@ -46,7 +47,7 @@ namespace TheChroniclesOfEllen
             isAlive = true; 
             //prendo da file la vita massima
             //maxHealth = 10;
-            //currentHealth = maxHealth;
+            currentHealth = maxHealth;
             powerUpSystem = GetComponent<PlayerPowerUp>();
 
             currPoise = maxPoise;

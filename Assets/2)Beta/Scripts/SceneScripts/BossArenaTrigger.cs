@@ -11,13 +11,17 @@ namespace TheChroniclesOfEllen
         private BaseBossController boss;
         [SerializeField]
         private Transform[] arenaWalls;
+        public bool isBossActive;
 
         private void OnTriggerEnter(Collider other)
         {
-            boss.enabled = true;
-            for(int i=0;i<arenaWalls.Length;i++) 
+            if (boss.gameObject.activeInHierarchy)
             {
-                arenaWalls[i].gameObject.SetActive(true);
+                boss.enabled = true;
+                for (int i = 0; i < arenaWalls.Length; i++)
+                {
+                    arenaWalls[i].gameObject.SetActive(true);
+                }
             }
         }
     }
