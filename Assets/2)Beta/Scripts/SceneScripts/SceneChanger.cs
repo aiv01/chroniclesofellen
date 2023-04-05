@@ -17,7 +17,12 @@ namespace TheChroniclesOfEllen
 
         private void OnTriggerEnter(Collider other)
         {
+            
             var v = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
+            if(nextArea == Area.Ship && !v.HasKey)
+            {
+                return;
+            }
             v.SavePointNumber = nextTeleportId;
             v.Area = nextArea;
             if (nextArea == Area.Ship && v.HasKey)

@@ -999,6 +999,7 @@ GameObject:
   - component: {fileID: 3606760428273104681}
   - component: {fileID: 3606760429563149907}
   - component: {fileID: 7256881142719800225}
+  - component: {fileID: 8892221728435920701}
   m_Layer: 7
   m_Name: Staff
   m_TagString: Weapon
@@ -1083,6 +1084,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.20825745, y: 0.09061163, z: 1.4141829}
   m_Center: {x: -0.00073509075, y: 0.011841803, z: 0.29493093}
+--- !u!54 &8892221728435920701
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3606760429563149917}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3606760429827686529
 GameObject:
   m_ObjectHideFlags: 0
@@ -4837,6 +4854,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   maxHealth: 10
   currentHealth: 10
+  maxPoise: 0
+  regenPoisePerSec: 0
   shield: {fileID: 3606760428792205277}
   shieldUI: {fileID: 0}
 --- !u!114 &2626341715858614303
@@ -4857,6 +4876,9 @@ MonoBehaviour:
   playerHealth: {fileID: 0}
   crossHair: {fileID: 0}
   aimRig: {fileID: 618697006244048323}
+  OnDie:
+    m_PersistentCalls:
+      m_Calls: []
   movementSpeed: 10
   cameraFollowTarget: {fileID: 5934906448727186113}
   inputSensitivity: 50

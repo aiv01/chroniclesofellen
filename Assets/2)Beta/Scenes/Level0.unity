@@ -1055,11 +1055,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115433969}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.320893, y: 26.922388, z: 4.8164573}
-  m_Center: {x: -7.4853735, y: 12.961194, z: 1.9082195}
+  m_Size: {x: 5.320892, y: 27.132914, z: 6.567833}
+  m_Center: {x: -7.485372, y: 12.855931, z: 1.0325313}
 --- !u!65 &584264800
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1279,7 +1279,7 @@ MonoBehaviour:
     loop: 1
   - name: Battle
     clip: {fileID: 8300000, guid: 081a9780e27474342bafa6d6998664cc, type: 3}
-    volume: 0.4
+    volume: 0.2
     pitch: 1
     source: {fileID: 0}
     loop: 1
@@ -1406,7 +1406,7 @@ PrefabInstance:
     - target: {fileID: 545030219039513061, guid: 190e2b2c90bdffb4e93c9ae08a3a3a18,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -50.120003
+      value: -37.82
       objectReference: {fileID: 0}
     - target: {fileID: 545030219039513061, guid: 190e2b2c90bdffb4e93c9ae08a3a3a18,
         type: 3}
@@ -1480,7 +1480,7 @@ PrefabInstance:
     - target: {fileID: 940644449101559910, guid: ee28a3066c8da2348928d03ed60454a6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -48.15
+      value: -35.85
       objectReference: {fileID: 0}
     - target: {fileID: 940644449101559910, guid: ee28a3066c8da2348928d03ed60454a6,
         type: 3}
@@ -1732,8 +1732,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042072253}
-  m_LocalRotation: {x: 0, y: 0.00000009634089, z: 0, w: 1}
-  m_LocalPosition: {x: -31.7, y: 1.76, z: -48.15}
+  m_LocalRotation: {x: 0, y: 0.000000110010255, z: 0, w: 1}
+  m_LocalPosition: {x: -31.7, y: 1.76, z: -35.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2930,7 +2930,7 @@ PrefabInstance:
     - target: {fileID: 3606760429828117139, guid: 3aceb48c149a4204e83f642618af5aa0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -46.74
+      value: -34.44
       objectReference: {fileID: 0}
     - target: {fileID: 3606760429828117139, guid: 3aceb48c149a4204e83f642618af5aa0,
         type: 3}
