@@ -17,7 +17,10 @@ namespace TheChroniclesOfEllen
 
         private void OnTriggerEnter(Collider other)
         {
-            
+            if (!Directory.Exists(Application.persistentDataPath + "/JsonFile"))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + "/JsonFile");
+            }
             var v = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             if(nextArea == Area.Ship && !v.HasKey)
             {
@@ -27,7 +30,6 @@ namespace TheChroniclesOfEllen
             v.Area = nextArea;
             if (nextArea == Area.Ship && v.HasKey)
             {
-                Debug.Log("Vittoria");
                 currSceneLoader.LoadVictory();
                 return;
             }

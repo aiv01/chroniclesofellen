@@ -70,7 +70,6 @@ namespace TheChroniclesOfEllen
             }
             if (spitters != null)
             {
-
                 BaseEnemySO spitterSO = Resources.Load<BaseEnemySO>("enemySO/SpitterLiv" + levelNumber);
 
                 for (int i = 0; i < spitters.Length; i++)

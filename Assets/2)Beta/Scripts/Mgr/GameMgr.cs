@@ -104,17 +104,25 @@ namespace TheChroniclesOfEllen
 
         public void Save()
         {
+            if (!Directory.Exists(Application.persistentDataPath + "/JsonFile"))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + "/JsonFile");
+            }
             currentFile.MaxHp = player.playerHealth.GetMaxHealth();
             currentFile.SavePointNumber = currSavepointNumber;
             currentFile.Area = currentArea;
             string saveData = JsonUtility.ToJson(currentFile);
             File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
-            Debug.Log("Save: " + currentFile.ToString());
+            //Debug.Log("Save: " + currentFile.ToString());
         }
         public void LoadMenu()
         {
+            if (!Directory.Exists(Application.persistentDataPath + "/JsonFile"))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + "/JsonFile");
+            }
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
-            Debug.Log("Load: " + currentFile.ToString());
+            //Debug.Log("Load: " + currentFile.ToString());
             lastTeleport = currSceneLoader.GetTeleportPosition(currentFile.SavePointNumber);
             player.transform.position = lastTeleport;
             keyUI.enabled=currentFile.HasKey;
@@ -128,11 +136,15 @@ namespace TheChroniclesOfEllen
             if (currentArea == Area.Temple1 && currentFile.HasKey)
             {
                 areaBoss.gameObject.SetActive(true);
-                //currSceneLoader.ChangeEnemyLevel(3);
+                currSceneLoader.ChangeEnemyLevel(3);
             }
         }
         public void LoadSavePoint()
         {
+            if (!Directory.Exists(Application.persistentDataPath + "/JsonFile"))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + "/JsonFile");
+            }
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             currSceneLoader.LoadScene((Area)currentFile.Area);
 
@@ -143,6 +155,10 @@ namespace TheChroniclesOfEllen
         }
         public void LoadNew()
         {
+            if(!Directory.Exists(Application.persistentDataPath + "/JsonFile"))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + "/JsonFile");
+            }
             currentFile.MaxHp = defaultFile.MaxHp;
             currentFile.DamageScale = defaultFile.DamageScale;
             currentFile.HasDash = defaultFile.HasDash;
