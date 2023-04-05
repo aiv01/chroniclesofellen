@@ -1005,7 +1005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &50220238
 Transform:
   m_ObjectHideFlags: 0
@@ -20012,6 +20012,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1250679678}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1255250088 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1824180149741950388, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1535377893}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1258238358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23715,6 +23721,11 @@ PrefabInstance:
       propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4103387816472187706, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
+        type: 3}
+      propertyPath: mouthOfFire
+      value: 
+      objectReference: {fileID: 1255250088}
     - target: {fileID: 7814727397600148661, guid: f6eacfca1e979ff46aa63bb6d9b6836e,
         type: 3}
       propertyPath: maxPoise

@@ -81,6 +81,7 @@ namespace TheChroniclesOfEllen
             keyUI.enabled = value;
             ChangeGolemStatus(BossStatus.Active);
             currSceneLoader.ChangeEnemyLevel(3);
+            Save();
         }
         public void AddDoubleJump()
         {
