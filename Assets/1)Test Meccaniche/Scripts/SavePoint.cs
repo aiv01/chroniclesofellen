@@ -17,6 +17,10 @@ namespace TheChroniclesOfEllen
         public Transform playerSpawn;
         public Transform saveUI;
 
+        public int SavePointNumber
+        {
+            get { return savePointNumber; }
+        }
 
         private void OnTriggerStay(Collider other)
         {

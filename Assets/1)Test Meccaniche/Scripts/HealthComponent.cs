@@ -17,8 +17,10 @@ namespace TheChroniclesOfEllen
         private int maxHealth;
         public int currentHealth;
         private bool shieldActive;
+        [SerializeField]
         private float maxPoise;
         private float currPoise;
+        [SerializeField]
         private float regenPoisePerSec;
         private PlayerPowerUp powerUpSystem;
         public Transform shield;
@@ -40,13 +42,11 @@ namespace TheChroniclesOfEllen
             //controllo se ho lo scudo
             if (tag == "Player")
             {
-                //shield.gameObject.SetActive(false);
+                shield.gameObject.SetActive(false);
                 healthBar.LoadHealth((int)maxHealth);
                 healthBar.ChangeHealth((int)currentHealth);
             }
             isAlive = true; 
-            //prendo da file la vita massima
-            //maxHealth = 10;
             currentHealth = maxHealth;
             powerUpSystem = GetComponent<PlayerPowerUp>();
 

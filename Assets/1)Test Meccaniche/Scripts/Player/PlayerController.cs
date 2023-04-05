@@ -5,6 +5,7 @@ using Cinemachine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.Events;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 
@@ -32,6 +33,8 @@ namespace TheChroniclesOfEllen
         private AudioPlayer audioPlayer;
         [SerializeField]
         private Rig aimRig;
+        [SerializeField]
+        private  UnityEvent OnDie;
         #endregion
 
         #region Movement variables
@@ -385,7 +388,7 @@ namespace TheChroniclesOfEllen
             playerHealth.currentHealth = 0;
             cameraFollowTarget.parent = null;
             movement = Vector3.zero;
-
+            OnDie.Invoke();
         }
         void MakeWeaponDisappearInIdle()
         {

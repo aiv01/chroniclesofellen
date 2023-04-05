@@ -16,8 +16,8 @@ namespace TheChroniclesOfEllen
         {
             if (other.gameObject.tag == "Player")
             {
-                ItemFound.Invoke(true);
                 gameObject.SetActive(false);
+                ItemFound.Invoke(true);
             }
         }
 

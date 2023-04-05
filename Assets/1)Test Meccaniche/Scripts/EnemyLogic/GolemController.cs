@@ -27,7 +27,7 @@ namespace TheChroniclesOfEllen
         private int animIsWaitingB;
         private int animAngleF;
 
-        private bool isAttacking;
+        public bool isAttacking;
         public bool isMelee;
         public bool isCloseRange;
 
@@ -74,7 +74,7 @@ namespace TheChroniclesOfEllen
                 bossAnimator.SetFloat(animAngleF, angle);
 
             }
-
+            
             if (isAttacking)
             {
                 if (isMelee)

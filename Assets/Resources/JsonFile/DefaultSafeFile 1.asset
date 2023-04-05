@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fa94d3338ffe04593781f9245e0a1c, type: 3}
   m_Name: DefaultSafeFile 1
   m_EditorClassIdentifier: 
-  MaxHp: 3
+  MaxHp: 5
   DamageScale: 1
   HasDoubleJump: 0
   HasKey: 0

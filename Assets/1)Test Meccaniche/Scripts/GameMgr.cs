@@ -30,7 +30,6 @@ namespace TheChroniclesOfEllen
 
         private void Awake()
         {
-            Debug.Log(Application.persistentDataPath);
             currentFile = new SafeFile();
             LoadMenu();
         }
@@ -115,23 +114,20 @@ namespace TheChroniclesOfEllen
         {
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
             Debug.Log("Load: " + currentFile.ToString());
-            Debug.Log(currentFile.SavePointNumber);
             lastTeleport = currSceneLoader.GetTeleportPosition(currentFile.SavePointNumber);
             player.transform.position = lastTeleport;
             keyUI.enabled=currentFile.HasKey;
             player.playerHealth.SetMaxHealth(currentFile.MaxHp); 
 
-            if (currentFile.HasKey)
-            {
-                currSceneLoader.ChangeEnemyLevel(3);
-            }
-            if (currentArea == Area.Temple1 && currentFile.GolemStatus == BossStatus.Active) 
-            {
-                areaBoss.gameObject.SetActive(true);
-            }
+            
             if (currentArea == Area.Temple2 && currentFile.MotherSpitterStatus == BossStatus.Active) 
             {
                 areaBoss.gameObject.SetActive(true);
+            }
+            if (currentArea == Area.Temple1 && currentFile.HasKey)
+            {
+                areaBoss.gameObject.SetActive(true);
+                //currSceneLoader.ChangeEnemyLevel(3);
             }
         }
         public void LoadSavePoint()

@@ -15986,7 +15986,7 @@ GameObject:
   - component: {fileID: 864610892}
   - component: {fileID: 864610891}
   - component: {fileID: 864610890}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17086,7 +17086,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &907346875 stripped
 GameObject:
@@ -18567,7 +18567,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030034684}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.059998, y: 37.509995, z: 85.670006}
+  m_LocalPosition: {x: -8.059998, y: 31.6, z: 88.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18606,7 +18606,7 @@ Transform:
   - {fileID: 153490210}
   - {fileID: 104941435}
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044482877
 GameObject:
@@ -21311,7 +21311,7 @@ GameObject:
   - component: {fileID: 1250156696}
   - component: {fileID: 1250156695}
   - component: {fileID: 1250156694}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Arena Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21343,7 +21343,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250156693}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.2146037, y: 1, z: 1.691655}
@@ -21898,6 +21898,41 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 1185837125}
+    - target: {fileID: 2626341715858614303, guid: 3aceb48c149a4204e83f642618af5aa0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626341715858614303, guid: 3aceb48c149a4204e83f642618af5aa0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626341715858614303, guid: 3aceb48c149a4204e83f642618af5aa0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 104632010}
+    - target: {fileID: 2626341715858614303, guid: 3aceb48c149a4204e83f642618af5aa0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626341715858614303, guid: 3aceb48c149a4204e83f642618af5aa0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadGameOver
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626341715858614303, guid: 3aceb48c149a4204e83f642618af5aa0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TheChroniclesOfEllen.SceneLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626341715858614303, guid: 3aceb48c149a4204e83f642618af5aa0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3606760429827690227, guid: 3aceb48c149a4204e83f642618af5aa0,
         type: 3}
       propertyPath: m_Name
@@ -21960,6 +21995,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8375550191748878692, guid: 3aceb48c149a4204e83f642618af5aa0,
         type: 3}
+      propertyPath: maxPoise
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375550191748878692, guid: 3aceb48c149a4204e83f642618af5aa0,
+        type: 3}
       propertyPath: shieldUI
       value: 
       objectReference: {fileID: 1823807182}
@@ -21968,6 +22008,11 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1020875676}
+    - target: {fileID: 8375550191748878692, guid: 3aceb48c149a4204e83f642618af5aa0,
+        type: 3}
+      propertyPath: regenPoisePerSec
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aceb48c149a4204e83f642618af5aa0, type: 3}
 --- !u!1 &1331837211
@@ -30274,7 +30319,7 @@ GameObject:
   - component: {fileID: 1885274443}
   - component: {fileID: 1885274442}
   - component: {fileID: 1885274441}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34185,10 +34230,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3331926889368092636, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: maxPoise
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: regenPoisePerSec
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730807619103623311, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: damage
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8730807619153178356, guid: a0c59b3425ccae748a6aec17e1107c3b,
         type: 3}
@@ -34269,6 +34339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730807619847657760, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: damage
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0c59b3425ccae748a6aec17e1107c3b, type: 3}

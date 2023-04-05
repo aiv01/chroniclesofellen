@@ -14,7 +14,6 @@ namespace TheChroniclesOfEllen
         {
             if (isAttacking)
             {
-                Debug.Log("Colpito");
                 other.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);
             }
         } 
