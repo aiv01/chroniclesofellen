@@ -34,7 +34,7 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private Rig aimRig;
         [SerializeField]
-        private  UnityEvent OnDie;
+        private UnityEvent OnDie;
         #endregion
 
         #region Movement variables
@@ -55,7 +55,11 @@ namespace TheChroniclesOfEllen
         private float yRotation;
         [SerializeField]
         [Range(0.0f, 100f)]
-        private float inputSensitivity;
+        private float gamepadInputSensitivity;
+        [SerializeField]
+        [Range(0.0f, 100f)]
+        private float mouseInputSensitivity;
+
         [SerializeField]
         private CinemachineVirtualCamera aimCamera;
         #endregion
@@ -314,11 +318,15 @@ namespace TheChroniclesOfEllen
         private void Aim()
         {
             if (!gun.gameObject.activeInHierarchy) return;
+
+
             Vector3 worldPosition = Vector3.zero;
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
             Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+            Debug.DrawRay(ray.origin, ray.direction, Color.green, Mathf.Infinity);
+            LayerMask rayMask = ~(1 << LayerMask.NameToLayer("Player"));
 
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, rayMask))
             {
                 shootTarget.position = raycastHit.point;
                 worldPosition = raycastHit.point;
@@ -373,11 +381,23 @@ namespace TheChroniclesOfEllen
         #region Camera Mechanics
         void CameraControl()
         {
-            xRotation += input.LookInput.y * Time.deltaTime * inputSensitivity;
-            yRotation += input.LookInput.x * Time.deltaTime * inputSensitivity;
-            xRotation = Mathf.Clamp(xRotation, -30, 70);
-            Quaternion rotation = Quaternion.Euler(xRotation, yRotation, 0);
-            cameraFollowTarget.rotation = rotation;
+            if (input.IsUsingGamepad)
+            {
+                xRotation += input.LookGamePadInput.y * Time.deltaTime * gamepadInputSensitivity;
+                yRotation += input.LookGamePadInput.x * Time.deltaTime * gamepadInputSensitivity;
+                xRotation = Mathf.Clamp(xRotation, -30, 70);
+                Quaternion rotation = Quaternion.Euler(-xRotation, -yRotation, 0);
+                cameraFollowTarget.rotation = rotation;
+            }
+            else if (input.IsUsingMouse)
+            {
+                xRotation += input.LookMouseInput.y * Time.deltaTime * mouseInputSensitivity;
+                yRotation += input.LookMouseInput.x * Time.deltaTime * mouseInputSensitivity;
+                xRotation = Mathf.Clamp(xRotation, -30, 70);
+                Quaternion rotation = Quaternion.Euler(-xRotation, -yRotation, 0);
+                cameraFollowTarget.rotation = rotation;
+            }
+
         }
 
         #endregion

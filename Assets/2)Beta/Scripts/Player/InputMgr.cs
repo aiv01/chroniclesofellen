@@ -9,7 +9,10 @@ namespace TheChroniclesOfEllen
     {
         private PlayerInput playerInput;
         private Vector2 movementInput;
-        private Vector2 lookInput;
+        private Vector2 lookGamepadInput;
+        private Vector2 lookMouseInput;
+        private bool isUsingGamepad = false;
+        private bool isUsingMouse = false;
         private bool isMovementPressed = false;
         private bool isJumpPressed = false;
         private bool isAttackPressed = false;
@@ -24,10 +27,25 @@ namespace TheChroniclesOfEllen
             get { return movementInput; }
             set { movementInput = value; }
         }
-        public Vector2 LookInput
+        public Vector2 LookGamePadInput
         {
-            get { return lookInput; }
-            set { lookInput = value; }
+            get { return lookGamepadInput; }
+            set { lookGamepadInput = value; }
+        }
+        public Vector2 LookMouseInput
+        {
+            get {return lookMouseInput;}
+            set {lookMouseInput = value;}
+        }
+        public bool IsUsingGamepad
+        {
+            get{return isUsingGamepad;}
+            set{isUsingGamepad = value;}
+        }
+        public bool IsUsingMouse
+        {
+            get{return isUsingMouse;}
+            set{isUsingMouse = value;}
         }
         public bool IsMovementPressed
         {
@@ -87,9 +105,12 @@ namespace TheChroniclesOfEllen
             playerInput.Player.Movement.started += onMovement;
             playerInput.Player.Movement.performed += onMovement;
             playerInput.Player.Movement.canceled += onMovement;
-            playerInput.Player.Look.started += onCameraControl;
-            playerInput.Player.Look.performed += onCameraControl;
-            playerInput.Player.Look.canceled += onCameraControl;
+            playerInput.Player.LookGamePad.started += onCameraControl;
+            playerInput.Player.LookGamePad.performed += onCameraControl;
+            playerInput.Player.LookGamePad.canceled += onCameraControl;
+            playerInput.Player.LookMouse.started += onCameraControl;
+            playerInput.Player.LookMouse.performed += onCameraControl;
+            playerInput.Player.LookMouse.canceled += onCameraControl;
             playerInput.Player.Jump.started += onJump;
             playerInput.Player.Jump.canceled += onJump;
             playerInput.Player.MeleeAttack.started += onMeleeAttack;
@@ -119,7 +140,12 @@ namespace TheChroniclesOfEllen
         }
         void onCameraControl(InputAction.CallbackContext context)
         {
-            lookInput = context.ReadValue<Vector2>();
+            lookGamepadInput = context.ReadValue<Vector2>();
+            lookMouseInput = context.ReadValue<Vector2>();
+
+            isUsingGamepad = lookGamepadInput.x != 0 || lookGamepadInput.y != 0;
+            isUsingMouse = lookMouseInput.x != 0 || lookMouseInput.y != 0;
+            
         }
         void onJump(InputAction.CallbackContext context)
         {
