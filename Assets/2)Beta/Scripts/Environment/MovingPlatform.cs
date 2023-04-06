@@ -10,6 +10,7 @@ namespace TheChroniclesOfEllen
     {
         public Transform start;
         public Transform end;
+        public GameObject attackTarget;
 
         public float platformSpeed;
         public float platformWaitTimer;
@@ -55,6 +56,19 @@ namespace TheChroniclesOfEllen
             Transform temp = start;
             start = end;
             end = temp;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject == attackTarget)
+            {
+                attackTarget.transform.parent = transform;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            attackTarget.transform.parent = null;
         }
     }
 

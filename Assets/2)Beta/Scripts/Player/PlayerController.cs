@@ -386,7 +386,7 @@ namespace TheChroniclesOfEllen
                 xRotation += input.LookGamePadInput.y * Time.deltaTime * gamepadInputSensitivity;
                 yRotation += input.LookGamePadInput.x * Time.deltaTime * gamepadInputSensitivity;
                 xRotation = Mathf.Clamp(xRotation, -30, 70);
-                Quaternion rotation = Quaternion.Euler(-xRotation, -yRotation, 0);
+                Quaternion rotation = Quaternion.Euler(xRotation, yRotation, 0);
                 cameraFollowTarget.rotation = rotation;
             }
             else if (input.IsUsingMouse)
@@ -394,7 +394,7 @@ namespace TheChroniclesOfEllen
                 xRotation += input.LookMouseInput.y * Time.deltaTime * mouseInputSensitivity;
                 yRotation += input.LookMouseInput.x * Time.deltaTime * mouseInputSensitivity;
                 xRotation = Mathf.Clamp(xRotation, -30, 70);
-                Quaternion rotation = Quaternion.Euler(-xRotation, -yRotation, 0);
+                Quaternion rotation = Quaternion.Euler(xRotation, yRotation, 0);
                 cameraFollowTarget.rotation = rotation;
             }
 
@@ -457,20 +457,14 @@ namespace TheChroniclesOfEllen
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "DeathZone")
-            {
-                Death();
-            }
-
             switch (other.tag)
             {
                 case "DeathZone":
                     Death();
                     break;
 
-                case "MovingPlatform":
-                    other.transform.SetParent(transform);
-
+                case "Platform":
+                    transform.parent = transform;
                     break;
 
                 default:
@@ -478,16 +472,17 @@ namespace TheChroniclesOfEllen
 
             }
         }
+
         private void OnTriggerStay(Collider other)
         {
-            if (other.tag == "MovingPlatform")
+            if (other.tag == "Platform")
             {
-                transform.localPosition = other.transform.position;
+
             }
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.tag == "MovingPlatform")
+            if (other.tag == "Platform")
             {
                 transform.parent = null;
             }
