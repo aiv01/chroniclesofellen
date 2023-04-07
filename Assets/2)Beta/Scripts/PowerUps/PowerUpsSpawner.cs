@@ -11,11 +11,11 @@ namespace TheChroniclesOfEllen
         private static PowerUp[,] powerups;
         [SerializeField]
         private PowerUp[] prefabPowerUp;
-
+        [SerializeField]
         private int instancePerPoweUp;
         private void Awake()
         {
-            instancePerPoweUp = 3;
+            instancePerPoweUp = 15;
             InitSpawner();
         }
 
