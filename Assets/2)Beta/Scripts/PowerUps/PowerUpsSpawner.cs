@@ -15,7 +15,7 @@ namespace TheChroniclesOfEllen
         private int instancePerPoweUp;
         private void Awake()
         {
-            instancePerPoweUp = 3;
+            instancePerPoweUp = 15;
             InitSpawner();
         }
 

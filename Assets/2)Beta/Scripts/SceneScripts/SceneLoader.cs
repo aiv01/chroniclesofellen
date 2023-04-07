@@ -26,6 +26,7 @@ namespace TheChroniclesOfEllen
 
         public Vector3 GetTeleportPosition(int teleportID)
         {
+            
             foreach(SavePoint s in teleportPositions)
             {
                 if (s.SavePointNumber == teleportID)
@@ -58,26 +59,20 @@ namespace TheChroniclesOfEllen
 
         public void ChangeEnemyLevel(int levelNumber)
         {
-            if (chompers != null)
+            BaseEnemySO chomperSO = Resources.Load<BaseEnemySO>("enemySO/ChomperLiv" + levelNumber);
+            for (int i = 0; i < chompers.Length; i++)
             {
-                BaseEnemySO chomperSO = Resources.Load<BaseEnemySO>("enemySO/ChomperLiv" + levelNumber);
-                for (int i = 0; i < chompers.Length; i++)
-                {
-                    chompers[i].enemySO = chomperSO;
-                    chompers[i].ReloadChomper();
-                    chompers[i].gameObject.SetActive(true);
-                }
+                chompers[i].enemySO = chomperSO;
+                chompers[i].ReloadChomper();
+                chompers[i].gameObject.SetActive(true);
             }
-            if (spitters != null)
-            {
-                BaseEnemySO spitterSO = Resources.Load<BaseEnemySO>("enemySO/SpitterLiv" + levelNumber);
 
-                for (int i = 0; i < spitters.Length; i++)
-                {
-                    spitters[i].enemySO = spitterSO;
-                    spitters[i].ReloadSpitter();
-                    spitters[i].gameObject.SetActive(true);
-                }
+            BaseEnemySO spitterSO = Resources.Load<BaseEnemySO>("enemySO/SpitterLiv" + levelNumber);
+            for (int i = 0; i < spitters.Length; i++)
+            {
+                spitters[i].enemySO = spitterSO;
+                spitters[i].ReloadSpitter();
+                spitters[i].gameObject.SetActive(true);
             }
         }
     }
