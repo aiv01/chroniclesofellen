@@ -30,10 +30,10 @@ namespace TheChroniclesOfEllen
             {
                 if (s.SavePointNumber == teleportID)
                 {
-                    return s.transform.position + transform.forward;
+                    return s.playerSpawn.position;
                 }
             }
-            return teleportPositions[0].transform.position + transform.forward;
+            return teleportPositions[0].playerSpawn.position;
         }
         public void LoadScene(Area newArea)
         {

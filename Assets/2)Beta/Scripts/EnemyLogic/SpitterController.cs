@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -35,6 +36,7 @@ namespace TheChroniclesOfEllen
             isFleeing = false;
 
             shootComponent = GetComponent<ShootComponent>();
+            shootComponent.damage = (int)enemySO.damage;
 
             fleeingTimer = enemySO.pursuitTime;
             shootComponent.shootCD = enemySO.attackCD;
@@ -122,7 +124,7 @@ namespace TheChroniclesOfEllen
 
         private void Shoot()
         {
-            shootComponent.OnShoot((playerPosition.position - transform.position).normalized);
+            shootComponent.OnShoot(playerPosition.position);
         }
 
         private int SpawnPowerUp()
@@ -149,7 +151,7 @@ namespace TheChroniclesOfEllen
         public void ReloadSpitter()
         {
             enemyHealth.SetMaxHealth((int)enemySO.healthPoint);
-            //enemyDamage = enemySO.damage;
+            shootComponent.damage = (int)enemySO.damage;
         }
     }
 }

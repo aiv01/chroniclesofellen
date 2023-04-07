@@ -131,7 +131,7 @@ namespace TheChroniclesOfEllen
 
         public void Shoot()
         {
-            spitterShootComponent.OnShoot((playerTransform.position - transform.position).normalized);
+            spitterShootComponent.OnShoot(playerTransform.position);
         }
     }
 

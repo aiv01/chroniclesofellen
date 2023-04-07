@@ -76,7 +76,7 @@ namespace TheChroniclesOfEllen
             
         }
 
-        public void OnShoot(Vector3 direction)
+        public void OnShoot(Vector3 targetDirection)
         {
             if (currentTimer > shootCD && currentOverheat <= overheat)
             {
@@ -94,9 +94,9 @@ namespace TheChroniclesOfEllen
                     //audio.PlayShootAudio();
                 }
 
-                bullet.direction = direction;
                 currentOverheat += overheatPerBullet;
                 currentTimer = 0;
+                bullet.direction = (targetDirection - mouthOfFire.position).normalized;
                 bullet.transform.position = mouthOfFire.position;
                 bullet.damage = damage;
             }

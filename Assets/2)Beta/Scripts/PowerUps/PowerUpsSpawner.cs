@@ -13,16 +13,11 @@ namespace TheChroniclesOfEllen
         private PowerUp[] prefabPowerUp;
         [SerializeField]
         private int instancePerPoweUp;
+
         private void Awake()
         {
             instancePerPoweUp = 15;
             InitSpawner();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         private void InitSpawner()
