@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/3)Final game/Scenes/MenuScene.unity
+    guid: bd3d70e6058764141bca164509744a4e
+  - enabled: 1
     path: Assets/3)Final game/Scenes/GameOverScene.unity
     guid: c298c21529be038489ec157ac2185b0c
   - enabled: 1
@@ -17,9 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/3)Final game/Scenes/Level2.unity
     guid: 6246a60742c54fe4fa06bd82a4980a7c
-  - enabled: 1
-    path: Assets/3)Final game/Scenes/MenuScene.unity
-    guid: bd3d70e6058764141bca164509744a4e
   - enabled: 1
     path: Assets/3)Final game/Scenes/VictoryScene.unity
     guid: a34e07620a359a641951319a1044aa06

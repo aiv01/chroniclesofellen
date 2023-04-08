@@ -177,5 +177,9 @@ namespace TheChroniclesOfEllen
             currSceneLoader.LoadNew();
         }
         
+        public void Exit()
+        {
+            Application.Quit();
+        }
     }
 }
