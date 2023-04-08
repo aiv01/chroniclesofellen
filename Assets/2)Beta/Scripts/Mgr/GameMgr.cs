@@ -132,10 +132,13 @@ namespace TheChroniclesOfEllen
             {
                 areaBoss.gameObject.SetActive(true);
             }
-            if (currentArea == Area.Temple1 && currentFile.HasKey)
+            if(currentFile.HasKey)
             {
-                areaBoss.gameObject.SetActive(true);
                 currSceneLoader.ChangeEnemyLevel(3);
+                if (currentArea == Area.Temple1)
+                {
+                    areaBoss.gameObject.SetActive(true);
+                }
             }
         }
         public void LoadSavePoint()

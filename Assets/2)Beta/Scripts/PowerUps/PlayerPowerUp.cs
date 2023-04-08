@@ -56,7 +56,6 @@ namespace TheChroniclesOfEllen
 
         public bool HaveSpecialLeft()
         {
-
             bool specialActive = false;
             if (power != null && CurrentPUType == PowerUpType.Gun)
             {

@@ -18,7 +18,9 @@ namespace TheChroniclesOfEllen
         protected HealthComponent bossHealth;
         protected PowerUp pu;
 
+        [SerializeField]
         protected float minAttackCD = 0.5f;
+        [SerializeField]
         protected float maxAttackCD = 5f;
         protected float attackCD;
         protected float currentAttackCD;
