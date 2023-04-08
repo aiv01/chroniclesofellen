@@ -34,7 +34,7 @@ namespace TheChroniclesOfEllen
         [SerializeField]
         private Rig aimRig;
         [SerializeField]
-        private UnityEvent OnDie;
+        //private UnityEvent OnDie;
         #endregion
 
         #region Movement variables
@@ -55,11 +55,7 @@ namespace TheChroniclesOfEllen
         private float yRotation;
         [SerializeField]
         [Range(0.0f, 100f)]
-        private float gamepadInputSensitivity;
-        [SerializeField]
-        [Range(0.0f, 100f)]
-        private float mouseInputSensitivity;
-
+        private float inputSensitivity;
         [SerializeField]
         private CinemachineVirtualCamera aimCamera;
         #endregion
@@ -113,6 +109,7 @@ namespace TheChroniclesOfEllen
         void Update()
         {
             Movement();
+            CameraControl();
             ApplyGravity();
             Jump();
             if (isMeleeReady) MeleeAttack();
@@ -132,7 +129,7 @@ namespace TheChroniclesOfEllen
 
         void LateUpdate()
         {
-            CameraControl();
+
         }
 
         #region Movement Mechanics
@@ -381,22 +378,13 @@ namespace TheChroniclesOfEllen
         #region Camera Mechanics
         void CameraControl()
         {
-            if (input.IsUsingGamepad)
-            {
-                xRotation += input.LookGamePadInput.y * Time.deltaTime * gamepadInputSensitivity;
-                yRotation += input.LookGamePadInput.x * Time.deltaTime * gamepadInputSensitivity;
-                xRotation = Mathf.Clamp(xRotation, -30, 70);
-                Quaternion rotation = Quaternion.Euler(xRotation, yRotation, 0);
-                cameraFollowTarget.rotation = rotation;
-            }
-            else if (input.IsUsingMouse)
-            {
-                xRotation += input.LookMouseInput.y * Time.deltaTime * mouseInputSensitivity;
-                yRotation += input.LookMouseInput.x * Time.deltaTime * mouseInputSensitivity;
-                xRotation = Mathf.Clamp(xRotation, -30, 70);
-                Quaternion rotation = Quaternion.Euler(xRotation, yRotation, 0);
-                cameraFollowTarget.rotation = rotation;
-            }
+
+            yRotation = input.LookInput.y * Time.deltaTime * inputSensitivity;
+            xRotation = input.LookInput.x * Time.deltaTime * inputSensitivity;
+            xRotation = Mathf.Clamp(yRotation, -30, 70);
+            Quaternion rotation = Quaternion.Euler(xRotation, yRotation, 0);
+
+            cameraFollowTarget.rotation = rotation;
 
         }
 
@@ -408,7 +396,7 @@ namespace TheChroniclesOfEllen
             playerHealth.currentHealth = 0;
             cameraFollowTarget.parent = null;
             movement = Vector3.zero;
-            OnDie.Invoke();
+            //OnDie.Invoke();
         }
         void MakeWeaponDisappearInIdle()
         {
@@ -473,13 +461,6 @@ namespace TheChroniclesOfEllen
             }
         }
 
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.tag == "Platform")
-            {
-
-            }
-        }
         private void OnTriggerExit(Collider other)
         {
             if (other.tag == "Platform")

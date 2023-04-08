@@ -10,6 +10,7 @@ namespace TheChroniclesOfEllen
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -22,7 +23,7 @@ namespace TheChroniclesOfEllen
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
 
-            animator.gameObject.SetActive(false);
+            GameObject.FindObjectOfType<SceneLoader>().LoadGameOver();
 
         }
 

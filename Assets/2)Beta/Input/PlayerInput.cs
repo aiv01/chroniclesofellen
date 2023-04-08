@@ -34,7 +34,7 @@ namespace TheChroniclesOfEllen
                     ""type"": ""Value"",
                     ""id"": ""1ab7c18b-5975-456d-888a-50feac3b35f4"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""StickDeadzone"",
+                    ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
@@ -84,22 +84,13 @@ namespace TheChroniclesOfEllen
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""LookGamePad"",
-                    ""type"": ""Value"",
+                    ""name"": ""Look"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""3b624480-7f18-4d69-bb5e-2f6089e2eb56"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""LookMouse"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""9697d046-7067-42f7-a606-b1b8364f579a"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -286,18 +277,18 @@ namespace TheChroniclesOfEllen
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""LookGamePad"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5be52c89-0b34-4946-be4e-99586096d036"",
+                    ""id"": ""9d8a04b4-589f-4f78-bf10-a394239e4a40"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": ""NormalizeVector2"",
-                    ""groups"": """",
-                    ""action"": ""LookMouse"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -858,8 +849,7 @@ namespace TheChroniclesOfEllen
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
             m_Player_MeleeAttack = m_Player.FindAction("Melee Attack", throwIfNotFound: true);
             m_Player_Makeaction = m_Player.FindAction("Make action", throwIfNotFound: true);
-            m_Player_LookGamePad = m_Player.FindAction("LookGamePad", throwIfNotFound: true);
-            m_Player_LookMouse = m_Player.FindAction("LookMouse", throwIfNotFound: true);
+            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -937,8 +927,7 @@ namespace TheChroniclesOfEllen
         private readonly InputAction m_Player_Shoot;
         private readonly InputAction m_Player_MeleeAttack;
         private readonly InputAction m_Player_Makeaction;
-        private readonly InputAction m_Player_LookGamePad;
-        private readonly InputAction m_Player_LookMouse;
+        private readonly InputAction m_Player_Look;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
@@ -949,8 +938,7 @@ namespace TheChroniclesOfEllen
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
             public InputAction @MeleeAttack => m_Wrapper.m_Player_MeleeAttack;
             public InputAction @Makeaction => m_Wrapper.m_Player_Makeaction;
-            public InputAction @LookGamePad => m_Wrapper.m_Player_LookGamePad;
-            public InputAction @LookMouse => m_Wrapper.m_Player_LookMouse;
+            public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -978,12 +966,9 @@ namespace TheChroniclesOfEllen
                     @Makeaction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMakeaction;
                     @Makeaction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMakeaction;
                     @Makeaction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMakeaction;
-                    @LookGamePad.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookGamePad;
-                    @LookGamePad.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookGamePad;
-                    @LookGamePad.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookGamePad;
-                    @LookMouse.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookMouse;
-                    @LookMouse.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookMouse;
-                    @LookMouse.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookMouse;
+                    @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1006,12 +991,9 @@ namespace TheChroniclesOfEllen
                     @Makeaction.started += instance.OnMakeaction;
                     @Makeaction.performed += instance.OnMakeaction;
                     @Makeaction.canceled += instance.OnMakeaction;
-                    @LookGamePad.started += instance.OnLookGamePad;
-                    @LookGamePad.performed += instance.OnLookGamePad;
-                    @LookGamePad.canceled += instance.OnLookGamePad;
-                    @LookMouse.started += instance.OnLookMouse;
-                    @LookMouse.performed += instance.OnLookMouse;
-                    @LookMouse.canceled += instance.OnLookMouse;
+                    @Look.started += instance.OnLook;
+                    @Look.performed += instance.OnLook;
+                    @Look.canceled += instance.OnLook;
                 }
             }
         }
@@ -1147,8 +1129,7 @@ namespace TheChroniclesOfEllen
             void OnShoot(InputAction.CallbackContext context);
             void OnMeleeAttack(InputAction.CallbackContext context);
             void OnMakeaction(InputAction.CallbackContext context);
-            void OnLookGamePad(InputAction.CallbackContext context);
-            void OnLookMouse(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

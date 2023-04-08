@@ -10,7 +10,7 @@
                     "type": "Value",
                     "id": "1ab7c18b-5975-456d-888a-50feac3b35f4",
                     "expectedControlType": "Vector2",
-                    "processors": "StickDeadzone",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -60,22 +60,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LookGamePad",
-                    "type": "Value",
+                    "name": "Look",
+                    "type": "PassThrough",
                     "id": "3b624480-7f18-4d69-bb5e-2f6089e2eb56",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "LookMouse",
-                    "type": "PassThrough",
-                    "id": "9697d046-7067-42f7-a606-b1b8364f579a",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -262,18 +253,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "LookGamePad",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "5be52c89-0b34-4946-be4e-99586096d036",
+                    "id": "9d8a04b4-589f-4f78-bf10-a394239e4a40",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "NormalizeVector2",
-                    "groups": "",
-                    "action": "LookMouse",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
