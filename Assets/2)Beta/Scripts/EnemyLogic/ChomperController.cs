@@ -127,7 +127,11 @@ namespace TheChroniclesOfEllen
             if (currentStayTimer >= stayTimer)
             {
                 currentStayTimer = 0;
-                currentPatrolPoint = currentPatrolPoint + 1 % patrolPoints.Length;
+                currentPatrolPoint++;
+                if(currentPatrolPoint>= patrolPoints.Length)
+                {
+                    currentPatrolPoint = 0;
+                }
                 agent.SetDestination(patrolPoints[currentPatrolPoint].position);
             }
         }
