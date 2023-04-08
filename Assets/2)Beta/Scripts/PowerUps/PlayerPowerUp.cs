@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TheChroniclesOfEllen;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TheChroniclesOfEllen
 {
@@ -11,6 +12,8 @@ namespace TheChroniclesOfEllen
         //decidere se farlo con tot powerups contemporaneamente
         [SerializeField]
         private PowerUp power;
+        public Image shieldUI;
+        public Image gunUI;
 
         public PowerUpType CurrentPUType
         {
@@ -40,24 +43,32 @@ namespace TheChroniclesOfEllen
 
         public bool IsShieldActive()
         {
+            bool shieldStatus = false;
             if (power != null && CurrentPUType == PowerUpType.Shield)
             {
-                return ((ShieldPowerUp)power).ShieldStatus;
+                shieldStatus = ((ShieldPowerUp)power).ShieldStatus;
+                shieldUI.gameObject.SetActive(shieldStatus);
+                return shieldStatus;
             }
+            shieldUI.gameObject.SetActive(false);
             return false;
         }
 
         public bool HaveSpecialLeft()
         {
+
+            bool specialActive = false;
             if (power != null && CurrentPUType == PowerUpType.Gun)
             {
-                bool specialActive = power.OnShoot();
+                specialActive = power.OnShoot();
+                gunUI.gameObject.SetActive(specialActive);
                 if (!specialActive)
                 {
                     ChangePowerUp(null);
                 }
                 return specialActive;
             }
+            gunUI.gameObject.SetActive(false);
             return false;
         }
 

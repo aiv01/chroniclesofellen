@@ -24,7 +24,6 @@ namespace TheChroniclesOfEllen
         private float regenPoisePerSec;
         private PlayerPowerUp powerUpSystem;
         public Transform shield;
-        public Image shieldUI;
         private bool isAlive;
         public bool IsAlive
         {
@@ -33,7 +32,10 @@ namespace TheChroniclesOfEllen
 
         public float HealthPerc
         {
-            get { return currentHealth / maxHealth; }
+            get 
+            {
+                float health = currentHealth;
+                return health / maxHealth; }
         }
 
         // Start is called before the first frame update
@@ -60,9 +62,7 @@ namespace TheChroniclesOfEllen
 
             if(tag == "Player")
             {
-                bool shieldStatus = powerUpSystem.IsShieldActive();
-                shield.gameObject.SetActive(shieldStatus);
-                shieldUI.gameObject.SetActive(shieldStatus);
+                shield.gameObject.SetActive(powerUpSystem.IsShieldActive());
 
                 healthBar.LoadHealth((int)maxHealth);
                 healthBar.ChangeHealth((int)currentHealth);

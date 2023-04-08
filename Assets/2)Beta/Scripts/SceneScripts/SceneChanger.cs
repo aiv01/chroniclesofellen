@@ -14,6 +14,8 @@ namespace TheChroniclesOfEllen
         private int nextTeleportId;
         [SerializeField]
         private SceneLoader currSceneLoader;
+        [SerializeField]
+        private GameMgr gameMgr;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -26,15 +28,14 @@ namespace TheChroniclesOfEllen
             {
                 return;
             }
-            v.SavePointNumber = nextTeleportId;
-            v.Area = nextArea;
             if (nextArea == Area.Ship && v.HasKey)
             {
                 currSceneLoader.LoadVictory();
                 return;
             }
-            var t = JsonUtility.ToJson(v);
-            File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", t);
+            gameMgr.ChangeArea(nextArea);
+            gameMgr.currSavepointNumber = nextTeleportId;
+            gameMgr.Save();
             currSceneLoader.LoadScene(nextArea);
         }
     }

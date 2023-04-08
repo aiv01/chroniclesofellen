@@ -2818,6 +2818,11 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.5372549
       objectReference: {fileID: 0}
+    - target: {fileID: 1569548446188432951, guid: 27a09a842d5e35942b3d5595b929ac7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1676874222397076793, guid: 27a09a842d5e35942b3d5595b929ac7f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2958,6 +2963,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1586252929}
+    - target: {fileID: 1676874223377144063, guid: 27a09a842d5e35942b3d5595b929ac7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1676874223679615816, guid: 27a09a842d5e35942b3d5595b929ac7f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3122,7 +3132,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1589877665}
     - target: {fileID: 1676874223739689956, guid: 27a09a842d5e35942b3d5595b929ac7f,
         type: 3}
       propertyPath: m_Name
@@ -3151,6 +3161,11 @@ PrefabInstance:
     - target: {fileID: 1676874223754491430, guid: 27a09a842d5e35942b3d5595b929ac7f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676874223936292346, guid: 27a09a842d5e35942b3d5595b929ac7f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1676874224080169964, guid: 27a09a842d5e35942b3d5595b929ac7f,
@@ -20366,6 +20381,7 @@ MonoBehaviour:
   nextArea: 1
   nextTeleportId: 1
   currSceneLoader: {fileID: 407569236}
+  gameMgr: {fileID: 1586252929}
 --- !u!65 &1280212166
 BoxCollider:
   m_ObjectHideFlags: 0

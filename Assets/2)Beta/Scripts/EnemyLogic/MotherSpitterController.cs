@@ -52,6 +52,7 @@ namespace TheChroniclesOfEllen
         {
             if (!bossHealth.IsAlive)
             {
+                bossUI.gameObject.SetActive(false);
                 bossAnimator.SetTrigger("Die");
                 pu.gameObject.SetActive(true);
                 pu.transform.position = transform.position + Vector3.up;
@@ -61,7 +62,7 @@ namespace TheChroniclesOfEllen
             }
             currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;
-
+            ChangeUI();
 
             if (isFleeing)
             {

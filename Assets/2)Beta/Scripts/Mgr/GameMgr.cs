@@ -124,7 +124,7 @@ namespace TheChroniclesOfEllen
             lastTeleport = currSceneLoader.GetTeleportPosition(currentFile.SavePointNumber);
             player.transform.position = lastTeleport;
             player.GetComponent<CharacterController>().enabled = true;
-            keyUI.enabled=currentFile.HasKey;
+            keyUI.gameObject.SetActive(currentFile.HasKey);
             player.playerHealth.SetMaxHealth(currentFile.MaxHp); 
 
             
@@ -145,6 +145,11 @@ namespace TheChroniclesOfEllen
                 Directory.CreateDirectory(Application.persistentDataPath + "/JsonFile");
             }
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
+            if (currentFile == null)
+            {
+                LoadNew();
+                return;
+            }
             currSceneLoader.LoadScene((Area)currentFile.Area);
 
             if (currentFile.HasKey)

@@ -54,14 +54,15 @@ namespace TheChroniclesOfEllen
         {
             if (!bossHealth.IsAlive)
             {
+                bossUI.gameObject.SetActive(false);
                 bossAnimator.SetTrigger("Die");
                 pu.gameObject.SetActive(true);
                 pu.transform.position = transform.position + Vector3.up;
                 arenaWalls.gameObject.SetActive(false);
-                return;
             }
             currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;
+            ChangeUI();
 
             currentPlayerPositionCheckCD = 0;
             Vector3 vDistance = (playerTransform.position - transform.position);

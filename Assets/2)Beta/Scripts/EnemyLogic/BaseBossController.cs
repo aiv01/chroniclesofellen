@@ -10,6 +10,8 @@ namespace TheChroniclesOfEllen
     public abstract class BaseBossController : MonoBehaviour
     {
         [SerializeField]
+        protected BossHealthUI bossUI;
+        [SerializeField]
         protected BossArenaTrigger arenaWalls;
         protected Animator bossAnimator;
         public Transform playerTransform;
@@ -27,6 +29,7 @@ namespace TheChroniclesOfEllen
         // Start is called before the first frame update
         protected void Start()
         {
+            bossUI.gameObject.SetActive(true);
             bossAnimator = GetComponent<Animator>();
             bossHealth = GetComponent<HealthComponent>();
             currentAttackCD = 0;
@@ -42,6 +45,10 @@ namespace TheChroniclesOfEllen
         protected void SpawnPowerUp()
         {
             PowerUpsSpawner.SpawnPowerUp(PowerUpType.Permanent).transform.position = transform.position;
+        }
+        protected void ChangeUI()
+        {
+            bossUI.ChangeBossHealth(bossHealth.HealthPerc);
         }
     }
 }
