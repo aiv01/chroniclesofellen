@@ -33,13 +33,13 @@ namespace TheChroniclesOfEllen
         }
         public bool IsUsingGamepad
         {
-            get{return isUsingGamepad;}
-            set{isUsingGamepad = value;}
+            get { return isUsingGamepad; }
+            set { isUsingGamepad = value; }
         }
         public bool IsUsingMouse
         {
-            get{return isUsingMouse;}
-            set{isUsingMouse = value;}
+            get { return isUsingMouse; }
+            set { isUsingMouse = value; }
         }
         public bool IsMovementPressed
         {
@@ -97,11 +97,15 @@ namespace TheChroniclesOfEllen
         {
             playerInput.Player.Movement.performed += onMovement;
             playerInput.Player.Movement.canceled += onMovement;
+            playerInput.Player.Movement.started += onCameraControl;
             playerInput.Player.Look.performed += onCameraControl;
+            playerInput.Player.Look.canceled += onCameraControl;
             playerInput.Player.Jump.started += onJump;
             playerInput.Player.Jump.canceled += onJump;
             playerInput.Player.MeleeAttack.performed += onMeleeAttack;
+            playerInput.Player.Aim.started += onAim;
             playerInput.Player.Aim.performed += onAim;
+            playerInput.Player.Aim.canceled += onAim;
             playerInput.Player.Shoot.started += onShoot;
             playerInput.Player.Shoot.canceled += onShoot;
             playerInput.Player.Makeaction.started += onChangeWeapon;
@@ -120,7 +124,7 @@ namespace TheChroniclesOfEllen
         }
         void onCameraControl(InputAction.CallbackContext context)
         {
-             lookInput = context.ReadValue<Vector2>();
+            lookInput = context.ReadValue<Vector2>();
         }
         void onJump(InputAction.CallbackContext context)
         {
@@ -180,7 +184,8 @@ namespace TheChroniclesOfEllen
             {
                 switchWeapon += 1;
 
-            }else if (switchWeapon == 2 && context.started)
+            }
+            else if (switchWeapon == 2 && context.started)
             {
                 switchWeapon -= 1;
             }
