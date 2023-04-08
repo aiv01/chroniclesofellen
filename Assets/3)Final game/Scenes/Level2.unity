@@ -2813,6 +2813,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 314829577327486593, guid: 27a09a842d5e35942b3d5595b929ac7f,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5372549
+      objectReference: {fileID: 0}
     - target: {fileID: 1676874222397076793, guid: 27a09a842d5e35942b3d5595b929ac7f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3117,7 +3122,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 1589877665}
+      objectReference: {fileID: 0}
     - target: {fileID: 1676874223739689956, guid: 27a09a842d5e35942b3d5595b929ac7f,
         type: 3}
       propertyPath: m_Name
@@ -3199,6 +3204,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1676874224132136738, guid: 27a09a842d5e35942b3d5595b929ac7f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438088622090718873, guid: 27a09a842d5e35942b3d5595b929ac7f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438088622090718873, guid: 27a09a842d5e35942b3d5595b929ac7f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -12651,7 +12666,6 @@ MonoBehaviour:
   attackTarget: {fileID: 0}
   platformSpeed: 2
   platformWaitTimer: 2
-  currPlatformWaitTimer: 0
   stopDistance: 1
 --- !u!1001 &751317014
 PrefabInstance:
@@ -14281,7 +14295,6 @@ MonoBehaviour:
   attackTarget: {fileID: 0}
   platformSpeed: 2
   platformWaitTimer: 2
-  currPlatformWaitTimer: 0
   stopDistance: 1
 --- !u!1 &864444975
 GameObject:
@@ -20834,7 +20847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0695922b3ef36264384faccafccd229f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 0}
   runClips:
   - {fileID: 8300000, guid: 9a71122a5cef14672a8e3fead4eed5a4, type: 3}
   - {fileID: 8300000, guid: 2a661fd50e3324161af9668674cf0a67, type: 3}
@@ -20959,7 +20971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d51eebeb6665c747b8098526fb18eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 0}
   idleClips:
   - {fileID: 8300000, guid: f0d4346d9202b46cead7bb23493006ee, type: 3}
   - {fileID: 8300000, guid: f642992729f22436393d0e273086c451, type: 3}
@@ -24698,7 +24709,6 @@ MonoBehaviour:
   currentArea: 2
   currSceneLoader: {fileID: 407569236}
   areaBoss: {fileID: 1535377894}
-  lastTeleport: {x: 0, y: 0, z: 0}
   player: {fileID: 1688075645}
   textAsset: {fileID: 0}
   currentFile:
