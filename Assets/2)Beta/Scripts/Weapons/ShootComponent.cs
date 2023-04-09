@@ -16,6 +16,7 @@ namespace TheChroniclesOfEllen
         private float currentTimer;
         private float overheat = 10;
         public float currentOverheat;
+        [SerializeField]
         private float overheatPerBullet = 1.5f;
         private PlayerPowerUp powerUpSystem;
         public bool isSpitter;

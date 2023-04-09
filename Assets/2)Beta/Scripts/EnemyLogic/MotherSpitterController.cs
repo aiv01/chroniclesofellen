@@ -88,9 +88,9 @@ namespace TheChroniclesOfEllen
             if(distance<=fleeDistance)
             {
                 bossAnimator.SetBool(animIsShootingB, false);
-                if (bossHealth.HealthPerc <= 40 && distance <= meleeDistance)
+                if (bossHealth.HealthPerc <= 60 && distance <= meleeDistance)
                 {
-                    if(Random.RandomRange(0,100)<=0.5f*(1- bossHealth.HealthPerc))
+                    if(Random.RandomRange(0,100)<=(1- bossHealth.HealthPerc))
                     {
                         bossAnimator.SetBool(animIsAttackingB, true);
                         bossAnimator.SetBool(animIsFleeingB, false);
@@ -120,7 +120,7 @@ namespace TheChroniclesOfEllen
 
         private void Flee()
         {
-            if (isFleeing == false)
+            if (!isFleeing)
             {
                 currFleePoint = Random.Range(0, fleePoints.Length);
                 agent.SetDestination(fleePoints[currFleePoint].position);
@@ -132,6 +132,7 @@ namespace TheChroniclesOfEllen
 
         public void Shoot()
         {
+            spitterShootComponent.shootCD = bossHealth.HealthPerc * 2f;
             spitterShootComponent.OnShoot(playerTransform.position);
         }
     }
