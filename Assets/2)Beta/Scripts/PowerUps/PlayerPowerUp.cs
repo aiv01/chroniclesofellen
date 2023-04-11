@@ -38,10 +38,12 @@ namespace TheChroniclesOfEllen
                 if (power.type == PowerUpType.Shield)
                 {
                     shieldUI.gameObject.SetActive(true);
+                    gunUI.gameObject.SetActive(false);
                 }
                 if (power.type == PowerUpType.Gun)
                 {
-                    gunUI.gameObject.SetActive(true);
+                    gunUI.gameObject.SetActive(true); 
+                    shieldUI.gameObject.SetActive(false);
                 }
                 power.ResetPowerUp();
             }

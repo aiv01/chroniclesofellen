@@ -32796,6 +32796,11 @@ PrefabInstance:
       objectReference: {fileID: 1170943688}
     - target: {fileID: 8730807619153178356, guid: a0c59b3425ccae748a6aec17e1107c3b,
         type: 3}
+      propertyPath: closeRangeDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730807619153178356, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
       propertyPath: golemShootComponent
       value: 
       objectReference: {fileID: 1454052664}

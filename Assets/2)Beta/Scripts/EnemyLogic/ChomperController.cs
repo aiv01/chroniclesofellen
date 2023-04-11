@@ -46,7 +46,6 @@ namespace TheChroniclesOfEllen
             isPursuing = false;
             isPatroling = false;
 
-            powerUp = PowerUpsSpawner.SpawnPowerUp(SpawnPowerUp());
             stayTimer = enemySO.stayTime;
             currentStayTimer = 0;
 
@@ -76,7 +75,8 @@ namespace TheChroniclesOfEllen
             {
                 if (powerUp != null)
                 {
-                    powerUp.gameObject.SetActive(true);
+                    powerUp.gameObject.SetActive(true); 
+                    powerUp = PowerUpsSpawner.SpawnPowerUp(SpawnPowerUp());
                     powerUp.transform.position = transform.position + Vector3.up;
                 }
                 gameObject.SetActive(false);
