@@ -23,7 +23,7 @@ namespace TheChroniclesOfEllen
                 {
                     arenaWalls[i].gameObject.SetActive(true);
                     AudioMgr.instance.Stop("Level1");
-                    AudioMgr.instance.Stop("Boss Music");
+                    AudioMgr.instance.Play("Boss Music");
                 }
             }
         }
