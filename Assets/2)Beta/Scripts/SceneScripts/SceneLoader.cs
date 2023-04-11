@@ -89,10 +89,6 @@ namespace TheChroniclesOfEllen
             }
         }
 
-        void SetTransition()
-        {
-
-        }
     }
 
 }

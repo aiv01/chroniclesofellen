@@ -32,11 +32,7 @@ namespace TheChroniclesOfEllen
         {
             currentFile = new SafeFile();
             LoadMenu();
-        }
-
-        private void Start()
-        {
-            switch(currentArea)
+             switch(currentArea)
             {
                 
                 case Area.Ship:
@@ -52,6 +48,11 @@ namespace TheChroniclesOfEllen
                 break;
 
             }
+        }
+
+        private void Start()
+        {
+           
         }
 
         private void Update()
