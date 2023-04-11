@@ -53,10 +53,9 @@ namespace TheChroniclesOfEllen
         {
             if (!enemyHealth.IsAlive)
             {
+                powerUp = PowerUpsSpawner.SpawnPowerUp(SpawnPowerUp());
                 if (powerUp != null)
                 {
-                    powerUp.gameObject.SetActive(true);
-                    powerUp = PowerUpsSpawner.SpawnPowerUp(SpawnPowerUp());
                     powerUp.gameObject.SetActive(true);
                     powerUp.transform.position = transform.position + Vector3.up;
                 }
