@@ -6,10 +6,11 @@ namespace TheChroniclesOfEllen
 {
     public enum Area
     {
+        
         Ship,
         Temple1,
         Temple2,
-        ChomperNest
+        Menu
     }
 
     public enum BossStatus

@@ -38,6 +38,8 @@ namespace TheChroniclesOfEllen
             gameMgr.Save();
             currSceneLoader.LoadScene(nextArea);
         }
+
+
     }
 
 }

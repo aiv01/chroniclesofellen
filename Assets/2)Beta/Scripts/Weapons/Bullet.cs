@@ -14,7 +14,7 @@ namespace TheChroniclesOfEllen
         private Transform directionTarget;
         private float bulletTimer;
         private float bulletLifeTime = 3.5f;
-
+        
         private void Start()
         {
             bulletTimer = 0;
@@ -41,6 +41,7 @@ namespace TheChroniclesOfEllen
             directionTarget = target;
         }
 
+
         private void OnCollisionEnter(Collision collision)
         {
             bulletTimer = 0;
@@ -50,7 +51,11 @@ namespace TheChroniclesOfEllen
                 
             }
             
-            gameObject.SetActive(false);
+            if(gameObject.name == "PlayerBullet" || gameObject.name == "PlayerSpecialBullet")
+            {
+                return;
+            }
+            
 
         }
     }

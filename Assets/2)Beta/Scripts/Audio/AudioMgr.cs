@@ -62,5 +62,18 @@ namespace TheChroniclesOfEllen
             }
         }
 
+        public void PlayOneShot(string name)
+        {
+            foreach (var s in sounds)
+            {
+                if (s == null) return;
+
+                if (s.name == name)
+                {
+                    s.source.PlayOneShot(s.clip);
+                }
+            }
+        }
+
     }
 }

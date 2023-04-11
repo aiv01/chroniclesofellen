@@ -657,7 +657,7 @@ namespace TheChroniclesOfEllen
                 {
                     ""name"": """",
                     ""id"": ""a95f1598-6342-4aa7-b558-af88c8f97269"",
-                    ""path"": ""*/{Submit}"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -668,7 +668,7 @@ namespace TheChroniclesOfEllen
                 {
                     ""name"": """",
                     ""id"": ""845f41e8-f4ef-4030-839e-ce2bf77cf8ae"",
-                    ""path"": ""*/{Cancel}"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",

@@ -10,8 +10,6 @@ namespace TheChroniclesOfEllen
         private PlayerInput playerInput;
         private Vector2 movementInput;
         private Vector2 lookInput;
-        private bool isUsingGamepad = false;
-        private bool isUsingMouse = false;
         private bool isMovementPressed = false;
         private bool isJumpPressed = false;
         private bool isAttackPressed = false;
@@ -30,16 +28,6 @@ namespace TheChroniclesOfEllen
         {
             get { return lookInput; }
             set { lookInput = value; }
-        }
-        public bool IsUsingGamepad
-        {
-            get { return isUsingGamepad; }
-            set { isUsingGamepad = value; }
-        }
-        public bool IsUsingMouse
-        {
-            get { return isUsingMouse; }
-            set { isUsingMouse = value; }
         }
         public bool IsMovementPressed
         {
@@ -102,7 +90,9 @@ namespace TheChroniclesOfEllen
             playerInput.Player.Look.canceled += onCameraControl;
             playerInput.Player.Jump.started += onJump;
             playerInput.Player.Jump.canceled += onJump;
+            playerInput.Player.MeleeAttack.started += onMeleeAttack;
             playerInput.Player.MeleeAttack.performed += onMeleeAttack;
+            playerInput.Player.MeleeAttack.canceled += onMeleeAttack;
             playerInput.Player.Aim.started += onAim;
             playerInput.Player.Aim.performed += onAim;
             playerInput.Player.Aim.canceled += onAim;

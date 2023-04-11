@@ -9,6 +9,7 @@ namespace TheChroniclesOfEllen
 
     public class SceneLoader : MonoBehaviour
     {
+        private Animator sceneAnimation;
         [SerializeField]
         private SavePoint[] teleportPositions;
         [SerializeField]
@@ -23,10 +24,9 @@ namespace TheChroniclesOfEllen
         private ChomperController[] chompers;
         [SerializeField]
         private SpitterController[] spitters;
-
         public Vector3 GetTeleportPosition(int teleportID)
         {
-            foreach(SavePoint s in teleportPositions)
+            foreach (SavePoint s in teleportPositions)
             {
                 if (s.SavePointNumber == teleportID)
                 {
@@ -35,25 +35,39 @@ namespace TheChroniclesOfEllen
             }
             return teleportPositions[0].playerSpawn.position;
         }
+        void Awake()
+        {
+            sceneAnimation = GameObject.Find("SceneAnimation").GetComponent<Animator>();
+        }
         public void LoadScene(Area newArea)
         {
+            sceneAnimation.SetTrigger("FadeOut");
             SceneManager.LoadScene(areas[newArea], LoadSceneMode.Single);
+
         }
         public void LoadNew()
         {
+            sceneAnimation.SetTrigger("FadeOut");
             SceneManager.LoadScene(areas[Area.Ship], LoadSceneMode.Single);
+
         }
         public void LoadMenu()
         {
+            sceneAnimation.SetTrigger("FadeOut");
             SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+
         }
         public void LoadVictory()
         {
+            sceneAnimation.SetTrigger("FadeOut");
             SceneManager.LoadScene("VictoryScene", LoadSceneMode.Single);
+
         }
         public void LoadGameOver()
         {
+            sceneAnimation.SetTrigger("FadeOut");
             SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
+
         }
 
         public void ChangeEnemyLevel(int levelNumber)
@@ -73,6 +87,11 @@ namespace TheChroniclesOfEllen
                 spitters[i].ReloadSpitter();
                 spitters[i].gameObject.SetActive(true);
             }
+        }
+
+        void SetTransition()
+        {
+
         }
     }
 

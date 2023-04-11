@@ -33,14 +33,11 @@ namespace TheChroniclesOfEllen
         private AudioPlayer audioPlayer;
         [SerializeField]
         private Rig aimRig;
-        [SerializeField]
-        //private UnityEvent OnDie;
         #endregion
 
         #region Movement variables
         [Header("Movement variables")]
         private Vector3 movement;
-        private Vector3 movementOnAim;
         private Vector3 targetDirection;
         [SerializeField]
         private float movementSpeed;
@@ -124,11 +121,6 @@ namespace TheChroniclesOfEllen
             }
 
             animator.SetBool("Grounded", characterController.isGrounded);
-
-        }
-
-        void LateUpdate()
-        {
 
         }
 
@@ -396,8 +388,8 @@ namespace TheChroniclesOfEllen
             playerHealth.currentHealth = 0;
             cameraFollowTarget.parent = null;
             movement = Vector3.zero;
-            //OnDie.Invoke();
         }
+
         void MakeWeaponDisappearInIdle()
         {
             //control weapon type

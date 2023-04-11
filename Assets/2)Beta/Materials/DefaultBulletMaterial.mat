@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DefaultBulletMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: d07ae2bbb6c72114ea59dd4e79355c6c,
+  m_Shader: {fileID: -6465566751694194690, guid: 0c4305ccfc112fe4194f02e1c41d4950,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

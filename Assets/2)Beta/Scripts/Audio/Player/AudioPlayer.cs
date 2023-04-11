@@ -50,5 +50,10 @@ namespace TheChroniclesOfEllen
            
             
         }
+        public void PlayMeleeAttackAudio()
+        {
+            int random = Random.Range(0,meleeAttackAudioClips.Length);
+            source.PlayOneShot(meleeAttackAudioClips[random]);
+        }
     }
 }
