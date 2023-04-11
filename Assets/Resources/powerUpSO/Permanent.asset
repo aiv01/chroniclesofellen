@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Permanent
   m_EditorClassIdentifier: 
   damageIncrease: 2
-  healthIncrease: 2
+  healthIncrease: 5

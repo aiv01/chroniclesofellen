@@ -3266,7 +3266,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42980
+  m_Name: pb_Mesh226108
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4556,7 +4556,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42620
+  m_Name: pb_Mesh225736
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9068,7 +9068,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42170
+  m_Name: pb_Mesh225278
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14509,7 +14509,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42896
+  m_Name: pb_Mesh226014
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17809,7 +17809,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh44170
+  m_Name: pb_Mesh227342
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18086,7 +18086,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh44472
+  m_Name: pb_Mesh227650
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -26745,7 +26745,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42752
+  m_Name: pb_Mesh225874
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -28525,7 +28525,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh43116
+  m_Name: pb_Mesh226234
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -32000,7 +32000,7 @@ MonoBehaviour:
   poolSpecialSize: 10
   bulletPrefab: {fileID: 2142526837813181069, guid: e41b4493682e06a44ab3d91ad7408a20,
     type: 3}
-  bulletEnemyPrefab: {fileID: 945231259138044562, guid: ad627ef5f26b67b45a3a57f9885e32f0,
+  bulletEnemyPrefab: {fileID: 945231259138044562, guid: 1638edd9a82a59549821a6351bd07b71,
     type: 3}
   bulletSpecialPrefab: {fileID: 2142526837813181069, guid: 606c278ac73eaff469bfc083963519a1,
     type: 3}
@@ -33421,7 +33421,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42598
+  m_Name: pb_Mesh225716
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -34126,7 +34126,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42478
+  m_Name: pb_Mesh225604
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35943,6 +35943,41 @@ PrefabInstance:
         type: 3}
       propertyPath: regenPoisePerSec
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: OnPoiseBreak.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: OnPoiseBreak.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: OnPoiseBreak.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1208919828}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: OnPoiseBreak.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: OnPoiseBreak.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPoiseBreak
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: OnPoiseBreak.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TheChroniclesOfEllen.BaseBossController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845662404844069141, guid: a0c59b3425ccae748a6aec17e1107c3b,
+        type: 3}
+      propertyPath: OnPoiseBreak.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8730807619103623311, guid: a0c59b3425ccae748a6aec17e1107c3b,
         type: 3}
