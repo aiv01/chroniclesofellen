@@ -26,16 +26,19 @@ namespace TheChroniclesOfEllen
         private void OnTriggerEnter(Collider other)
         {
             isExitPause = false;
+
+        
         }
         private void OnTriggerStay(Collider other)
         {
             if (other.tag == "Player")
             {
-                if (!isExitPause) 
+                if (!isExitPause)
                 {
                     Time.timeScale = 0;
+                    other.gameObject.GetComponent<InputMgr>().enabled = false;
                     isExitPause = true;
-                    
+                   
                 }
                 gameMgr.ChangeArea(savepointArea);
                 gameMgr.currSavepointNumber = savePointNumber;
@@ -47,6 +50,7 @@ namespace TheChroniclesOfEllen
             if (other.tag == "Player")
             {
                 saveUI.gameObject.SetActive(false);
+                
                 Time.timeScale = 1f;
             }
         }

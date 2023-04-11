@@ -52,6 +52,8 @@ namespace TheChroniclesOfEllen
         {
             if (!bossHealth.IsAlive)
             {
+                AudioMgr.instance.Stop("Boss Music");
+                AudioMgr.instance.Play("Level1");
                 bossUI.gameObject.SetActive(false);
                 bossAnimator.SetTrigger("Die");
                 pu.gameObject.SetActive(true);

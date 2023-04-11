@@ -13,6 +13,7 @@ namespace TheChroniclesOfEllen
     {
         public Image keyUI;
         public UIHealthBar playerHealthBar;
+
         [SerializeField]
         private Area currentArea;
         public SceneLoader currSceneLoader;
@@ -32,7 +33,13 @@ namespace TheChroniclesOfEllen
         {
             currentFile = new SafeFile();
             LoadMenu();
-             switch(currentArea)
+           
+             
+        }
+
+        private void Start()
+        {
+           switch(currentArea)
             {
                 
                 case Area.Ship:
@@ -45,14 +52,11 @@ namespace TheChroniclesOfEllen
                 break;
                 case Area.Menu:
                 AudioMgr.instance.Play("Menu");
+                AudioMgr.instance.Stop("Level0");
+                AudioMgr.instance.Stop("Level1");
                 break;
 
             }
-        }
-
-        private void Start()
-        {
-           
         }
 
         private void Update()
@@ -115,6 +119,7 @@ namespace TheChroniclesOfEllen
         }
         public void LoadMenu()
         {
+            Time.timeScale = 1;
             if (!Directory.Exists(Application.persistentDataPath + "/JsonFile"))
             {
                 Directory.CreateDirectory(Application.persistentDataPath + "/JsonFile");
@@ -133,11 +138,12 @@ namespace TheChroniclesOfEllen
             }
             if(currentFile.HasKey)
             {
-                currSceneLoader.ChangeEnemyLevel(3);
+                
                 if (currentArea == Area.Temple1)
                 {
                     areaBoss.gameObject.SetActive(true);
                 }
+                currSceneLoader.ChangeEnemyLevel(3);
             }
         }
         public void LoadSavePoint()
@@ -182,6 +188,8 @@ namespace TheChroniclesOfEllen
         public void ExitUI()
         {
             Time.timeScale = 1;
+            player.gameObject.GetComponent<InputMgr>().enabled = true;
+            
         }
     }
 }
