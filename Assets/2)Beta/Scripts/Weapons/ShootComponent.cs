@@ -70,7 +70,10 @@ namespace TheChroniclesOfEllen
                 currentOverheat += overheatPerBullet;
                 currentTimer = 0;
                 bullet.transform.position = mouthOfFire.position;
-                bullet.damage = damage;
+                if (isSpitter)
+                {
+                    bullet.damage = damage;
+                }
                 bullet.direction = (target.position - mouthOfFire.position).normalized;
                 
             }

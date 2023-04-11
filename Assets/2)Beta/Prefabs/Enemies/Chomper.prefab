@@ -706,7 +706,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  biteHitBox: {fileID: 0}
+  biteHitBox: {fileID: 1120922543079967799}
 --- !u!65 &5571709256645621368
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -741,7 +741,6 @@ MonoBehaviour:
   maxPoise: 0
   regenPoisePerSec: 0
   shield: {fileID: 0}
-  shieldUI: {fileID: 0}
 --- !u!114 &8761163899692348280
 MonoBehaviour:
   m_ObjectHideFlags: 0

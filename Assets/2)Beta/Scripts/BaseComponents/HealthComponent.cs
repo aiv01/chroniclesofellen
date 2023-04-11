@@ -24,10 +24,9 @@ namespace TheChroniclesOfEllen
         private float regenPoisePerSec;
         private PlayerPowerUp powerUpSystem;
         public Transform shield;
-        private bool isAlive;
         public bool IsAlive
         {
-            get { return isAlive; }
+            get { return currentHealth > 0; }
         }
 
         public float HealthPerc
@@ -48,7 +47,6 @@ namespace TheChroniclesOfEllen
                 healthBar.LoadHealth((int)maxHealth);
                 healthBar.ChangeHealth((int)currentHealth);
             }
-            isAlive = true; 
             currentHealth = maxHealth;
             powerUpSystem = GetComponent<PlayerPowerUp>();
 
@@ -66,11 +64,6 @@ namespace TheChroniclesOfEllen
 
                 healthBar.LoadHealth((int)maxHealth);
                 healthBar.ChangeHealth((int)currentHealth);
-            }
-            if (currentHealth <= 0)
-            {
-                isAlive = false;
-                currentHealth = 0;
             }
         }
 

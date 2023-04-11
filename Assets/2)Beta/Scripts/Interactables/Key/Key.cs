@@ -18,6 +18,7 @@ namespace TheChroniclesOfEllen
             {
                 gameObject.SetActive(false);
                 ItemFound.Invoke(true);
+                Debug.Log("Chiave");
             }
         }
 

@@ -35,6 +35,14 @@ namespace TheChroniclesOfEllen
 
             if (power != null)
             {
+                if (power.type == PowerUpType.Shield)
+                {
+                    shieldUI.gameObject.SetActive(true);
+                }
+                if (power.type == PowerUpType.Gun)
+                {
+                    gunUI.gameObject.SetActive(true);
+                }
                 power.ResetPowerUp();
             }
             
@@ -43,10 +51,10 @@ namespace TheChroniclesOfEllen
 
         public bool IsShieldActive()
         {
-            bool shieldStatus = false;
+            
             if (power != null && CurrentPUType == PowerUpType.Shield)
             {
-                shieldStatus = ((ShieldPowerUp)power).ShieldStatus;
+                bool shieldStatus = ((ShieldPowerUp)power).ShieldStatus;
                 shieldUI.gameObject.SetActive(shieldStatus);
                 return shieldStatus;
             }
@@ -56,14 +64,13 @@ namespace TheChroniclesOfEllen
 
         public bool HaveSpecialLeft()
         {
-            bool specialActive = false;
             if (power != null && CurrentPUType == PowerUpType.Gun)
             {
-                specialActive = power.OnShoot();
-                gunUI.gameObject.SetActive(specialActive);
+                bool specialActive = power.OnShoot();
                 if (!specialActive)
                 {
                     ChangePowerUp(null);
+                    gunUI.gameObject.SetActive(false);
                 }
                 return specialActive;
             }

@@ -50,13 +50,6 @@ namespace TheChroniclesOfEllen
                 collision.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);
                 
             }
-            
-            if(gameObject.name == "PlayerBullet" || gameObject.name == "PlayerSpecialBullet")
-            {
-                return;
-            }
-            
-
         }
     }
 }

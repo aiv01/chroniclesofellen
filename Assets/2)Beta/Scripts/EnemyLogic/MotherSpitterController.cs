@@ -52,15 +52,15 @@ namespace TheChroniclesOfEllen
         {
             if (!bossHealth.IsAlive)
             {
-                AudioMgr.instance.Stop("Boss Music");
-                AudioMgr.instance.Play("Level1");
+                key.gameObject.SetActive(true);
                 bossUI.gameObject.SetActive(false);
                 bossAnimator.SetTrigger("Die");
                 pu.gameObject.SetActive(true);
                 pu.transform.position = transform.position + Vector3.up;
-                key.gameObject.SetActive(true);
                 arenaWalls.gameObject.SetActive(false);
                 gameObject.SetActive(false);
+                AudioMgr.instance.Stop("Boss Music");
+                AudioMgr.instance.Play("Level1");
             }
             currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;

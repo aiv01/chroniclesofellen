@@ -80,11 +80,12 @@ namespace TheChroniclesOfEllen
 
         public void FoundKey(bool value)
         {
-            currentFile.HasKey = value;
-            keyUI.enabled = value;
+            Debug.Log("CHiave UI");
+            currentFile.HasKey = true;
+            keyUI.enabled = true;
             ChangeGolemStatus(BossStatus.Active);
-            Save();
             currSceneLoader.ChangeEnemyLevel(3);
+            Save();
         }
         public void AddDoubleJump()
         {

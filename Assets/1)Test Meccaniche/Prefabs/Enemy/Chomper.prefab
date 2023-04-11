@@ -3092,7 +3092,6 @@ MonoBehaviour:
   maxPoise: 0
   regenPoisePerSec: 0
   shield: {fileID: 0}
-  shieldUI: {fileID: 0}
 --- !u!114 &4016506055314135158
 MonoBehaviour:
   m_ObjectHideFlags: 0
