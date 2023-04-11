@@ -42,7 +42,11 @@ namespace TheChroniclesOfEllen
         {
            switch(currentArea)
             {
-                
+                case Area.MainMenu:
+                AudioMgr.instance.Play("Menu");
+                AudioMgr.instance.Stop("Level0");
+                AudioMgr.instance.Stop("Level1");
+                break;   
                 case Area.Ship:
                 AudioMgr.instance.Stop("Menu");
                 AudioMgr.instance.Play("Level0");
@@ -50,11 +54,6 @@ namespace TheChroniclesOfEllen
                 case Area.Temple1:
                 AudioMgr.instance.Play("Level1");
                 AudioMgr.instance.Stop("Level0");
-                break;
-                case Area.MainMenu:
-                AudioMgr.instance.Play("Menu");
-                AudioMgr.instance.Stop("Level0");
-                AudioMgr.instance.Stop("Level1");
                 break;
                 case Area.GameOver:
                 AudioMgr.instance.Stop("Level0");

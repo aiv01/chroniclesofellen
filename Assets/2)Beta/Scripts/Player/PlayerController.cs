@@ -153,7 +153,7 @@ namespace TheChroniclesOfEllen
                     animator.SetFloat("ForwardSpeed", input.MovementInput.magnitude);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 7 * Time.deltaTime);
                 }
-                characterController.Move(targetDirection * movementSpeed * Time.deltaTime);
+                characterController.Move(targetDirection.normalized * movementSpeed * Time.deltaTime);
 
 
             }

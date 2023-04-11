@@ -1220,7 +1220,7 @@ MonoBehaviour:
     HasDash: 0
     GolemStatus: 0
     MotherSpitterStatus: 0
-    Area: 0
+    Area: 3
     SavePointNumber: 0
   defaultFile: {fileID: 11400000, guid: 85ddababdb696d347975fbe3966ba1ff, type: 2}
   currSavepointNumber: 0
