@@ -80,9 +80,8 @@ namespace TheChroniclesOfEllen
 
         public void FoundKey(bool value)
         {
-            Debug.Log("CHiave UI");
             currentFile.HasKey = true;
-            keyUI.enabled = true;
+            keyUI.gameObject.SetActive(true);
             ChangeGolemStatus(BossStatus.Active);
             currSceneLoader.ChangeEnemyLevel(3);
             Save();
