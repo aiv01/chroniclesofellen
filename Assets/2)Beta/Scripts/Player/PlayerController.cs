@@ -371,7 +371,7 @@ namespace TheChroniclesOfEllen
         void CameraControl()
         {
 
-            yRotation += -input.LookInput.x * Time.deltaTime * inputSensitivity;
+            yRotation += input.LookInput.x * Time.deltaTime * inputSensitivity;
             xRotation += -input.LookInput.y * Time.deltaTime * inputSensitivity;
             xRotation = Mathf.Clamp(xRotation, -30, 70);
             Quaternion rotation = Quaternion.Euler(xRotation, yRotation, 0);

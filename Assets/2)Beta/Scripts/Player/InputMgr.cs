@@ -17,6 +17,7 @@ namespace TheChroniclesOfEllen
         private bool isShootPressed = false;
         private float inputJumpCounter = 0;
         private int switchWeapon = 0;
+        private AudioPlayer audio;
 
         #region Properties
         public Vector2 MovementInput
@@ -68,6 +69,7 @@ namespace TheChroniclesOfEllen
         void Awake()
         {
             playerInput = new PlayerInput();
+            audio = GetComponent<AudioPlayer>();
             SetInput();
         }
 
@@ -128,6 +130,10 @@ namespace TheChroniclesOfEllen
             else if (context.canceled)
             {
                 isJumpPressed = false;
+            }
+            if(context.performed)
+            {
+                audio.PlayJumpAudio();
             }
 
         }

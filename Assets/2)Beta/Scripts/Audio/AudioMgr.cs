@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -45,6 +46,7 @@ namespace TheChroniclesOfEllen
 
                 if (s.name == name)
                 {
+                    StartCoroutine(FadeMusic(s.source,1f,0.3f));
                     s.source.Play();
                 }
             }
@@ -57,6 +59,8 @@ namespace TheChroniclesOfEllen
 
                 if (s.name == name)
                 {
+                    StartCoroutine(FadeMusic(s.source,1f,0f));
+                    if(s.source.volume == 0)
                     s.source.Stop();
                 }
             }
@@ -73,6 +77,19 @@ namespace TheChroniclesOfEllen
                     s.source.PlayOneShot(s.clip);
                 }
             }
+        }
+
+        public IEnumerator FadeMusic(AudioSource source, float duration, float targetVolume)
+        {
+            float currentTime = 0;
+            float start = source.volume;
+            while(currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                source.volume = Mathf.Lerp(start, targetVolume, currentTime/duration);
+                yield return null;
+            }
+            yield break;
         }
 
     }

@@ -270,6 +270,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33001169}
   m_CullTransparentMesh: 1
+--- !u!1 &144997668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 144997670}
+  - component: {fileID: 144997669}
+  m_Layer: 0
+  m_Name: UIInputMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &144997669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144997668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b89ce21f2e4024eb2f13fd214ca330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &144997670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144997668}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -96.07612, y: 15.672059, z: -401.6034}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &289697318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,25 +1804,25 @@ MonoBehaviour:
   sounds:
   - name: Menu
     clip: {fileID: 8300000, guid: 48ba237e83985dc47b6cd50e6f7e3cda, type: 3}
-    volume: 0.9
+    volume: 0.7
     pitch: 1
     source: {fileID: 0}
     loop: 1
   - name: Level0
     clip: {fileID: 8300000, guid: 3a0b10bf22a994a5e9b939c974756a24, type: 3}
-    volume: 0.9
+    volume: 0.7
     pitch: 1
     source: {fileID: 0}
     loop: 1
   - name: Level1
     clip: {fileID: 8300000, guid: 036b5ec2d3bafad43af2f9b6d152542c, type: 3}
-    volume: 0.9
+    volume: 0.7
     pitch: 1
     source: {fileID: 0}
     loop: 1
   - name: Boss Music
     clip: {fileID: 8300000, guid: 081a9780e27474342bafa6d6998664cc, type: 3}
-    volume: 0.9
+    volume: 0.7
     pitch: 1
     source: {fileID: 0}
     loop: 1
@@ -1796,6 +1840,18 @@ MonoBehaviour:
     loop: 0
   - name: Load Game
     clip: {fileID: 8300000, guid: dd4831d7f16404eef93a553329551c28, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Load Game
+    clip: {fileID: 8300000, guid: dd4831d7f16404eef93a553329551c28, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Pick Up Object
+    clip: {fileID: 8300000, guid: a954f34c9cc9848ae957e7c7a312a400, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}

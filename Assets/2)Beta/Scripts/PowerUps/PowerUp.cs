@@ -28,6 +28,7 @@ namespace TheChroniclesOfEllen
         public virtual void OnPickUp() 
         {
             ResetPowerUp();
+            AudioMgr.instance.PlayOneShot("Pick Up Object");
         }
         public virtual bool OnShoot() { return false; }
 
