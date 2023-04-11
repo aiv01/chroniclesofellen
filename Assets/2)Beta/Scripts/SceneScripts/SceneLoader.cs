@@ -29,6 +29,10 @@ namespace TheChroniclesOfEllen
         private SpitterController[] spitters;
         public Vector3 GetTeleportPosition(int teleportID)
         {
+            if (teleportPositions == null || teleportPositions.Length == 0)
+            {
+                return Vector3.zero;
+            }
             foreach (SavePoint s in teleportPositions)
             {
                 if (s.SavePointNumber == teleportID)
@@ -62,20 +66,27 @@ namespace TheChroniclesOfEllen
 
         public void ChangeEnemyLevel(int levelNumber)
         {
-            BaseEnemySO chomperSO = Resources.Load<BaseEnemySO>("enemySO/ChomperLiv" + levelNumber);
-            for (int i = 0; i < chompers.Length; i++)
+            if (chompers != null && chompers.Length > 0) 
             {
-                chompers[i].enemySO = chomperSO;
-                chompers[i].ReloadChomper();
-                chompers[i].gameObject.SetActive(true);
+                BaseEnemySO chomperSO = Resources.Load<BaseEnemySO>("enemySO/ChomperLiv" + levelNumber);
+                for (int i = 0; i < chompers.Length; i++)
+                {
+                    chompers[i].enemySO = chomperSO;
+                    chompers[i].ReloadChomper();
+                    chompers[i].gameObject.SetActive(true);
+                }
             }
-            BaseEnemySO spitterSO = Resources.Load<BaseEnemySO>("enemySO/SpitterLiv" + levelNumber);
-
-            for (int i = 0; i < spitters.Length; i++)
+            if (spitters != null && spitters.Length > 0)
             {
-                spitters[i].enemySO = spitterSO;
-                spitters[i].ReloadSpitter();
-                spitters[i].gameObject.SetActive(true);
+
+                BaseEnemySO spitterSO = Resources.Load<BaseEnemySO>("enemySO/SpitterLiv" + levelNumber);
+
+                for (int i = 0; i < spitters.Length; i++)
+                {
+                    spitters[i].enemySO = spitterSO;
+                    spitters[i].ReloadSpitter();
+                    spitters[i].gameObject.SetActive(true);
+                }
             }
         }
 
