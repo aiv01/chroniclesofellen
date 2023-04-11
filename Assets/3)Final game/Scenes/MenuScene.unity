@@ -1804,25 +1804,25 @@ MonoBehaviour:
   sounds:
   - name: Menu
     clip: {fileID: 8300000, guid: 48ba237e83985dc47b6cd50e6f7e3cda, type: 3}
-    volume: 0.7
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 1
   - name: Level0
     clip: {fileID: 8300000, guid: 3a0b10bf22a994a5e9b939c974756a24, type: 3}
-    volume: 0.7
+    volume: 0.25
     pitch: 1
     source: {fileID: 0}
     loop: 1
   - name: Level1
     clip: {fileID: 8300000, guid: 036b5ec2d3bafad43af2f9b6d152542c, type: 3}
-    volume: 0.7
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 1
   - name: Boss Music
     clip: {fileID: 8300000, guid: 081a9780e27474342bafa6d6998664cc, type: 3}
-    volume: 0.7
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 1
