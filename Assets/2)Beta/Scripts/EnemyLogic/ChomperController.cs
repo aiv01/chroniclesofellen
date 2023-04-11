@@ -205,6 +205,9 @@ namespace TheChroniclesOfEllen
         public void ReloadChomper()
         {
             enemyHealth.SetMaxHealth((int)enemySO.healthPoint);
+            gameObject.SetActive(true); 
+            powerUp = PowerUpsSpawner.SpawnPowerUp(SpawnPowerUp());
+            powerUp.gameObject.SetActive(false);
             biteHitBox.damage = (int)enemySO.damage;
         }
     }

@@ -132,7 +132,6 @@ namespace TheChroniclesOfEllen
 
         public void Shoot()
         {
-            spitterShootComponent.shootCD = bossHealth.HealthPerc * 2f;
             spitterShootComponent.OnShoot(playerTransform.position);
         }
     }

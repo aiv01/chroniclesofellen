@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.iOS;
 using UnityEngine.UIElements;
 
 namespace TheChroniclesOfEllen
@@ -15,6 +16,8 @@ namespace TheChroniclesOfEllen
         private EnemyHitBox rightArm;
         [SerializeField]
         private EnemyHitBox leftArm;
+        [SerializeField]
+        private ShootComponent golemShootComponent;
 
         public float closeRangeDistance;
         public float meleeDistance;
@@ -23,6 +26,7 @@ namespace TheChroniclesOfEllen
         private int animIsCloseRangeB;
         private int animIsMeleeB;
         private int animIsRunningB;
+        private int animIsRangedB;
         private int animIsWalkingB;
         private int animIsWaitingB;
         private int animAngleF;
@@ -37,6 +41,7 @@ namespace TheChroniclesOfEllen
         {
 
             base.Start();
+            golemShootComponent = GetComponent<ShootComponent>();
             closeRangeDistance *= closeRangeDistance;
             meleeDistance *= meleeDistance;
             walkDistance *= walkDistance;
@@ -44,6 +49,7 @@ namespace TheChroniclesOfEllen
             animAngleF = Animator.StringToHash("Angle");
             animIsMeleeB = Animator.StringToHash("IsMelee");
             animIsRunningB = Animator.StringToHash("IsRunning");
+            animIsRangedB = Animator.StringToHash("IsRanged");
             animIsWalkingB = Animator.StringToHash("IsWalking");
             animIsWaitingB = Animator.StringToHash("IsWaiting");
             animIsCloseRangeB = Animator.StringToHash("IsCloseRange");
@@ -56,16 +62,15 @@ namespace TheChroniclesOfEllen
             {
                 bossUI.gameObject.SetActive(false);
                 bossAnimator.SetTrigger("Die");
-                pu.gameObject.SetActive(true);
-                pu.transform.position = transform.position + Vector3.up + Vector3.forward;
                 arenaWalls.gameObject.SetActive(false);
                 enabled = false;
+
+                rightArm.isAttacking = false;
+                leftArm.isAttacking = false;
             }
-            currentPlayerPositionCheckCD += Time.deltaTime;
             currentAttackCD += Time.deltaTime;
             ChangeUI();
 
-            currentPlayerPositionCheckCD = 0;
             Vector3 vDistance = (playerTransform.position - transform.position);
             float distance = vDistance.sqrMagnitude;
 
@@ -119,6 +124,7 @@ namespace TheChroniclesOfEllen
                     bossAnimator.SetBool(animIsWaitingB, true);
                     return;
                 }
+                bossAnimator.SetBool(animIsRangedB, false);
                 bossAnimator.SetBool(animIsCloseRangeB, true);
                 bossAnimator.SetBool(animIsRunningB, false);
                 bossAnimator.SetBool(animIsMeleeB, false);
@@ -133,6 +139,7 @@ namespace TheChroniclesOfEllen
                     return;
                 }
                 bossAnimator.SetBool(animIsMeleeB, true);
+                bossAnimator.SetBool(animIsRangedB, false);
                 bossAnimator.SetBool(animIsCloseRangeB, false);
                 bossAnimator.SetBool(animIsRunningB, false);
                 bossAnimator.SetBool(animIsWalkingB, false);
@@ -143,6 +150,7 @@ namespace TheChroniclesOfEllen
                 bossAnimator.SetBool(animIsWalkingB, true);
                 bossAnimator.SetBool(animIsCloseRangeB, false);
                 bossAnimator.SetBool(animIsRunningB, false);
+                bossAnimator.SetBool(animIsRangedB, false);
                 bossAnimator.SetBool(animIsMeleeB, false);
                 isCloseRange = false;
                 isMelee = false;
@@ -152,16 +160,31 @@ namespace TheChroniclesOfEllen
             }
             else
             {
-                bossAnimator.SetBool(animIsRunningB, true);
+                
+                transform.forward = Vector3.Lerp(transform.forward,
+                    new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
+                    Time.deltaTime);
+                
+                if (Random.Range(0f, 100f) < 0.5f)
+                {
+                    bossAnimator.SetBool(animIsRangedB, true);
+                }
+                else
+                {
+                    bossAnimator.SetBool(animIsRunningB, true);
+                    bossAnimator.SetBool(animIsRangedB, false);
+                }
                 bossAnimator.SetBool(animIsCloseRangeB, false);
                 bossAnimator.SetBool(animIsMeleeB, false);
                 bossAnimator.SetBool(animIsWalkingB, false);
                 isCloseRange = false;
                 isMelee = false;
-                transform.forward = Vector3.Lerp(transform.forward,
-                    new Vector3(playerTransform.position.x - transform.position.x, 0, playerTransform.position.z - transform.position.z),
-                    Time.deltaTime);
             }
+        }
+
+        private void Shoot()
+        {
+            golemShootComponent.OnShoot(playerTransform.position);
         }
     }
 }

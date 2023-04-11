@@ -80,8 +80,8 @@ namespace TheChroniclesOfEllen
             currentFile.HasKey = value;
             keyUI.enabled = value;
             ChangeGolemStatus(BossStatus.Active);
-            currSceneLoader.ChangeEnemyLevel(3);
             Save();
+            currSceneLoader.ChangeEnemyLevel(3);
         }
         public void AddDoubleJump()
         {
@@ -154,11 +154,6 @@ namespace TheChroniclesOfEllen
                 return;
             }
             currSceneLoader.LoadScene((Area)currentFile.Area);
-
-            if (currentFile.HasKey)
-            {
-                currSceneLoader.ChangeEnemyLevel(3);
-            }
         }
         public void LoadNew()
         {
@@ -183,6 +178,11 @@ namespace TheChroniclesOfEllen
         public void Exit()
         {
             Application.Quit();
+        }
+        
+        public void ExitUI()
+        {
+            Time.timeScale = 1;
         }
     }
 }

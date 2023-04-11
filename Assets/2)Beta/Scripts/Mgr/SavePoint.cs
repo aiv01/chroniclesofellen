@@ -22,6 +22,10 @@ namespace TheChroniclesOfEllen
             get { return savePointNumber; }
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            //Time.timeScale = 0;
+        }
         private void OnTriggerStay(Collider other)
         {
             if (other.tag == "Player")

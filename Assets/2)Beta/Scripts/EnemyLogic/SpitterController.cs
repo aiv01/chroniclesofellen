@@ -36,6 +36,7 @@ namespace TheChroniclesOfEllen
             isFleeing = false;
 
             shootComponent = GetComponent<ShootComponent>();
+            powerUp = PowerUpsSpawner.SpawnPowerUp(SpawnPowerUp());
             shootComponent.damage = (int)enemySO.damage;
 
             fleeingTimer = enemySO.pursuitTime;
@@ -127,30 +128,33 @@ namespace TheChroniclesOfEllen
             shootComponent.OnShoot(playerPosition.position);
         }
 
-        private int SpawnPowerUp()
+        private PowerUpType SpawnPowerUp()
         {
             int powerup = Random.Range(0, 100);
 
             if (powerup <= 30)
             {
-                return (int)PowerUpType.Health;
+                return PowerUpType.Health;
             }
             else if (powerup <= 50)
             {
-                return (int)PowerUpType.Gun;
+                return PowerUpType.Gun;
             }
             else if (powerup <= 55)
             {
-                return (int)PowerUpType.Shield;
+                return PowerUpType.Shield;
             }
             else
             {
-                return (int)PowerUpType.None;
+                return PowerUpType.None;
             }
         }
         public void ReloadSpitter()
         {
             enemyHealth.SetMaxHealth((int)enemySO.healthPoint);
+            gameObject.SetActive(true);
+            powerUp = PowerUpsSpawner.SpawnPowerUp(SpawnPowerUp());
+            powerUp.gameObject.SetActive(false);
             shootComponent.damage = (int)enemySO.damage;
         }
     }
