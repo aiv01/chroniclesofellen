@@ -54,7 +54,7 @@ namespace TheChroniclesOfEllen
             pursuingTimer = enemySO.pursuitTime;
 
             biteHitBox.damage = (int)enemySO.damage;
-            
+
             //currentAttackCD = 0;
             //attackCD = enemySO.attackCD;
 
@@ -75,9 +75,10 @@ namespace TheChroniclesOfEllen
             {
                 if (powerUp != null)
                 {
-                    powerUp.gameObject.SetActive(true); 
+
                     powerUp = PowerUpsSpawner.SpawnPowerUp(SpawnPowerUp());
                     powerUp.transform.position = transform.position + Vector3.up;
+                    powerUp.gameObject.SetActive(true);
                 }
                 gameObject.SetActive(false);
                 return;
@@ -128,7 +129,7 @@ namespace TheChroniclesOfEllen
             {
                 currentStayTimer = 0;
                 currentPatrolPoint++;
-                if(currentPatrolPoint>= patrolPoints.Length)
+                if (currentPatrolPoint >= patrolPoints.Length)
                 {
                     currentPatrolPoint = 0;
                 }
@@ -138,7 +139,7 @@ namespace TheChroniclesOfEllen
 
         private void Pursuit()
         {
-            if(IsPursuing())
+            if (IsPursuing())
             {
                 PursuitPlayer();
             }
