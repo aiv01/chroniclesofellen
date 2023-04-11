@@ -33,6 +33,7 @@ namespace TheChroniclesOfEllen
         {
             currentFile = new SafeFile();
             LoadMenu();
+            
            
              
         }
@@ -64,7 +65,7 @@ namespace TheChroniclesOfEllen
                 AudioMgr.instance.Stop("Level0");
                 AudioMgr.instance.Stop("Level1");
                 AudioMgr.instance.Stop("Boss Music");
-                AudioMgr.instance.Play("Victory Theme");
+                AudioMgr.instance.Play("Victory");
                 break;
                 
 

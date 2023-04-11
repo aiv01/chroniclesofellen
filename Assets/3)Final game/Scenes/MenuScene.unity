@@ -1906,15 +1906,15 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
-  - name: Load Game
-    clip: {fileID: 8300000, guid: dd4831d7f16404eef93a553329551c28, type: 3}
-    volume: 1
+  - name: Pick Up Object
+    clip: {fileID: 8300000, guid: a954f34c9cc9848ae957e7c7a312a400, type: 3}
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 0
-  - name: Pick Up Object
-    clip: {fileID: 8300000, guid: a954f34c9cc9848ae957e7c7a312a400, type: 3}
-    volume: 1
+  - name: Victory
+    clip: {fileID: 8300000, guid: f973ecbd658dd0b48973184cdb04891a, type: 3}
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 0
