@@ -30,7 +30,7 @@ namespace TheChroniclesOfEllen
             }
             if (nextArea == Area.Ship && v.HasKey)
             {
-                currSceneLoader.LoadVictory();
+                currSceneLoader.LoadMenu(MenuScene.Victory);
                 return;
             }
             gameMgr.ChangeArea(nextArea);

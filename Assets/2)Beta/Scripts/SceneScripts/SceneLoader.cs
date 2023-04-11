@@ -19,7 +19,13 @@ namespace TheChroniclesOfEllen
                 { Area.Temple1,"Level1" },
                 { Area.Temple2, "Level2" }
             };
-
+        [SerializeField]
+        private Dictionary<MenuScene, string> menu = new Dictionary<MenuScene, string>
+            {
+                { MenuScene.MainMenu, "MainMenuScene" },
+                { MenuScene.GameOver,"GameOverScene" },
+                { MenuScene.Victory, "Victory" }
+            };
         [SerializeField]
         private ChomperController[] chompers;
         [SerializeField]
@@ -51,22 +57,16 @@ namespace TheChroniclesOfEllen
             SceneManager.LoadScene(areas[Area.Ship], LoadSceneMode.Single);
 
         }
-        public void LoadMenu()
+        public void LoadMenu(MenuScene nextScene)
         {
             sceneAnimation.SetTrigger("FadeOut");
-            SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+            SceneManager.LoadScene(menu[nextScene], LoadSceneMode.Single);
 
         }
-        public void LoadVictory()
+        public void LoadMenu(string nextScene)
         {
             sceneAnimation.SetTrigger("FadeOut");
-            SceneManager.LoadScene("VictoryScene", LoadSceneMode.Single);
-
-        }
-        public void LoadGameOver()
-        {
-            sceneAnimation.SetTrigger("FadeOut");
-            SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
+            SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
 
         }
 
