@@ -10,14 +10,11 @@ namespace TheChroniclesOfEllen
         Ship,
         Temple1,
         Temple2,
-        Menu
-    }
-    public enum MenuScene
-    {
         MainMenu,
         GameOver,
         Victory
     }
+  
     public enum BossStatus
     {
         Disable,

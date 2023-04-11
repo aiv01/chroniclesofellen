@@ -50,11 +50,24 @@ namespace TheChroniclesOfEllen
                 AudioMgr.instance.Play("Level1");
                 AudioMgr.instance.Stop("Level0");
                 break;
-                case Area.Menu:
+                case Area.MainMenu:
                 AudioMgr.instance.Play("Menu");
                 AudioMgr.instance.Stop("Level0");
                 AudioMgr.instance.Stop("Level1");
                 break;
+                case Area.GameOver:
+                AudioMgr.instance.Stop("Level0");
+                AudioMgr.instance.Stop("Level1");
+                AudioMgr.instance.Stop("Boss Music");
+                break;
+                case Area.Victory:
+                AudioMgr.instance.Stop("Level0");
+                AudioMgr.instance.Stop("Level1");
+                AudioMgr.instance.Stop("Boss Music");
+                AudioMgr.instance.Play("Victory Theme");
+                break;
+                
+
 
             }
         }
@@ -80,9 +93,8 @@ namespace TheChroniclesOfEllen
 
         public void FoundKey(bool value)
         {
-            Debug.Log("CHiave UI");
             currentFile.HasKey = true;
-            keyUI.enabled = true;
+            keyUI.gameObject.SetActive(true);
             ChangeGolemStatus(BossStatus.Active);
             currSceneLoader.ChangeEnemyLevel(3);
             Save();

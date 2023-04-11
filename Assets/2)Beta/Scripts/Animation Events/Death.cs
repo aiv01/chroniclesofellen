@@ -23,7 +23,7 @@ namespace TheChroniclesOfEllen
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
 
-            GameObject.FindObjectOfType<SceneLoader>().LoadMenu(MenuScene.GameOver);
+            GameObject.FindObjectOfType<SceneLoader>().LoadMenu(Area.GameOver);
 
         }
 
