@@ -33,40 +33,44 @@ namespace TheChroniclesOfEllen
         {
             currentFile = new SafeFile();
             LoadMenu();
-            
-           
-             
+
+
+
         }
 
         private void Start()
         {
-           switch(currentArea)
+            Debug.Log(currentArea.ToString());
+            switch (currentArea)
             {
                 case Area.MainMenu:
-                AudioMgr.instance.Play("Menu");
-                AudioMgr.instance.Stop("Level0");
-                AudioMgr.instance.Stop("Level1");
-                break;   
+                    AudioMgr.instance.Play("Menu Theme");
+                    AudioMgr.instance.Stop("Level0");
+                    AudioMgr.instance.Stop("Level1");
+                    AudioMgr.instance.Stop("Victory");
+                    break;
                 case Area.Ship:
-                AudioMgr.instance.Stop("Menu");
-                AudioMgr.instance.Play("Level0");
-                break;
+                    AudioMgr.instance.Stop("Menu Theme");
+                    AudioMgr.instance.Play("Level0");
+                    break;
                 case Area.Temple1:
-                AudioMgr.instance.Play("Level1");
-                AudioMgr.instance.Stop("Level0");
-                break;
+                case Area.Temple2:
+                    AudioMgr.instance.Play("Level1");
+                    AudioMgr.instance.Stop("Level0");
+                    AudioMgr.instance.Stop("Menu Theme");
+                    break;
                 case Area.GameOver:
-                AudioMgr.instance.Stop("Level0");
-                AudioMgr.instance.Stop("Level1");
-                AudioMgr.instance.Stop("Boss Music");
-                break;
+                    AudioMgr.instance.Stop("Level0");
+                    AudioMgr.instance.Stop("Level1");
+                    AudioMgr.instance.Stop("Boss Music");
+                    break;
                 case Area.Victory:
-                AudioMgr.instance.Stop("Level0");
-                AudioMgr.instance.Stop("Level1");
-                AudioMgr.instance.Stop("Boss Music");
-                AudioMgr.instance.Play("Victory");
-                break;
-                
+                    AudioMgr.instance.Stop("Level0");
+                    AudioMgr.instance.Stop("Level1");
+                    AudioMgr.instance.Stop("Boss Music");
+                    AudioMgr.instance.Play("Victory");
+                    break;
+
 
 
             }
@@ -77,7 +81,7 @@ namespace TheChroniclesOfEllen
 
         }
 
-        
+
         public void ChangeGolemStatus(BossStatus newProgression)
         {
             currentFile.GolemStatus = newProgression;
@@ -99,19 +103,12 @@ namespace TheChroniclesOfEllen
             currSceneLoader.ChangeEnemyLevel(3);
             Save();
         }
-        public void AddDoubleJump()
-        {
-            currentFile.HasDoubleJump = true;
-        }
-        public void AddDash()
-        {
-            currentFile.HasDash = true;
-        }
+
 
         public void IncrementHealth(float value)
         {
             MathF.Min(currentFile.MaxHp += (int)value, 10);
-            
+
         }
         public void IncrementDamage(float value)
         {
@@ -138,20 +135,23 @@ namespace TheChroniclesOfEllen
                 Directory.CreateDirectory(Application.persistentDataPath + "/JsonFile");
             }
             currentFile = JsonUtility.FromJson<SafeFile>(File.ReadAllText(Application.persistentDataPath + "/JsonFile/DataFile.json"));
-            lastTeleport = currSceneLoader.GetTeleportPosition(currentFile.SavePointNumber);
-            player.transform.position = lastTeleport;
-            player.GetComponent<CharacterController>().enabled = true;
-            keyUI.gameObject.SetActive(currentFile.HasKey);
-            player.playerHealth.SetMaxHealth(currentFile.MaxHp); 
 
-            
-            if (currentArea == Area.Temple2 && currentFile.MotherSpitterStatus == BossStatus.Active) 
+            if (player != null)
+            {
+                lastTeleport = currSceneLoader.GetTeleportPosition(currentFile.SavePointNumber);
+                player.transform.position = lastTeleport;
+                player.GetComponent<CharacterController>().enabled = true;
+                keyUI.gameObject.SetActive(currentFile.HasKey);
+                player.playerHealth.SetMaxHealth(currentFile.MaxHp);
+            }
+
+            if (currentArea == Area.Temple2 && currentFile.MotherSpitterStatus == BossStatus.Active)
             {
                 areaBoss.gameObject.SetActive(true);
             }
-            if(currentFile.HasKey)
+            if (currentFile.HasKey)
             {
-                
+
                 if (currentArea == Area.Temple1)
                 {
                     areaBoss.gameObject.SetActive(true);
@@ -175,14 +175,12 @@ namespace TheChroniclesOfEllen
         }
         public void LoadNew()
         {
-            if(!Directory.Exists(Application.persistentDataPath + "/JsonFile"))
+            if (!Directory.Exists(Application.persistentDataPath + "/JsonFile"))
             {
                 Directory.CreateDirectory(Application.persistentDataPath + "/JsonFile");
             }
             currentFile.MaxHp = defaultFile.MaxHp;
             currentFile.DamageScale = defaultFile.DamageScale;
-            currentFile.HasDash = defaultFile.HasDash;
-            currentFile.HasDoubleJump = defaultFile.HasDoubleJump;
             currentFile.HasKey = defaultFile.HasKey;
             currentFile.GolemStatus = defaultFile.GolemStatus;
             currentFile.MotherSpitterStatus = defaultFile.MotherSpitterStatus;
@@ -192,17 +190,17 @@ namespace TheChroniclesOfEllen
             File.WriteAllText(Application.persistentDataPath + "/JsonFile/DataFile.json", saveData);
             currSceneLoader.LoadNew();
         }
-        
+
         public void Exit()
         {
             Application.Quit();
         }
-        
+
         public void ExitUI()
         {
             Time.timeScale = 1;
             player.gameObject.GetComponent<InputMgr>().enabled = true;
-            
+
         }
     }
 }

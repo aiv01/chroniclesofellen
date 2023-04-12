@@ -46,8 +46,10 @@ namespace TheChroniclesOfEllen
 
                 if (s.name == name)
                 {
-                    StartCoroutine(FadeMusic(s.source,1f,0.3f));
+                    if(s.source.isPlaying) return;
                     s.source.Play();
+                    StartCoroutine(FadeMusic(s.source,1f,0.3f));
+                    
                 }
             }
         }

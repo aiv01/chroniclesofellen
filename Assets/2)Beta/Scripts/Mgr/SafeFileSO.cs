@@ -11,9 +11,7 @@ namespace TheChroniclesOfEllen
 
         public int MaxHp;
         public int DamageScale;
-        public bool HasDoubleJump;
         public bool HasKey;
-        public bool HasDash;
         public BossStatus GolemStatus;
         public BossStatus MotherSpitterStatus;
         public Area Area;

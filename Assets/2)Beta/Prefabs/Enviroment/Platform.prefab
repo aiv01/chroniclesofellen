@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 3410290302407078432}
   - component: {fileID: 5366291722986101422}
   - component: {fileID: 6155421919045192374}
+  - component: {fileID: 159269720}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Platform
@@ -234,7 +235,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.95
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -274,6 +275,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &159269720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180937118466243942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f84d6423fcdc64f89a9ebbf60d1e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {fileID: 0}
+  end: {fileID: 0}
+  attackTarget: {fileID: 0}
+  platformSpeed: 2
+  platformWaitTimer: 1
+  stopDistance: 1
 --- !u!1001 &581945203558948650
 PrefabInstance:
   m_ObjectHideFlags: 0

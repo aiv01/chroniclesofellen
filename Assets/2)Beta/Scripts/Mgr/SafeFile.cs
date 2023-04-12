@@ -11,9 +11,7 @@ namespace TheChroniclesOfEllen
     {
         public int MaxHp;
         public int DamageScale;
-        public bool HasDoubleJump;
         public bool HasKey;
-        public bool HasDash;
         public BossStatus GolemStatus;
         public BossStatus MotherSpitterStatus;
         public Area Area;
@@ -23,7 +21,6 @@ namespace TheChroniclesOfEllen
         {
             string s = "MaxHp: " + MaxHp +
                 "\nDamageScale: " + DamageScale + "" +
-                "\nJump: " + HasDoubleJump +
                 "\nKey: " + HasKey +
                 "\nGolemStatus: " + GolemStatus +
                 "\nMotherSpitterStatus: " + MotherSpitterStatus +
