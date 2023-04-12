@@ -98,8 +98,8 @@ namespace TheChroniclesOfEllen
             cameraTransform = Camera.main.transform;
             aimCamera.gameObject.SetActive(false);
             staff.gameObject.SetActive(false);
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 
 
         }

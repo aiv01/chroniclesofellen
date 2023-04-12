@@ -1049,7 +1049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyUI: {fileID: 0}
   playerHealthBar: {fileID: 0}
-  currentArea: 0
+  currentArea: 4
   currSceneLoader: {fileID: 1256428358}
   areaBoss: {fileID: 0}
   player: {fileID: 0}
@@ -1057,9 +1057,7 @@ MonoBehaviour:
   currentFile:
     MaxHp: 0
     DamageScale: 0
-    HasDoubleJump: 0
     HasKey: 0
-    HasDash: 0
     GolemStatus: 0
     MotherSpitterStatus: 0
     Area: 0

@@ -48,6 +48,8 @@ namespace TheChroniclesOfEllen
                     AudioMgr.instance.Stop("Level0");
                     AudioMgr.instance.Stop("Level1");
                     AudioMgr.instance.Stop("Victory");
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = true;
                     break;
                 case Area.Ship:
                     AudioMgr.instance.Stop("Menu Theme");
@@ -63,12 +65,16 @@ namespace TheChroniclesOfEllen
                     AudioMgr.instance.Stop("Level0");
                     AudioMgr.instance.Stop("Level1");
                     AudioMgr.instance.Stop("Boss Music");
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = true;
                     break;
                 case Area.Victory:
                     AudioMgr.instance.Stop("Level0");
                     AudioMgr.instance.Stop("Level1");
                     AudioMgr.instance.Stop("Boss Music");
                     AudioMgr.instance.Play("Victory");
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = true;
                     break;
 
 

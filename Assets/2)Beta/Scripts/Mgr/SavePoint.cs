@@ -31,6 +31,8 @@ namespace TheChroniclesOfEllen
                 gameMgr.ChangeArea(savepointArea);
                 gameMgr.currSavepointNumber = savePointNumber;
                 saveUI.gameObject.SetActive(true);
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
             }
             
         }
@@ -56,12 +58,16 @@ namespace TheChroniclesOfEllen
 
                 Time.timeScale = 1f;
                 saveUI.gameObject.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
         }
 
         public void ExitMenu()
         {
             saveUI.gameObject.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }
